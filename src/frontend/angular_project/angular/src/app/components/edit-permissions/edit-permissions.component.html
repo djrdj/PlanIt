@@ -1,0 +1,41 @@
+<div class="overlay">
+  <div class="navbar">
+    <span><b>{{ username }}</b></span>
+    <button style="cursor:pointer;" class="close-btn" (click)="closeOverlay()">
+      <img src="../../../../assets/icons/close.svg" alt="Close" style="width:18px; height:18px;">
+    </button>
+  </div>
+  <div class="content">
+      <label for="permissions">{{ 'permissions' | translate }}:</label>
+      <div class="permissions" id="permissions">
+          <div class="toggle">
+              <mat-slide-toggle style="cursor:pointer;" color="accent">{{ 'manageTaskMembers' | translate }}</mat-slide-toggle>
+          </div>
+
+          <div class="toggle">
+              <mat-slide-toggle style="cursor:pointer;" color="accent">{{ 'manageProjectMembers' | translate }}</mat-slide-toggle>
+          </div>
+
+          <div class="toggle">
+              <mat-slide-toggle style="cursor:pointer;" color="accent">{{ 'manageProjectMembers' | translate }}</mat-slide-toggle>
+          </div>
+
+          <div class="toggle">
+              <mat-slide-toggle style="cursor:pointer;" color="accent">{{ 'manageTasks' | translate }}</mat-slide-toggle>
+          </div>
+
+          <div class="toggle">
+              <mat-slide-toggle style="cursor:pointer;" color="accent">{{ 'manageProjects' | translate }}</mat-slide-toggle>
+          </div>
+
+          <div class="toggle">
+              <mat-slide-toggle style="cursor:pointer;" color="accent">{{ 'manageProjects' | translate }}</mat-slide-toggle>
+          </div>
+      </div>
+
+    <div class="buttons">
+      <button style="cursor:pointer;" class="cancel-btn" (click)="closeOverlay()">{{ 'cancel' | translate }}</button>
+      <button style="cursor:pointer;" class="create-btn">{{ 'change' | translate }}</button>
+    </div>
+  </div>
+</div>

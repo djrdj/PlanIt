@@ -1,0 +1,23 @@
+<div class="container">
+<table class="table" *ngIf="!tabelaAzurirana">
+  <thead>
+    <tr>
+      <th>Naziv Filma</th>
+      <th>Reditelj</th>
+      <th>Ocena</th>
+    </tr>
+   
+  </thead>
+  <tbody>
+    <tr *ngFor="let film of filmovi">
+      <td>{{film.naziv}}</td>
+      <td>{{film.reditelj}}</td>
+      <td>{{film.ocena}}</td>
+      <td><p-button label="Izmena"  [routerLink]="'/izmena/'+film.id"></p-button></td>
+      <td><button (click)="deleteFilm1(film)" *ngIf="film.id" [routerLink]="'/glavna'" >Izbrisi </button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<button id="prvo" (click)="newFilm()" [routerLink]="'/izmena'"  >Kreiraj novi film</button>
+

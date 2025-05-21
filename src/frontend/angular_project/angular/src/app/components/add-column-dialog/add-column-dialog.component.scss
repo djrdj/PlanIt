@@ -1,0 +1,100 @@
+
+
+* {
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+
+.content{
+    padding-top: 15px;
+    margin-top: -1px;
+}
+
+.mdc-dialog__title {
+    border-bottom: 2px solid #28B4E1;
+    color: rgb(96, 96, 96); 
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.mdc-dialog__content {
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+
+
+}
+
+input {
+    border: none;
+    border-bottom: 2px solid #28B4E1;
+    padding: 6px;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    left: 10%;
+}
+
+
+.mat-mdc-dialog-actions {
+    justify-content: center;
+    gap: 10px;
+    padding: 0;
+}
+
+.mat-mdc-dialog-container .mat-mdc-dialog-title .mat-mdc-dialog-content {
+    padding: 0;
+}
+
+button {
+    padding: 8px 20px;
+    margin-left: 6px;
+    margin: 15px 0 15px 0;
+    border-radius: 6px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+
+.cancel-btn {
+    color: #28B4E1;
+    border: 2px solid #28B4E1;
+    background-color: white;
+}
+
+.confirm-btn {
+    color: white; // Text color for create button
+    background-color: #28B4E1; // Background color for create button
+    border: 2px solid #28B4E1;
+}
+
+.dark .navbar{
+    background-color:#3b82f6;
+    color: white;
+}
+
+.dark .cancel-btn{
+background-color: #DB2777 !important;
+color: white !important;
+border: #DB2777 !important;
+}
+
+.dark .confirm-btn{
+background-color: #6366F1 !important;
+color: white !important;
+border: #6366F1 !important;
+}
+
+.dark input{
+    background-color: #4B5563;
+    color: white;
+}

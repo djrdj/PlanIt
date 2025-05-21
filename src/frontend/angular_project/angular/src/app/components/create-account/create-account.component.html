@@ -1,0 +1,109 @@
+<html>
+<div class="container">
+    <!--<app-layout [pageTitle]="'Create Account'"></app-layout>-->
+
+    <form action="">
+        <div class="form-group">
+            <h2>Create account</h2>
+            <label for="email">{{ 'emailAddress' | translate }}</label>
+            <input type="email" id="email" name="email" placeholder={{email}} disabled>
+
+            <label for="username">{{ 'username' | translate }}:</label>
+            <input type="text" id="username" name="username" placeholder={{username}} disabled>
+
+            <label for="firstname">{{ 'firstName' | translate }}</label>
+            <input type="text" id="firstname" name="firstname" [(ngModel)]="firstName">
+
+            <label for="lastname">{{ 'lastName' | translate }}</label>
+            <input type="text" id="lastname" name="lastname" [(ngModel)]="lastName" [required]="true">
+
+            <!-- <label for="phoneNumber">{{ 'phoneNumber' | translate }}:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber"> -->
+
+            <label for="phoneNumber">{{ 'phoneNumber' | translate }}</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" (input)="validatePhoneNumber()" required>
+            <span *ngIf="phoneNumberError" class="error-message" style="color: red;">Enter a valid phone number!</span><br>
+
+
+            <!-- <label for="password">{{ 'password' | translate }}:</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password">
+
+            <label for="repeatpassword">{{ 'repeatPassword' | translate }}:</label>
+            <input type="password" id="repeatpassword" name="repeatpassword" [(ngModel)]="repeatpassword">
+            -->
+            <label for="newpassword">{{ 'password' | translate }}</label>
+            <p-password [toggleMask]="true" [feedback]="true" name="newpassword" [(ngModel)]="password" required="true"  styleClass="p-password p-component p-inputwrapper p-input-icon-right" [style]="{'width':'100%'}"
+            [inputStyle]="{'width':'100%'}">
+                <ng-template pTemplate="footer">
+                    <!-- <p-divider></p-divider> -->
+                    <p style="font-size: 14px; margin:4px">{{ 'suggestions' | translate }}:</p>
+                    <ul class="pl-2 ml-2 mt-0" style="font-size: 14px;">
+                        <li>{{ 'rule1' | translate }}</li>
+                        <li>{{ 'rule2' | translate }}</li>
+                        <li>{{ 'rule3' | translate }}</li>
+                        <li>{{ 'rule4' | translate }}</li>
+                    </ul>
+                </ng-template>
+            </p-password>
+
+            <label for="repeatnewpassword">{{ 'repeatPassword' | translate }}</label>
+            <p-password [toggleMask]="true" [feedback]="false" name="repeatnewpassword" [(ngModel)]="repeatpassword" required="true"  styleClass="p-password p-component p-inputwrapper p-input-icon-right" [style]="{'width':'100%'}"
+            [inputStyle]="{'width':'100%'}"></p-password>
+
+            <div>
+                <span class="err-mssg" style="color: red;" *ngIf="passwordsDoNotMatch">{{ 'passwordsAreNotTheSame' | translate }}!</span>
+            </div>
+            <br>
+
+            <label>Birthday date</label>
+            <br><br>
+            <div class="date">
+                <div class="input-group">
+                    <label for="day">{{ 'day' | translate }}</label>
+                    <input type="number" id="day" name="day" [(ngModel)]="day" min="1" [max]="maxDaysInMonth" required value="1">
+                </div>
+                <div class="input-group">
+                    <label for="month" style="position: relative;top: -10px;">{{ 'month' | translate }}</label>
+                    <select style="cursor:pointer;padding: 5px;" id="month" name="month" [(ngModel)]="month" (change)="updateMaxDays()">
+                        <option value="January" selected>{{ 'january' | translate }}</option>
+                        <option value="February">{{ 'february' | translate }}</option>
+                        <option value="March">{{ 'march' | translate }}</option>
+                        <option value="April">{{ 'april' | translate }}</option>
+                        <option value="May">{{ 'may' | translate }}</option>
+                        <option value="June">{{ 'june' | translate }}</option>
+                        <option value="July">{{ 'july' | translate }}</option>
+                        <option value="August">{{ 'august' | translate }}</option>
+                        <option value="September">{{ 'september' | translate }}</option>
+                        <option value="October">{{ 'october' | translate }}</option>
+                        <option value="November">{{ 'november' | translate }}</option>
+                        <option value="December">{{ 'december' | translate }}</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="year">{{ 'year' | translate }}</label>
+                    <input type="number" id="year" name="year" [(ngModel)]="year" min="1900" max="{{ currentYear }}" required value="1900">
+                </div>
+                    <!-- <label for="timezone">Time zone</label> -->
+                    <select style="cursor:pointer;width: 170px;position: relative;top: 10px;" id="timezone" name="timezone" [(ngModel)]="timeZone">
+                        <option value="0" selected hidden>{{ 'chooseTimeZone' | translate }}</option>
+                        <option value="1">Central European Time (CET) - UTC+1</option>
+                        <option value="2">Eastern European Time (EET) - UTC+2</option>
+                        <option value="3">Central European Summer Time (CEST) - UTC+2</option>
+                        <option value="4">Eastern European Summer Time (EEST) - UTC+3</option>
+                        <option value="5">China Standard Time (CST) - UTC+8</option>
+                        <option value="6">Australian Western Standard Time (AWST) - UTC+8</option>
+                        <option value="7">Australian Central Standard Time (ACST) - UTC+9:30</option>
+                        <option value="8">Australian Eastern Standard Time (AEST) - UTC+10</option>
+                        <option value="9">Japan Standard Time (JST) - UTC+9</option>
+                        <option value="10">India Standard Time (IST) - UTC+5:30</option>
+                    </select>
+                
+            </div>
+            <br>
+            
+            <button style="cursor:pointer;" type="submit" (click)="register()" [disabled]="phoneNumberError">{{ 'saveInformation' | translate }}</button>
+
+        </div>
+    </form>
+</div>
+</html>

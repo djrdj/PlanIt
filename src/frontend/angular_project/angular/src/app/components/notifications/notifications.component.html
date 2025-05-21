@@ -1,0 +1,60 @@
+<div class="notif-html h-scren" *ngIf="role!='Administrator'">
+<div class="wrapper h-screen dark:bg-gray-700 dark:text-white">
+<div class="container  p-4 space-y-4"  *ngFor="let notification of notificationService.allnotifications_parsed" >
+    <div class="notification flex items-center space-x-4 p-3 bg-white dark:bg-gray-600 dark:text-black rounded-lg shadow-md" 
+        [ngClass]="{'bg-gray-500 dark:bg-gray-800 dark:text-white': notification.notification.read}"
+        (click)="readNotification(notification.notification)"
+    >
+        <div class="led w-0.5 h-0.5 bg-red-500 rounded-full"></div>
+        <img class="profile-pic w-10 h-10 rounded-full" [src]="'../../../assets/profilepics/' + notification.response.pictureUrl" (click)="imageRedirect(notification.response.userID);$event.stopPropagation();">
+        <div class="flex-1">
+            <p class="message text-sm">
+                {{notification.response.firstName}} 
+                <span [ngClass]="{'text-blue-400 cursor-pointer': notification.notification.assignmentId || notification.notification.projectId}" (click)="redirect(notification.notification)">
+                    {{notificationService.getNotificationType(notification.notification.notificationType)}}
+                </span>
+            </p>
+            <p class="time text-xs text-gray-500 dark:text-gray-400">{{notification.notification.timeStamp | date:'yyyy-MM-dd'}}</p>
+        </div>
+        <a  class="text-blue-500 text-xs cursor-pointer" href="#">{{'Go to the task'|translate}}</a>
+        <!-- <input class="ml-2" *ngIf="!notification.notification.read" type="checkbox" (change)="toList(notification.notification.notificationID)"> -->
+    </div>
+    <div class="timeline text-xs text-gray-500 dark:text-gray-400">
+        <p>{{notification.notification.timeStamp | date:'yyyy-MM-dd'}}</p>
+    </div>
+</div>
+<div class="flex justify-between p-4">
+    <!-- <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md" (click)="read_notifications()">{{ 'Mark all as read' | translate }}</button> -->
+    <!-- <button class="bg-gray-200 dark:bg-gray-600 text-black dark:text-white py-2 px-4 rounded-lg shadow-md cursor-pointer">{{ 'loadMore' | translate }}</button> -->
+</div>
+<!-- <div class="container">
+    <div class="notification">
+        <div class="led"></div>
+        <img src="../../../assets/icons/user_icon.svg">
+        <div>
+            <p class="message">User1 assigned you to Task1 in the project Project1</p>
+            <p class="time">00:00 am</p>
+        </div>
+        <a  style="cursor: pointer;" href="#">Go to the task</a>
+    </div>
+    <div class="timeline">
+        <p>Month DD, YYYY.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="notification">
+        <div class="led"></div>
+        <img src="../../../assets/icons/user_icon.svg">
+        <div>
+            <p class="message">User1 assigned you to Task1 in the project Project1</p>
+            <p class="time">00:00 am</p>
+        </div>
+        <a  style="cursor: pointer;" href="#">Go to the task</a>
+    </div>
+    <div class="timeline">
+        <p>Month DD, YYYY.</p>
+    </div>
+</div> -->
+
+</div>
+</div>

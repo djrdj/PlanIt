@@ -1,0 +1,44 @@
+<html id="edit_profile_html">
+<!-- <app-sidebar [currentPage]="'profile'"></app-sidebar> -->
+<div class="parent dark:bg-gray-800" style="padding-top: 20px;">
+    <!-- <app-layout [pageTitle]="'Edit Profile'"></app-layout> -->
+    <div class="container dark:bg-gray-700">
+        <img src="../../../assets/images/wave.svg" class="wave">
+        <img [src]="pictureToShow" class="profile" style="z-index: 1;">
+        <img style="cursor:pointer;" class="camera" src="../../../assets/icons/camera_icon.svg" style="z-index: 1;" (click)="onProfileImageClicked()">
+        <img class="logoSlika" src="../../../assets/images/logo.svg">
+        <img class="back" style="cursor:pointer;" src="../../../assets/icons/back_arrow_icon.svg" alt="back" (click)="goBack()">
+        <h1 class="text-white text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">{{ 'editProfile' | translate }}</h1>
+            <form>
+                <div>
+                    <p class="dark:text-white">{{ 'username' | translate }}</p>
+                    <!-- <input class="dark:bg-gray-800 text-zinc-500" type="username" name="username" [(ngModel)]="user.username" [disabled]="!isAdmin"> -->
+                    <input class="dark:bg-gray-800 text-zinc-500" type="username" name="username" [(ngModel)]="user.username" disabled>
+                </div>
+                <div>
+                    <p class="dark:text-white">{{ 'email' | translate }}</p>
+                    <!-- <input class="dark:bg-gray-800 text-zinc-500" type="email" name="email" [(ngModel)]="user.email" [disabled]="!isAdmin"> -->
+                    <input class="dark:bg-gray-800 text-zinc-500" type="email" name="email" [(ngModel)]="user.email" disabled>
+                </div>
+                <div>
+                    <p class="dark:text-white">{{ 'firstName' | translate }}</p>
+                    <input class="dark:bg-gray-800 dark:text-zinc-300 dark:hover:text-black"type="text"name="first name"[(ngModel)]="user.firstName" pattern="[a-zA-ZžŽđĐšŠčČćĆ\s]*" onkeydown="return /[a-zA-ZžŽđĐšŠčČćĆ\s]/i.test(event.key)">
+
+                </div>
+                <div>
+                    <p class="dark:text-white">{{ 'lastName' | translate }}</p>
+                    <input class="dark:bg-gray-800 dark:text-zinc-300 dark:hover:text-black" type="text" name="last name" [(ngModel)]="user.lastName" pattern="[a-zA-ZžŽđĐšŠčČćĆ\s]*" onkeydown="return /[a-zA-ZžŽđĐšŠčČćĆ\s]/i.test(event.key)">
+                </div>
+                <div>
+                    <p class="dark:text-white">{{ 'phoneNumber' | translate }}</p>
+                    <input class="dark:bg-gray-800 dark:text-zinc-300 dark:hover:text-black" type="tel" name="phone number" [(ngModel)]="user.phoneNumber" onkeydown="return (event.keyCode === 8 || /[0-9]/i.test(event.key))">
+                </div>
+                
+                <input class="dark:bg-gray-800" type="file" (change)="onFileSelected($event)" style="display: none;" id="fileInput">
+
+                <button style="cursor:pointer;" class='text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl mt-4' (click)="changeUserByID(user.userID,user)">{{ 'submitChanges' | translate }}</button>
+            </form>
+
+    </div>
+</div>
+</html>

@@ -1,0 +1,123 @@
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #776A6A;
+  font-family: 'Montserrat', sans-serif;
+
+
+  .navbar {
+    background: linear-gradient(to right, #22719C, #B8E9F9);
+    width: 25%;
+    padding: 10px 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px 6px 0 0;
+
+    .close-btn {
+      cursor: pointer;
+      color: #181C7A;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+  }
+
+  .content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 0 0 6px 6px;
+    width: 25%;
+  }
+
+  
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+      padding: 8px 20px;
+      margin-left: 10px;
+      border-radius: 6px;
+      box-shadow: 1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05); 
+      }
+
+      &.cancel-btn {
+        color: #28B4E1; 
+        border: 2px solid #28B4E1; 
+        background-color: white;
+      }
+
+      &.create-btn {
+        color: white; 
+        background-color: #28B4E1; 
+        border: 2px solid #28B4E1;
+      }
+    }
+  }
+
+
+  .toggle{
+    margin:15% 20%;
+  }
+
+  @media screen and (min-width: 370px) and (max-width: 425px) {
+    .overlay,
+    .navbar,
+    .content {
+      width: 70%;
+    }
+  }
+
+
+  @media screen and (min-width: 425px) and (max-width: 768px) {
+    .overlay,
+    .navbar,
+    .content {
+      width: 50%;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width:1024px) {
+    .overlay,
+    .navbar,
+    .content {
+      width: 35%;
+    }
+  }
+
+}
+
+
+.mat-mdc-slide-toggle.mat-accent{
+    --mdc-switch-selected-track-color: rgb(0,209,0);
+    --mdc-switch-selected-handle-color: rgb(0,209,0);
+    --mdc-switch-selected-hover-track-color: rgb(0,209,0);
+    --mdc-switch-selected-hover-handle-color: rgb(0,209,0);
+    --mdc-switch-selected-focus-track-color: rgb(0,209,0);
+    --mdc-switch-selected-focus-handle-color: rgb(0,209,0);
+    --mdc-switch-selected-pressed-track-color: rgb(0,209,0);
+    --mdc-switch-selected-pressed-handle-color: rgb(0,209,0);
+}

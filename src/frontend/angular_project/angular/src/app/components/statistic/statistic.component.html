@@ -1,0 +1,124 @@
+<div class="statistic-page h-screen">
+    <div class="grid-container h-screen dark:bg-gray-800 overflow-y-auto"  >
+        
+        <div class="xl:block xsm:hidden lg:hidden row-start-1 row-end-5 h-full shadow-custom3 -mt-28 w-max dark:bg-gray-700 dark:text-white projLista">
+            <app-project-list></app-project-list>
+        </div> 
+
+        <!-- Dropdown for selecting project -->
+        <div class="col-span-5 mt-6 select-project flex flex-col xl:hidden dark:bg-gray-700 dark:text-white shadow-custom3 rounded-md  lg:ml-12">
+            <select class="p-2 border-none outline-none shadow-custom3 rounded-md w-full dark:bg-gray-700 dark:text-white xsm:justify-center xsm:mt-10" [(ngModel)]="selectedProject" (change)="onProjectChange($event)">
+                <option value="0" selected hidden>{{'Select Project'|translate}}</option>
+                <option *ngFor="let project of projects" [value]="project.projectID">{{ project.projectName }}</option>
+            </select>
+        </div>
+
+        <div class="col-span-2 dark:bg-gray-700 dark:text-white mt-5 p-5 rounded-md shadow-custom3 lg:ml-12 xsm:col-span-5 md:col-span-3 xl:col-span-2 totalTime">
+            <div class="flex justify-between">
+                <div class="title font-bold text-lg items-center content-center">{{ 'Total Time Measured for Project' | translate }}</div>
+                
+            </div>
+            <div class="rectangle h-1 bg-slate-300 rounded-full"></div>
+            <div class="mt-2">
+                <p-chart type="bar" [data]="timeChartData" [options]="optionsBar" [height]="'150px'"></p-chart>
+            </div>
+        </div> 
+        <div class="col-span-2 dark:bg-gray-700 dark:text-white mt-5 p-5 rounded-md shadow-custom3 xsm:col-span-5  md:col-span-2 xl:col-span-2">
+            <div class="flex justify-between  ">
+                <div class="title font-bold text-lg items-center  content-center">{{'Team engagement in comments'|translate}}</div>
+                <div class="items-center content-center">
+                    <select (change)="onDateRangeChange($event)" class="p-2 rounded-md border border-gray-300 focus:border-blue-500 focus:outline-none dark:bg-gray-700 dark:text-white">
+                        <!-- <option value="all" >All</option> -->
+                        <option value="last7days" selected>{{'Last 7 days'|translate}}</option>
+                        <option value="last30days">{{'Last 30 days'|translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="rectangle h-1 bg-slate-300 rounded-full"></div>
+            <div class="mt-2">
+                <p-chart type="bar" [data]="data2" [options]="optionsBar" [height]="'150px'"/>
+            </div>
+            <div *ngIf="mostEngaged" class="flex justify-center mt-6">
+                <div class="flex items-center">
+                    <div>{{'Most engaged team member'|translate}} </div>
+                </div>
+                <div class="flex items-center ml-auto">
+                    <img src="../../../assets/profilepics/{{mostEngaged.pictureURL}}" class="w-8 h-8 rounded-full mx-2 cursor-pointer" alt="User Avatar" (click)="imageRedirect(mostEngaged.id)"> 
+                    <span>{{ mostEngaged?.firstName }} {{ mostEngaged?.lastName }}</span>
+                </div>
+                <div class="flex items-center ml-auto">
+                    <span>{{'left'|translate}} {{ mostEngaged?.count }} {{'comments'|translate}}</span>
+                </div>
+            </div>
+        </div> 
+
+
+        <div class="col-span-2 dark:bg-gray-700 dark:text-white  mt-5 p-5 rounded-md shadow-custom3 lg:ml-12 xsm:col-span-5 md:col-span-3 xl:col-span-2 workload">
+            <div class="title font-bold sm:text-sm md:text-base md:text-lg lg:text-xl">{{'Workload'|translate}}</div>
+            <div class="rectangle h-1 bg-slate-300 rounded-full"></div>
+            <div class="mt-4">
+                <div *ngFor="let user of users" class="flex justify-between items-center mt-2">
+                    <div class="flex items-center">
+                        <img src="../../../assets/profilepics/{{user.pictureURL}}" class="w-8 h-8 rounded-full mr-2 cursor-pointer" alt="User Avatar" (click)="imageRedirect(user.id)">
+                        <span>{{ user.firstName }} {{ user.lastName }}</span>
+                    </div>
+                    <div>
+                        <span class="text-xs sm:text-sm md:text-base lg:text-lg">{{'working on'|translate}} {{ user.count }} {{'tasks'|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="col-span-2 dark:bg-gray-700 dark:text-white  mt-5 p-5 rounded-md shadow-custom3 xsm:col-span-5  md:col-span-2 xl:col-span-2">
+            <div class="title font-bold text-lg">{{'Number of tasks per status'|translate}}</div>
+            <div class="rectangle h-1 bg-slate-300 rounded-full"></div>
+            <div class="flex justify-center items-center h-full">
+                <div class="w-full">
+                    <p-chart type="bar" [data]="data3" [options]="optionsBarTasks" />
+                </div>
+            </div>
+        </div> 
+        <div class="dark:bg-gray-700 dark:text-white mt-5  rounded-md shadow-custom3 StatsCard text-white font-bold relative lg:ml-12 xsm:col-span-3 xl:col-span-1 prvaKartica">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="w-full absolute bottom-0 z-0 flex items-end" height="57" viewBox="0 0 334 57" fill="none">
+                <path class="absolute bottom-0 h-full" d="M19.1427 37.6504L2.88957 49.3407C1.67306 50.2157 0.95195 51.6226 0.95195 53.1211C0.95195 55.6929 3.03682 57.7778 5.60866 57.7778H335.876C339.741 57.7778 343.349 55.845 345.491 52.6281C349.152 47.1282 347.461 39.6836 341.784 36.3041L290.377 5.70364C278.907 -1.12397 264.788 -1.78025 252.734 3.954L229.1 15.1971C222.215 18.4725 214.537 19.7119 206.972 18.7693L180.06 15.4168C172.384 14.4606 164.596 15.7503 157.639 19.1295L122.142 36.3702C113.952 40.3486 104.648 41.4131 95.7705 39.3879L68.3186 33.1257L47.6228 30.4527C37.5601 29.153 27.3796 31.726 19.1427 37.6504Z" fill="#6EAFEB" fill-opacity="0.8"/>
+            </svg> -->
+            
+            
+            <div class="data flex justify-between items-center h-full w-full pl-5 pr-5 relative z-10 ">
+                <span class="text-xs sm:text-sm md:text-base  text-left">{{'Tasks finished'|translate}}</span>
+                <span class="text-xs sm:text-sm md:text-base text-right">{{ statusCounts['Completed'] }}</span>
+                
+            </div> 
+        </div> 
+        <div class="dark:bg-gray-700 dark:text-white mt-5 p-5 rounded-md shadow-custom3  StatsCard2 text-white font-bold xsm:col-span-2 xl:col-span-1">
+            <div class="data flex justify-between items-center h-full w-full">
+                <span class="text-xs sm:text-sm md:text-base text-left">{{'Tasks active'|translate}}</span>
+                <span class="text-xs sm:text-sm md:text-base text-right">{{ statusCounts['In Progress'] }}</span>
+            </div>   
+            
+        </div>  
+        <div class="dark:bg-gray-700 dark:text-white mt-5 p-5 rounded-md shadow-custom3  StatsCard3 text-white font-bold xsm:col-span-3 lg:ml-12 xl:col-span-1 xl:ml-0">
+            <div class="data flex justify-between items-center h-full w-full">
+                <span class="text-xs sm:text-sm md:text-base text-left">{{'Team members'|translate}}</span>
+                <span class="text-xs sm:text-sm md:text-base text-right">{{ members }}</span>
+            </div>   
+        </div> 
+        <div class="dark:bg-gray-700 dark:text-white mt-5 p-5 rounded-md shadow-custom3 StatsCard4 text-white font-bold xsm:col-span-2 xl:col-span-1">
+            <div class="data flex justify-between items-center h-full w-full">
+                <span class="text-xs sm:text-sm md:text-base text-left">{{'Urgent Tasks'|translate}}</span>
+                <span class="text-xs sm:text-sm md:text-base text-right">{{ urgentTasks }}</span>
+            </div>   
+        </div> 
+        
+        <div class="grid-tamplate-2 col-start-2 col-end-6 xl:ml-12 donjiGrid">
+            <div *ngFor="let user of users2" class="dark:bg-gray-700 dark:text-white mt-5 p-5 rounded-md shadow-custom3" >
+                <div class="flex items-center">
+                    <img src="../../../assets/profilepics/{{user.pictureURL}}" class="w-8 h-8 rounded-full mr-2 cursor-pointer" alt="User Avatar" (click)="imageRedirect(user.id)">
+                    <span class="text-sm sm:text-base md:text-lg lg:text-xl">{{ user.firstName }} {{ user.lastName }}</span>
+                </div>
+                <div class="text-sm mt-1">{{ user.count }} {{'completed tasks'|translate}}</div>
+            </div>
+        </div>
+       
+       
+    </div>
+</div>

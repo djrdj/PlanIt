@@ -1,0 +1,130 @@
+<html id="layout">
+  <button  style="cursor: pointer;"  id="sidebar-toggle" aria-controls="logo-sidebar" type="button" (click)="toggleSidenav()" class="fixed top-0 left-0 z-20 inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-l-lg bg-white dark:bg-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 border-none xsm:mt-1">
+    <span class="sr-only">{{ 'openSidebar' | translate }}</span>
+   
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+    </svg>
+    
+</button>
+<div id="logo-sidebar"[ngClass]="{'open': isSidenavOpen, 'sideNavClosed': !isSidenavOpen}"  class="fixed top-0 left-0 z-10 h-screen  sm:translate-x-0 md:w-20 " aria-label="Sidebar">
+  <div class="h-full pl-3 py-4  bg-gray-50 dark:bg-gray-800 ml-30" [ngClass]="{'xsm:h-45px': !isSidenavOpen}">
+     <a  style="cursor: pointer;" [routerLink]="'/home'" class="flex items-center justify-end ps-1 mr-1.5">
+        <img src="../../../assets/icons/Logonav.svg" class="h-6 ml-8 sm:h-7" id="logoSlika"  alt="PlanIT"  />
+      <!-- <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>  -->
+     </a>
+     <ul class="space-y-2 font-medium pl-0">
+
+     <li  *ngIf="role=='Employee' || role=='Manager'" [routerLink]="'/home'"   
+     [ngClass]="{
+      'active':!isDarkMode &&  currentPage === 'home',
+       'activeDark':isDarkMode && currentPage === 'home',
+       'max-sm:hidden': !isSidenavOpen
+      }" class="sidebar-item ">
+       <a  style="cursor: pointer;" (mouseenter)="mouseEnterFunction()" (mouseleave)="mouseLeaveFunction()"   class="flex items-center p-2 text-gray-900 rounded-l-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <svg   class="flex-shrink-0 w-5 h-5 text-gray-500  dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
+      </svg>         
+           <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-gray-900 dark:group-hover:text-white">{{ 'allProjects' | translate }}</span>
+           <span *ngIf="isSidenavOpen==false  && showText" class="absolute top-5 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg top-0 left-full transform -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-gray-100" style="margin-left: 5px;">{{ 'allProjects' | translate }}</span> 
+       </a>
+      
+    </li>
+
+
+
+     <li *ngIf="role=='Employee' || role=='Manager'  && isProjectUrl " (click)="onItemClick('/view')" [ngClass]="{
+      'active':!isDarkMode &&  currentPage === 'view',
+      'activeDark': isDarkMode && currentPage === 'view',
+       'max-sm:hidden': !isSidenavOpen
+   }" class="sidebar-item " >
+       <a  style="cursor: pointer;" (mouseenter)="mouseEnterFunction()" (mouseleave)="mouseLeaveFunction()"   class="flex items-center p-2 text-gray-900 rounded-l-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <svg class="flex-shrink-0 w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+      </svg>         
+           <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-gray-900 dark:group-hover:text-white">{{ 'myTasks' | translate }}</span>
+           <span *ngIf="isSidenavOpen==false  && showText" class="absolute top-5 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg top-0 left-full transform -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-gray-100" style="margin-left: 5px;">{{ 'myTasks' | translate }}</span>
+       
+       </a>
+      
+    </li>
+
+   <li *ngIf="role=='Employee' || role=='Manager'  && isProjectUrl"  [ngClass]="{
+    'active': !isDarkMode &&  currentPage === 'kanban',
+    'activeDark': isDarkMode && currentPage === 'kanban',
+    'max-sm:hidden': !isSidenavOpen
+ }" class="sidebar-item" (click)="onItemClick('/kanban')">
+     <a  style="cursor: pointer;" (mouseenter)="mouseEnterFunction()" (mouseleave)="mouseLeaveFunction()"  class="flex items-center p-2 text-gray-900 rounded-l-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+      <svg class="flex-shrink-0 w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="transform: translateX(4px);">
+        <path d="M14.08 0.818182V10.6364C14.08 10.8534 13.9873 11.0615 13.8223 11.2149C13.6572 11.3683 13.4334 11.4545 13.2 11.4545H8.8C8.56661 11.4545 8.34278 11.3683 8.17775 11.2149C8.01271 11.0615 7.92 10.8534 7.92 10.6364V0.818182C7.92 0.601186 8.01271 0.393079 8.17775 0.23964C8.34278 0.0862012 8.56661 0 8.8 0H13.2C13.4334 0 13.6572 0.0862012 13.8223 0.23964C13.9873 0.393079 14.08 0.601186 14.08 0.818182ZM21.12 0H16.72C16.4866 0 16.2628 0.0862012 16.0977 0.23964C15.9327 0.393079 15.84 0.601186 15.84 0.818182V5.72727C15.84 5.94427 15.9327 6.15238 16.0977 6.30581C16.2628 6.45925 16.4866 6.54545 16.72 6.54545H21.12C21.3534 6.54545 21.5772 6.45925 21.7423 6.30581C21.9073 6.15238 22 5.94427 22 5.72727V0.818182C22 0.601186 21.9073 0.393079 21.7423 0.23964C21.5772 0.0862012 21.3534 0 21.12 0ZM21.12 8.18182H16.72C16.4866 8.18182 16.2628 8.26802 16.0977 8.42146C15.9327 8.5749 15.84 8.783 15.84 9V13.0909C15.84 13.5249 16.0254 13.9411 16.3555 14.248C16.6856 14.5549 17.1332 14.7273 17.6 14.7273H20.24C20.7068 14.7273 21.1544 14.5549 21.4845 14.248C21.8146 13.9411 22 13.5249 22 13.0909V9C22 8.783 21.9073 8.5749 21.7423 8.42146C21.5772 8.26802 21.3534 8.18182 21.12 8.18182ZM5.28 0H0.88C0.646609 0 0.422778 0.0862012 0.257746 0.23964C0.0927142 0.393079 0 0.601186 0 0.818182V5.72727C0 5.94427 0.0927142 6.15238 0.257746 6.30581C0.422778 6.45925 0.646609 6.54545 0.88 6.54545H5.28C5.51339 6.54545 5.73722 6.45925 5.90225 6.30581C6.06729 6.15238 6.16 5.94427 6.16 5.72727V0.818182C6.16 0.601186 6.06729 0.393079 5.90225 0.23964C5.73722 0.0862012 5.51339 0 5.28 0ZM5.28 8.18182H0.88C0.646609 8.18182 0.422778 8.26802 0.257746 8.42146C0.0927142 8.5749 0 8.783 0 9V16.3636C0 16.7976 0.185428 17.2138 0.515492 17.5207C0.845556 17.8276 1.29322 18 1.76 18H4.4C4.86678 18 5.31444 17.8276 5.64451 17.5207C5.97457 17.2138 6.16 16.7976 6.16 16.3636V9C6.16 8.783 6.06729 8.5749 5.90225 8.42146C5.73722 8.26802 5.51339 8.18182 5.28 8.18182Z"/>
+    </svg>   
+         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-gray-900 dark:group-hover:text-white" style=" margin-left: 10px;position: relative; left:6px;">{{ 'kanban' | translate }}</span>
+          <span *ngIf="isSidenavOpen==false && showText" class="absolute top-5 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg top-0 left-full transform -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-gray-100" style="margin-left: 5px;">{{ 'kanban' | translate }}</span> 
+     </a>
+    </li>
+
+    <li *ngIf="role=='Employee' || role=='Manager'  && isProjectUrl" [ngClass]="{
+      'active': !isDarkMode &&  currentPage === 'ganttchart',
+      'activeDark': isDarkMode && currentPage === 'ganttchart',
+      'max-sm:hidden': !isSidenavOpen
+   }" class="sidebar-item" (click)="onItemClick('/ganttchart')">
+        <a  style="cursor: pointer;" (mouseenter)="mouseEnterFunction()" (mouseleave)="mouseLeaveFunction()"   class="flex items-center p-2 text-gray-900 rounded-l-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <svg  class="flex-shrink-0 w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16M8 14h8m-4-7V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
+          </svg>      
+          <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-gray-900 dark:group-hover:text-white">{{ 'gantogram' | translate }}</span>
+          <span *ngIf="isSidenavOpen==false && showText"  class="absolute top-5 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg top-0 left-full transform -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-gray-100" style="margin-left: 5px;">{{ 'gantogram' | translate }}</span>
+        </a>
+    </li>
+
+    <li  *ngIf="role=='Employee' || role=='Manager'  && isProjectUrl" class="sidebar-item"
+    [ngClass]="{
+      'active': !isDarkMode &&  currentPage === 'statistics',
+      'activeDark': isDarkMode && currentPage === 'statistics',
+      'max-sm:hidden': !isSidenavOpen}"
+       (click)="onItemClick('/statistics')"
+      >
+      <a  style="cursor: pointer;" (mouseenter)="mouseEnterFunction()" (mouseleave)="mouseLeaveFunction()" class="flex items-center p-2 text-gray-900 rounded-l-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+           <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
+           <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
+        </svg>
+        <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-gray-900 dark:group-hover:text-white">{{ 'Statistics' | translate }}</span>
+        <span *ngIf="isSidenavOpen==false && showText"  class="absolute top-5 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg top-0 left-full transform -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-gray-100" style="margin-left: 5px;">{{ 'Statistics' | translate }}</span>
+      </a>
+   </li>
+
+
+    <li *ngIf="role=='Administrator'" [routerLink]="'/home'" [ngClass]="{
+      'active': !isDarkMode && currentPage === 'home',
+      'activeDark': isDarkMode && currentPage === 'home',
+      'max-sm:hidden': !isSidenavOpen
+  }" class="sidebar-item">
+       <a   style="cursor: pointer;" (mouseenter)="mouseEnterFunction()" (mouseleave)="mouseLeaveFunction()"  class="flex items-center p-2 text-gray-900 rounded-l-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <svg  class="flex-shrink-0 w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+        </svg> 
+        <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-gray-900 dark:group-hover:text-white">{{ 'users' | translate }}</span>
+         <span *ngIf="isSidenavOpen==false && showText" class="absolute top-5 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg top-0 left-full transform -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-gray-100" style="margin-left: 5px;">{{ 'users' | translate }}</span> 
+    </a>
+   
+   </li>
+
+   <li *ngIf="role=='Employee' || role=='Manager'"  [ngClass]="{
+    'active': !isDarkMode &&  currentPage === 'clockit',
+    'activeDark': isDarkMode && currentPage === 'clockit',
+    'max-sm:hidden': !isSidenavOpen
+ }" class="sidebar-item" (click)="onItemClick('/clockit')">
+     <a  style="cursor: pointer;" (mouseenter)="mouseEnterFunction()" (mouseleave)="mouseLeaveFunction()"  class="flex items-center p-2 text-gray-900 rounded-l-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C7.522 2 3.774 4.943 2.5 9H5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 8V12L14 14M2 12C2 12.3367 2.015 12.67 2.045 13M9 22C8.65988 21.8873 8.32607 21.7565 8 21.608M3.21 17C3.01636 16.6255 2.84441 16.2402 2.695 15.846M4.831 19.306C5.13767 19.636 5.46333 19.9437 5.808 20.229" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg> 
+         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-gray-900 dark:group-hover:text-white" style=" margin-left: 10px;position: relative; left:6px;">{{ 'ClockIT' | translate }}</span>
+          <span *ngIf="isSidenavOpen==false && showText" class="absolute top-5 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg top-0 left-full transform -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-gray-100" style="margin-left: 5px;">{{ 'ClockIT' | translate }}</span> 
+     </a>
+    </li>
+</ul>
+</div>
+</div>
+</html>

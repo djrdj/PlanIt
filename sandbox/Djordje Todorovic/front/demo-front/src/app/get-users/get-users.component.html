@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nacionalni parkovi</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/pocetna.css">
+        <link href='https://fonts.googleapis.com/css?family=KoHo' rel='stylesheet'>
+    </head>
+    <body >
+            <table>
+                
+                <input type='text' [(ngModel)]="ime"><br>
+                <input type='text' [(ngModel)]="prezime"><br>
+                <input type='text' [(ngModel)]="jmbg"><br>
+                <button (click)="dodajUcenika()">Dodaj ucenika</button>
+
+                <tr *ngFor='let user of Users'>
+                    <td>{{user.ime}}</td>
+                    <td>{{user.prezime}}</td>
+                    <td>{{user.jmbg}}</td>
+                    <td><button (click)="obrisiUcenika(user.id)">Obrisi ucenika</button></td>
+                </tr>
+            </table>
+            
+    </body>
+</html>

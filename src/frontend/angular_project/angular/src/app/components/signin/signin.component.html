@@ -1,0 +1,38 @@
+<div class="parent"> 
+    <div class="container" [ngClass]="isSignDivVisiable ? 'active' :'' " id="container">
+
+        <div class="form-container sign-in" >
+          <form [ngClass]="{'invalid-signin': signInClicked && loginForm.invalid}" #loginForm="ngForm">
+            <img class="logoSlika" src="../../../assets/images/logo2.svg" alt="">
+            <h1>Sign In</h1>
+            <br />
+
+            <input type="username" name="username" [(ngModel)]="loginObj.username" placeholder="{{ 'username' | translate }} / {{ 'email' | translate }}" required #usernameField="ngModel">
+            <!-- <input type="password" name="password" [(ngModel)]="loginObj.password" placeholder="Password" required #passwordField="ngModel"> -->
+            <p-password placeholder="Password" [toggleMask]="true" [feedback]="false" name="password" [(ngModel)]="loginObj.password" #passwordField="ngModel" required="true" styleClass="p-password p-component p-inputwrapper p-input-icon-right" [style]="{'width':'100%'}"
+            [inputStyle]="{'width':'100%'}"></p-password>
+
+            <div *ngIf="(signInClicked && (usernameField.invalid || passwordField.invalid))" class="error-message">{{ 'errLoginMsg' | translate }}</div>
+            <div *ngIf="errorMsg" class="error-message">{{ errorMsg }}</div>
+            <!-- <label>
+                <input type="checkbox" name="rememberMe">
+                Remember me
+              </label> -->
+            <button  style="cursor: pointer;" (click)="signInClicked=true; onLogin()">{{ 'continue' | translate }}<img src="../../../assets/images/right_arrow.svg" alt=""></button>
+            <a  style="cursor: pointer;"  [routerLink]="'/forgotpassword'">{{ 'loginForgot' | translate }}</a>
+          </form>
+        </div>
+
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>{{ 'wb' | translate }}</h1>
+                    <!-- <p>Sign in to continue access</p> -->
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+

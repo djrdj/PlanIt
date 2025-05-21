@@ -1,0 +1,95 @@
+<div class="all-users-div ">
+    <div class="overlay" *ngIf="showOverlay" (click)="toggleFilters()"></div>
+    <div class="filter dark:bg-gray-700 dark:text-white" *ngIf="showFilter">
+        <label for="high" class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="administratorChecked" id="administrator" name="administrator">{{'administrator' | translate}}
+        </label>
+        <label for="medium" class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="managerChecked" id="manager" name="manager">{{'projectManager' | translate}}
+        </label>
+        <label for="low" class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="employeeChecked" id="employee" name="employee">{{'employee' | translate}}
+        </label>
+    </div>
+
+<div class="container dark:bg-gray-800 dark:text-white min-h-screen ">
+    <div class="users-wrapper " >
+        <div class="first">
+            <input id="search" type="text" placeholder="{{'search'|translate}}" [(ngModel)]="searchTerm" class="dark:bg-gray-700 dark:text-white">
+            <button style="cursor:pointer;" id="add-user" (click)="toggleOverlayAddUser()">+</button>
+            <label for="all-users-filter">
+                <input type="radio" name="user-filter" id="all-users-filter" [(ngModel)]="showActivatedUsers" [value]="null">
+                {{ 'allUsers' | translate }}
+            </label>
+            <label for="activated-users-filter">
+                <input type="radio" name="user-filter" id="activated-users-filter" (change)="toggleActivatedUsersFilter(true)" [checked]="true">
+                {{ 'activatedUsers' | translate }}
+            </label>
+            <label for="deactivated-users-filter">
+                <input style="cursor:pointer;" type="radio" name="user-filter" id="deactivated-users-filter" (change)="toggleActivatedUsersFilter(false)">
+                {{ 'deactivatedUsers' | translate }}
+            </label>
+            <div class="import-export-buttons h-fit self-center">
+                <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                <button *ngIf="!hasUsers()" (click)="exportUsers()" class="disabled-button" disabled>{{ 'exportUsers' | translate }}</button>
+                <button *ngIf="hasUsers()" (click)="exportUsers()">{{ 'exportUsers' | translate }}</button>
+            </div>
+        </div>
+        <div class="user dark:bg-gray-700 names">
+            <div class="dot" alt=""></div>
+            <p class="left-p">{{ 'users' | translate }}</p>
+            <p class="self-start"><span>{{ 'roles' | translate }}</span><button class="filter-button" (click)="toggleFilters()"></button> </p>
+            <p>{{ 'options' | translate }}</p>
+        </div>
+
+        <div class="users-placeholder" *ngFor="let user of filterUsers()">
+            <div class="user dark:bg-gray-700" [class.deactivated]="!user.activated" *ngIf="user.username!=loggedInUsername">
+                <img class="dot" src="../../../assets/images/dot.svg" alt="">
+                <img class="user-pic" src="../../../assets/profilepics/{{user.pictureUrl}}" alt="" (click)="imageRedirect(user.userID)">
+                <p>{{ user.username }}</p>
+
+                <!-- <ng-container *ngIf="!editRoleShow || !(tempId===user.userID)"></ng-container> -->
+                <ng-container>
+                    <p class="self-end" *ngIf ="getRoleName(user.userRoleID)!='administrator'"> {{ getRoleName(user.userRoleID) | translate }} <img  style="cursor:pointer;" class="edit-user relative top-2" src="../../../assets/icons/edit.svg" alt="" (click)="openEditPermissionsDialog(user.userID, user.userRoleID, user.username)"> </p>
+                    <p class="self-end" *ngIf ="getRoleName(user.userRoleID)=='administrator'"> {{ getRoleName(user.userRoleID) | translate }} <img  style="cursor:not-allowed;" class="relative top-2" src="../../../assets/icons/edit.svg" alt=""> </p>
+                </ng-container>
+                   
+                <!-- <ng-container *ngIf="editRoleShow && tempId===user.userID">
+                    <select class="dark:bg-gray-800" [(ngModel)]="user.userRoleID" (change)="updateUserRole(user.userID,user.userRoleID);">
+                        <option [value]="1">{{ 'administrator' | translate }}</option>
+                        <option [value]="2">{{ 'manager' | translate }}</option>
+                        <option [value]="3">{{ 'employee' | translate }}</option>
+                    </select>
+                </ng-container> -->
+                <button style="cursor:pointer;" *ngIf="user.activated && getRoleName(user.userRoleID)=='administrator'" class="deactivate-user" style="cursor:not-allowed"><img src="../../../assets/images/deactivate-user.svg" alt="deactivate user"></button>
+                <button style="cursor:pointer;" *ngIf="user.activated && getRoleName(user.userRoleID)!='administrator'" class="deactivate-user" (click)="openConfirmationDialog('deactivate', user)"><img src="../../../assets/images/deactivate-user.svg" alt="deactivate user"></button>
+                
+                <button style="cursor:pointer;" *ngIf="!user.activated && getRoleName(user.userRoleID)=='administrator'" class="activate-user" style="cursor:not-allowed"><img src="../../../assets/images/activate-user.svg" alt="activate user"></button>
+                <button style="cursor:pointer;" *ngIf="!user.activated && getRoleName(user.userRoleID)!='administrator'" class="activate-user" (click)="openConfirmationDialog('activate', user)"><img src="../../../assets/images/activate-user.svg" alt="activate user"></button>
+                <!-- <button class="edit" (click)="toggleOverlay(user.username)">Edit permissions</button> -->
+                <!-- <button style="cursor:pointer;" class="edit" (click)="openEditPermissionsDialog(user.userID, user.userRoleID, user.username)">{{ 'editRole' | translate }}</button> -->
+                <button style="cursor:pointer;" *ngIf ="getRoleName(user.userRoleID)!='administrator'" class="edit" (click)="imageRedirectEdit(user.userID)">{{ 'editUser' | translate }}</button>
+                <button style="cursor:pointer;" *ngIf ="getRoleName(user.userRoleID)=='administrator'" class="edit" style="cursor:not-allowed">{{ 'editUser' | translate }}</button>
+
+            </div>
+        </div>
+        
+    </div>
+
+    
+    <ng-container *ngIf="openOverlay">
+        <div class="overlay-background"></div>
+        <div class="overlay-content">
+          <app-edit-permissions style="cursor:pointer;" [username]="selectedUsername" (closeOverlayEvent)="toggleOverlay('')"></app-edit-permissions>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="openOverlayAddUser">
+        <div class="overlay-background"></div>
+        <div class="overlay-content">
+          <app-add-user style="cursor:pointer;" (closeOverlayEvent)="toggleOverlayAddUser()"></app-add-user>
+        </div>
+    </ng-container>
+
+</div>
+</div>

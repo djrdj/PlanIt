@@ -1,0 +1,56 @@
+.container {
+    display: grid;
+    grid-template-columns: auto auto; 
+    position: fixed;
+    padding: 0 2% 0 0;
+    margin-top: -1%;
+   
+}
+
+.maksh{
+  height: 110vh;
+}
+#gant_html > div > app-gantic > ngx-gantt > ngx-gantt-root > cdk-virtual-scroll-viewport .empty-text{
+    color: pink;
+  }
+
+  .legend-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding-bottom: 5px;
+    width: max-content;
+    height: max-content;
+    border: 2px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    background-color: white;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 5px 0 5px;
+  }
+  
+  .legend-line {
+    display: inline-block;
+    width: 40px;
+    height: 4px;
+    margin-right: 10px;
+  }
+  
+  .red-line {
+    background-color: #f44336;
+  }
+  
+  .gray-line {
+    background-color: #757575;
+  }
+
+@media (max-width: 1024px) {
+    .legend-container { display: none; }
+}
+

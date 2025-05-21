@@ -1,0 +1,333 @@
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap');
+@import url(../node_modules//quill/dist/quill.snow.css);
+@import url(../node_modules//quill/dist/quill.core.css);
+*{
+  font-family: "Montserrat", sans-serif;
+}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'ngx-toastr/toastr';
+.myComment{
+
+  justify-content: flex-end;
+}
+.notmyComment{
+  
+  justify-content: flex-start;
+}
+body{
+    margin: 0;
+    padding: 0;
+    
+}
+@layer components{
+  .statusCompleted, .statusCompleted:hover{
+    background-color: grey;
+    color:white;
+  }
+  .statusNotDismissed{
+    background-color: rgb(156 163 175);
+    color:white;
+  }
+  .statusNotDismissed:hover{
+    background-color: transparent;
+    color: rgb(156 163 175);
+  }
+  .statusnotCompleted{
+    background-color: rgb(35, 197, 94);
+  }
+  .statusnotCompleted:hover{
+    background-color: transparent;
+    color:rgb(35, 197, 94) ;
+    
+
+  }
+  .cursor-pointer{
+    cursor: pointer;
+  }
+  .projectName { 
+    border: none; 
+    border-bottom: 2px solid #28B4E1;
+    border-radius: 0;
+    
+  }
+  .bg-color{
+    background-color: #3c7de8;
+  }
+    .StatsCard{
+        background: linear-gradient(90deg, #4489C8 0%, #184A78 100%);
+    }
+    .StatsCard2{
+      background: linear-gradient(90deg, #6EE2F1 0%, #488FD4 100%);
+      color: #204E76;
+    }
+    .StatsCard3{
+      background: linear-gradient(90deg, #6EE2F1 0%, #F3A20D 100%);
+      color: #204E76;
+    }
+    .StatsCard4{
+      background: linear-gradient(90deg, #F3A20D 0%, #BB3E03 100%);
+    }
+
+    .dark .StatsCard{
+      background: linear-gradient(90deg, #27AEDA 0%, #4020C1 100%);
+    }
+    .dark .StatsCard2{
+      
+      background: linear-gradient(90deg, #4020C1 0%, #9E7CCC 100%);
+      color: #204E76;
+    }
+    .dark .StatsCard4{
+      background: linear-gradient(90deg, #F09C0D 0%, #4020C1 100%); // druga boja :4020C1 
+      color: #204E76;
+    }
+    .dark .StatsCard3{
+      background: linear-gradient(90deg, #9877CC 0%, #E7A822 100%);
+    }
+    .grid-container-project-view {
+      display: grid;
+      grid-template-columns: 20% 20% 20% 20% 20%;
+      gap: 5%;
+      background-color: transparent;
+      padding: 2% 2% 0% 2%;
+      margin: 0% 3%;
+      max-width: 80%;
+      min-height: calc(95%);
+    }
+    .grid-container-project-view-sm {
+      display: grid;
+      grid-template-columns: 25% 25% 25% 25%;
+      gap: 5%;
+      background-color: transparent;
+      padding: 2% 2% 0% 2%;
+      margin-top:2%;
+      margin-left: 8%;
+      max-width: 80%;
+      min-height: calc(95%);
+
+    }
+    .Card{
+        display: flex ;
+        background: linear-gradient(90deg, #016278 0%, #22A9D3 100%);
+        width: 80%;
+    
+        height:40%;
+        min-height: 60px;
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size:16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+    }
+    //za manje ekrane 
+    .Cardxsm{ 
+        display: flex ;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #016278 0%, #22A9D3 100%);
+        width: 100%;
+        min-height: 50px;
+        height: 50%;
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size:10px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: normal;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 4px 5px 12px 0px rgba(0, 0, 0, 0.25);
+    }
+    .Cardxsm:first{ 
+      display: flex ;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #016278 0%, #22A9D3 100%);
+      width: 100%;
+      grid-column-start: 2;
+      height: 50%;
+      color: #FFF;
+      text-align: center;
+      font-family: Montserrat;
+      font-size:10px;
+      font-style: normal;
+      font-weight: 200;
+      line-height: normal;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 4px 5px 12px 0px rgba(0, 0, 0, 0.25);
+      min-height: 50px;
+  }
+    .Cardsm{
+        display: flex ;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #016278 0%, #22A9D3 100%);
+        width: 100%;
+        min-height: 50px;
+        height: 40%;
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size:10px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 4px 5px 12px 0px rgba(0, 0, 0, 0.25);
+    }
+    .Cardsm:first{
+      display: flex ;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #016278 0%, #22A9D3 100%);
+      width: 100%;
+      grid-column-start:2;
+      height: 40%;
+      color: #FFF;
+      text-align: center;
+      font-family: Montserrat;
+      font-size:10px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 4px 5px 12px 0px rgba(0, 0, 0, 0.25);
+      min-height: 50px;
+  }
+    .Cardmd{
+        display: flex ;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #016278 0%, #22A9D3 100%);
+        width: 100%;
+        min-height: 50px;
+        height: 60%;
+        color: #FFF;
+        text-align: center;
+        font-family: Montserrat;
+        font-size:10px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 4px 5px 12px 0px rgba(0, 0, 0, 0.25);
+    }
+    .Cardmd:first{
+      display: flex ;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #016278 0%, #22A9D3 100%);
+      width: 100%;
+      grid-column-start: 2;
+      height: 60%;
+      color: #FFF;
+      text-align: center;
+      font-family: Montserrat;
+      font-size:10px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 4px 5px 12px 0px rgba(0, 0, 0, 0.25);
+      min-height: 50px;
+  }
+    .status {
+        width: 80%;
+        color: black;
+        background-color: white;
+        border-radius: 6px;
+        height: 80%;
+        font-size: 10px;
+        padding:6% 8%;
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        font-weight: bold;
+      }
+      
+      .priority {
+        width: 80%;
+        color: black;
+        background-color: white;
+        border-radius: 6px;
+        height: 80%;
+        font-size: 9px;
+        padding:6% 8%;
+        text-align: center;
+        font-weight: bold;
+      }
+      
+      .in-progress {
+        color:  white;
+        background-color: rgba(59, 130, 246, 0.9);
+        text-align: center;
+        
+      }
+      
+      .dismissed {
+        color: #f6f6f6;
+        background-color: rgba(148, 148, 148, 0.9);
+        text-align: center;
+        
+      }
+      .completed {
+        color: white;
+        background-color: rgba(30, 163, 78, 0.9);
+        text-align: center;
+      
+      }
+      .planned {
+        color: white;
+        background-color:rgba(59, 171, 246, 0.9);
+        text-align: center;
+      
+      }
+      
+      .high {
+        color:white ;
+        background-color: rgba(215, 68, 0, 0.9);
+        text-align: center;
+       
+      }
+      
+      .medium {
+        color:white;
+        background-color: rgba(243, 162, 13, 0.9);
+        text-align: center;
+      
+      }
+      
+      .low {
+        color:white;
+        background-color: rgba(25, 151, 187, 0.9);
+        text-align: center;
+     
+      }
+      .selected{
+        font-weight: bold;
+      }
+      .dark #logoSlika{
+        content: url('assets/icons/Logowhite.svg');
+      }
+      .dark .logo{
+        content: url('assets/images/logowhite_profile.svg');
+      }
+}
+a, li, button{
+  cursor:  pointer;
+}

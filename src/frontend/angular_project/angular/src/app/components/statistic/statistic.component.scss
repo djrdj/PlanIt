@@ -1,0 +1,33 @@
+.grid-container {
+    margin-top: -50px;
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: 18% 18% 18% 19% 19%;
+    padding: 3% 2% 0 1%;
+    gap: 1.5%;
+}
+.grid-tamplate-2{
+    grid-template-columns: 48% 48%;
+    gap: 1.5%;
+    display: grid;
+}
+
+.projLista{
+    margin-top: -4%;
+    margin-left: 14%; 
+}
+
+@media screen and (min-width:1366px) and (max-width:1366px) {
+    .projLista{
+        margin-left: 20%;
+    }
+    .totalTime, .workload{
+        margin-left: 20%;
+    }
+     .prvaKartica{
+        margin-left: 42%;
+    }
+    .donjiGrid{
+        margin-left: 10%;
+    }
+}

@@ -1,0 +1,12 @@
+<html class="overlay">
+  <div class="content">
+    <h2 mat-dialog-title>{{ 'confirmAction' | translate }}</h2>
+    <mat-dialog-content>
+      <p class="dark:text-white">{{ 'ays' | translate }}  {{ data.action |translate}} {{ 'user' | translate }} {{ data.username }}?</p>
+    </mat-dialog-content>
+    <mat-dialog-actions  >
+      <button class="cancel-btn" style="cursor: pointer;"  mat-button (click)="onCancelClick()">{{ 'cancel' | translate }}</button>
+      <button class="create-btn" style="cursor: pointer;"  mat-button (click)="onConfirmClick()">{{ 'confirm' | translate }}</button>
+    </mat-dialog-actions>
+  </div>
+</html>

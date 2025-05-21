@@ -1,0 +1,20 @@
+<div class="overlay">
+    <div class="navbar">
+        <span><b>{{type |translate}} {{ 'this task?' | translate }}</b></span>
+    </div>
+
+    <div class="content">
+        <div *ngIf="display" class="text">
+            <input class="outline-none" type="password" id="password" autocomplete="new-password" placeholder="{{'Type in your password'|translate}}" [(ngModel)]="loginObj.password" (keydown.enter)="check()"/>
+            
+            <div *ngIf="errorMsg" class="error-message">{{ errorMsg }}</div>
+        </div>
+
+        <div class="buttons">
+            <button style="cursor:pointer;" class="cancel-btn" (click)="closeOverlay()">{{ 'cancel' | translate }}</button>
+            <button style="cursor:pointer;" *ngIf="!display" class="yes-btn" (click)="displayText()">{{ 'yes' | translate }}</button>
+            <button style="cursor:pointer;" *ngIf="display" class="confirm-btn" (click)="check()">{{ 'confirm' | translate }}</button>
+            
+        </div>
+    </div>
+</div>

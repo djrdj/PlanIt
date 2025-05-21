@@ -1,0 +1,463 @@
+.kanban-page{
+    height: calc(100vh - 50px);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: transparent;
+    padding: 3% 1% 0 1%;
+    position: relative;
+    top: -32px;
+    height: 110vh;
+  }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100; 
+}
+
+.overlay-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200; 
+}
+
+.container{
+   
+    width: 95%;
+    font-family: "Montserrat";
+    margin-left: 30px;
+    position: relative;
+    top: 30px;
+}
+
+.kanban-board {
+    display: flex;
+    margin-top: 30px;
+    overflow-x: scroll;
+}
+.wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    // align-items: end;
+}
+.column {
+    border-radius: 20px;
+    
+    flex: 1;
+    margin: 10px;
+    
+    width: 18vw;
+    height: 85dvh;
+    border-radius: 6px;
+    box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+}
+
+.column:hover{
+    cursor: grab;
+}
+
+.column:active{
+    cursor: grabbing;
+}
+
+.holder{
+    height: 92%;
+    overflow-y: auto;
+}
+.column .bottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 39px;
+    width: 100%;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+
+    button{
+        border: none;
+        outline: none;
+        background-color: transparent;
+        font-weight: bold;
+        color: #28B4E1;
+    }
+}
+.dark .column .bottom{
+    background-color: inherit;
+} 
+.dark .column h2{
+    background-color: rgb(99 102 241);
+    color: white;
+}
+.column h2 {
+    font-size: 16px;
+    margin-top: 0;
+    padding: 10px 10px;
+    text-align: center; 
+    color: rgb(96, 96, 96); 
+    border-bottom: 3px solid #28B4E1;
+    border-top-left-radius: 6px; 
+    border-top-right-radius: 6px;
+   
+    font-family: 'Montserrat', sans-serif;
+    // position: sticky;
+    margin-bottom: 0;
+    overflow-wrap: break-word;
+}
+
+
+.column h3 {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+
+.task {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 6px;
+    box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+    overflow-wrap: break-word;
+}
+
+.task:hover {
+    cursor: grab;
+    background-color: #f4f4f4;
+    // outline: 1px solid #c4c8cb;
+    transform: scale(0.99);
+}
+
+.task:active {
+    cursor: grabbing;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 6px;
+    box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+    overflow-wrap: break-word;
+}
+
+.dark .task{
+    border: none;
+}
+
+.dark .task:hover{
+    background-color: #596776;
+    outline: 1px solid #556172;
+    transform: scale(1.01);
+}
+
+.task p{
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.btn-group{
+    display: flex;
+    justify-content: space-between; /* Ensures there's space between the centered element and the other elements */
+    align-items: center;
+    gap: 10px;
+    z-index: 1;
+    position: relative;
+   
+}
+.centered-navigation {
+    margin-top: 2%;
+    //flex-grow: 1; /* Allows the centered element to take up available space */
+    display: flex;
+    justify-content: center; /* Centers the content within this div */
+   margin-left: 1%;
+}
+.other-elements {
+    margin-top: -10px;
+  
+    display: flex;
+    margin-right: 1%;
+}
+
+.filter{
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 20px;
+    z-index: 102;
+    top: 35px;
+    right: 135px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.filter .select{
+    //float: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter .select p{
+    font-weight: bold;
+}
+
+.filter-button {
+   background-image: url("../../../assets/icons/filter_icon.svg");
+   border: none;
+   background-size: cover;
+   width: 25px;
+   height: 25px;
+   background-color: transparent;
+   float: right;
+   position: relative;
+   top: 10px;
+   z-index: 102;
+   cursor: pointer;
+}
+
+.filter img{
+    // width: 20px;
+    height: 25px;
+    margin: 0 10px
+}
+
+.filter img:hover{
+    cursor: pointer;
+}
+
+label{
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
+label:hover{
+    cursor: pointer;
+}
+
+
+.row-down{
+    display: flex;
+    align-items: center;
+}
+
+
+.row-down span{
+    padding: 8px 10px;
+    margin-right: 5px;
+    border-radius: 8px;
+    background-color: #B8E9F9;
+}
+
+
+
+
+
+.view{
+    display: flex;
+    //flex-direction: row;
+    gap: 10px;
+    position: absolute;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 20px;
+    // max-width: 100px;
+    top: 10px;
+    right: 50px;
+    z-index: 201;
+}
+
+.view-button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 201;
+}
+
+.custom-radio {
+    display: none; 
+}
+
+.view label{
+    display: inline-block;
+    width: 30px; 
+    height: 30px; 
+    background-size: cover; 
+    cursor: pointer;
+}
+
+.view label:hover{
+    outline: 2px solid grey;
+    padding: 10px;
+}
+
+
+.add-column-button{
+    padding: 5px;
+    position: relative;
+    top: 6px;
+    border: none;
+    // width: 32px;
+    height: 32px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    font-weight: 600;
+    outline: none;
+}
+
+.add-column-button:hover{
+    color: #28B4E1;
+    cursor: pointer;
+    outline: none;
+}
+
+.add-column-button img{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px; 
+    outline: none;
+}
+
+
+// DELETE BUTTON
+.delete-column-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: fill 0.3s; 
+    position: absolute; 
+    top: 55px;
+}
+
+.delete-column-icon:hover {
+    fill: #d32f2f; 
+}
+
+//promena boje za task koji se prevlaci
+.task.dragging {
+    background-color: #dfdfdf;
+    opacity: 1 !important;
+    background-color: inherit !important; 
+}
+.dark .task.dragging{
+    background-color: rgb(107 114 128) !important;
+}
+.status-and-picture{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-leader-picture img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.task-leader-picture {
+    position: relative; 
+    cursor: pointer;
+}
+
+.task-leader-picture:hover::after {
+    content: attr(data-description); /* Prikazuje sadržaj atributa data-description */
+    position: absolute; 
+    top: -35px; /* Podešava položaj na vrh roditeljskog elementa */
+    right: 0; /* Podešava položaj na desnu stranu roditeljskog elementa */
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: #fff; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    z-index: 998; 
+    transform: translate(-100%, -100%); /* Pomerite tekst za gornji desni ugao */
+    transition: transform 0.3s ease; /* Dodajte efekat prelaza */
+    font-size: 10px;
+}
+
+.task-leader-picture:hover::before {
+    content: ''; /* Dodajte prazan sadržaj za pseudoelement */
+    position: absolute; 
+    top: -4px; 
+    right: -2px; 
+    width: 10px; 
+    height: 10px; 
+    // background-color: rgba(0, 255, 13, 0.86); 
+    transform: translate(-50%, -50%) rotate(45deg); 
+    z-index: 999; 
+    transition: transform 0.3s ease; 
+    border-radius: 50%;
+}
+
+.task-leader-picture:hover::after,
+.task-leader-picture:hover::before {
+    transform: translate(0, 0); /* Prikazuje tekst i strelicu na hover */
+}
+
+
+.dark ::-webkit-scrollbar {
+    background: rgb(76, 82, 92);
+  }
+.dark  ::-webkit-scrollbar-thumb {
+    background: rgb(128, 131, 136);
+  }
+
+
+@media screen and (max-width: 440px) {
+    .grid-container{
+        display: block;
+        margin-top: 45px;
+    }
+    .column{
+        width: 40vw;
+    }
+    .btn-group{
+        display: block;
+        margin-top: 15px;
+    }
+
+
+    .filter{
+        top: 20px;
+        right: 10px;
+    }
+    .select-project{
+        width: 100%;
+        margin-left: none;
+    }
+    ::ng-deep app-project-list .flex .cursor-pointer{
+        z-index: 0 !important;
+    }
+    
+}
+@media screen and (max-width: 1280px) {
+    .btn-group{
+        display: block;
+        margin-top: 15px;
+    }
+    .select-project {
+        display: block;
+        // width: calc(100% - 60px);
+        // margin-left: 60px;
+    }
+    .grid-container{
+        display: block;
+    }
+}

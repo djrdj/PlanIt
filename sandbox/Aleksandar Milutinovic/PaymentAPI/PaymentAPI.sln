@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentAPI", "PaymentAPI\PaymentAPI.csproj", "{339063B8-99E0-4AA3-8E96-70E5897760C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{339063B8-99E0-4AA3-8E96-70E5897760C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{339063B8-99E0-4AA3-8E96-70E5897760C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{339063B8-99E0-4AA3-8E96-70E5897760C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{339063B8-99E0-4AA3-8E96-70E5897760C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {582041D7-B0D4-4E99-9315-6F52D4F2A64A}
+	EndGlobalSection
+EndGlobal

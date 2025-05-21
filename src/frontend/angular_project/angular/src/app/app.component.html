@@ -1,0 +1,7 @@
+<app-layout *ngIf="isAuthenticated" [pageTitle]="pageTitle" class="app-layout"></app-layout>
+<app-sidebar *ngIf="isAuthenticated" [currentPage]="currentPage" class="app-sidebar"></app-sidebar>
+<div [ngClass]="{'content-shift': isSidenavOpen}" class="content">
+    <router-outlet></router-outlet>
+    
+    <app-spinner></app-spinner>
+</div>

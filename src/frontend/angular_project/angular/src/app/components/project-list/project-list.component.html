@@ -1,0 +1,40 @@
+<html class="dark-theme w-max xl:h-calc-100vh-70 ">
+  <div class="flex flex-col mt-5 w-72 mx-auto">
+    <div class="flex mx-4 mt-5 items-center h-12">
+      <h4 class="dark:text-white">{{'Project List' | translate}}</h4>
+      <!-- <img class="w-fit ml-2 cursor-pointer" style="z-index: 102;" [src]="show ? '../../../assets/icons/collapse_icon.svg' : '../../../assets/icons/expand_icon.svg'" alt="" (click)="show=!show"> -->
+    </div>
+  </div>
+  <div *ngIf="show" class="flex flex-col mt-5 w-72 mx-auto">
+    <div class="mx-auto my-auto">
+      <div class="flex items-center w-full bg-transparent dark:text-white">
+        <input 
+          type="text" 
+          class="Border py-2 px-4 bg-transparent rounded-l-md focus:outline-none dark:text-white w-72" 
+          placeholder="Search..."
+          (input)="applyFilterGlobal($event)"
+        >
+      </div>
+      <ul class="mt-0 list-none p-2">
+        <li *ngIf="showAllTasksInList" style="cursor: pointer;" class="bulltePicAllTasks p-3 text-xs text-gray-400 dark:text-white" (click)="ChangeCards2(0,'All Tasks');$event.stopPropagation()" [ngClass]="{'selected': selectedItem === 0}">Tasks from all Projects</li>
+        <ng-container *ngFor="let project of filteredProjects;">
+          <li style="cursor: pointer;" class="bulltePic p-3 text-xs text-gray-400 dark:text-white" (click)="ChangeCards(project.projectID,project.projectName);$event.stopPropagation()" [ngClass]="{'selected': selectedItem === project.projectID}"
+          [style.color]="project.backgroundColor">
+            {{project.projectName}}
+            <img style="cursor: pointer;" src="../../../assets/icons/drop.svg" alt="Strelica prema dole" class="mt-1" (click)="toggleList(project.projectID)">
+            <ul class="mt-0 list-none p-1" *ngIf="(showList == true && showListId == project.projectID) || (flag && showListId == project.projectID)">
+              <ng-container *ngTemplateOutlet="subprojects; context:{ $implicit: project }"></ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+  <ng-template #subprojects let-parentProject>
+    <ng-container *ngFor="let subproject of asssigmentList">
+      <li style="cursor: pointer;" *ngIf="parentProject.projectID === subproject.projectID" class="assignmentBulletPic" (click)="SubProjectActivate(subproject.projectID,subproject.assignmentListName,subproject.assignmentListID,parentProject.projectName);$event.stopPropagation()" [ngClass]="{'selected': selectedItem2 === subproject.assignmentListID}">
+        {{subproject.assignmentListName}}
+      </li>
+    </ng-container>
+  </ng-template>
+</html>

@@ -1,0 +1,57 @@
+
+<div *ngIf="edit==1" >
+ <div class="container">
+    <div class="form-outline" data-mdb-input-init>
+        <p> Naziv: </p>
+        <input [(ngModel)]="film1.naziv" placeholder="{{film1.naziv}}" type="text" id="formControlLg" class="form-control form-control-lg" />
+        <label class="form-label" for="formControlLg"></label>
+      </div>
+      
+      <div class="form-outline" data-mdb-input-init>
+        <p>  Reditelj: </p>
+        <input [(ngModel)]="film1.reditelj" placeholder="{{film1.reditelj}}" type="text" id="formControlDefault" class="form-control" />
+        <label class="form-label" for="formControlDefault"></label>
+      </div>
+      
+      <div class="form-outline" data-mdb-input-init>
+        <p> Ocena: </p>
+        <input  [(ngModel)]="film1.ocena" placeholder="{{film1.ocena}}" type="text" id="formControlSm" class="form-control form-control-sm" />
+        <label class="form-label" for="formControlSm"></label>
+      </div>
+    
+
+    <button (click)="updateFilm1(film1)" *ngIf="film1.id" [routerLink]="'/glavna'" >Sacuvaj</button>
+
+  
+
+</div>
+</div>
+
+
+
+
+    <div class="container" *ngIf="edit==0">
+       <div class="form-outline" data-mdb-input-init>
+           <p> Naziv: </p>
+           <input [(ngModel)]="film1.naziv" placeholder="Naziv" type="text" id="formControlLg" class="form-control form-control-lg" />
+           <label class="form-label" for="formControlLg"></label>
+         </div>
+         
+         <div class="form-outline" data-mdb-input-init>
+           <p>  Reditelj: </p>
+           <input [(ngModel)]="film1.reditelj" placeholder="Reditelj" type="text" id="formControlDefault" class="form-control" />
+           <label class="form-label" for="formControlDefault"></label>
+         </div>
+         
+         <div class="form-outline" data-mdb-input-init>
+           <p> Ocena: </p>
+           <input  [(ngModel)]="film1.ocena" placeholder="Ocena" type="text" id="formControlSm" class="form-control form-control-sm" />
+           <label class="form-label" for="formControlSm"></label>
+         </div>
+       
+   
+      
+   
+       <button (click)="createFilm1(film1)"  [routerLink]="'/glavna'">Kreiraj</button>
+   </div>
+ 

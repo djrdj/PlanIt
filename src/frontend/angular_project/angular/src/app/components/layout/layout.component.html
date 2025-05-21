@@ -1,0 +1,108 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html id="layoutHead">
+<div class="container dark:bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500">
+
+  <div class="header">
+    
+    
+   <p></p>
+    <span class="user-info">
+      <span><p  class="text-sm md:text-base lg:text-lg xl:text-xl xsm:text-xs">{{ pageTitle | translate }}</p> </span>
+      <div class="notification-container flex align-center justify-center" *ngIf="role!='Administrator'">
+        <img 
+          style="cursor: pointer; width: 20px; height: 25px;" 
+          src="../../../assets/images/Notification.svg" 
+          alt="notification" 
+          class="notification" 
+          #mnotifButton 
+          (click)="toggleNotifications()"
+        />
+        <span class="badge" *ngIf="notifCount > 0">{{ notifCount }}</span>
+      </div>
+      <img  style="cursor: pointer;" src="../../../assets/profilepics/{{userPic}}" #profileButton alt="profile" class="profile-pic" (click)="toggleUserDropdown()"/>
+    </span>
+    
+
+  </div>
+
+  <!--mini notifications-->
+  <div class="mnotifications bg-white dark:bg-gray-700 dark:text-white" #mnotifications *ngIf="isNotifOpen">
+    <!-- <button class="close-btn" (click)="toggleNotifications()" >
+      <img src="../../../../assets/icons/close.svg" alt="Close" style="width:18px; height:18px;">
+    </button> -->
+    <p class="top">{{ 'notifications' | translate }}</p>
+    <!-- <div class="mnotification">
+      <img src="../../../assets/icons/user_icon.svg">
+      <div>
+        <p class="title">You have a new task</p>
+        <p class="message">User1 assigned you to Task1 in the project Project1</p>
+      </div>
+      <p>00:00</p>
+    </div>
+    <div class="mnotification">
+      <img src="../../../assets/icons/user_icon.svg">
+      <div>
+        <p class="title">You have a new task</p>
+        <p class="message">User1 assigned you to Task1 in the project Project1</p>
+      </div>
+      <p>00:00</p>
+    </div>
+    <div class="mnotification">
+      <img src="../../../assets/icons/user_icon.svg">
+      <div>
+        <p class="title">You have a new task</p>
+        <p class="message">User1 assigned you to Task1 in the project Project1</p>
+      </div>
+      <p>00:00</p>
+    </div> -->
+
+    
+    <div class="mnotification dark:text-white" *ngFor="let notification of notificationService.notifications">
+      <img class="profile-pic" [src]="'../../../assets/profilepics/' + notification.senderInfo.pictureUrl " (click)="imageRedirect(notification.senderInfo.userID);$event.stopPropagation();">
+      <div>
+        <!-- <p class="title dark:text-white">{{ getNotificationTitle(notification)}}</p> -->
+        <div class="message dark:text-white">
+          {{ notification.senderInfo.username}}  
+          <p 
+            [ngClass]="{'text-blue-400 cursor-pointer': notification.assignmentId || notification.projectId}" 
+            (click)="this.redirect(notification)"
+          >
+            {{ notificationService.getNotificationType(notification.notificationType)}}
+          </p>
+        </div>
+        
+      </div>
+      <p>{{ notification.timeStamp | date:'HH:mm' }}</p> 
+    </div>
+    <p class="bottom"  style="cursor: pointer;" [routerLink]="'/notifications'" href="#" (click)="notificationService.getAllNotifications();isNotifOpen=false;">{{ 'seeAllNotifications' | translate }}</p>
+  </div>
+
+  <!--user dropdown-->
+  <div class="userdropdown dark:text-white dark:bg-gray-600" #userdropdown *ngIf="isUserDropdownOpen">
+    <p class="fullName">{{fullName}}</p>
+    <p class="username">&#64;{{loggedUser}}</p>
+    <ul>
+      <li (click)="this.isUserDropdownOpen = false; imageRedirect(userId)" style="cursor: pointer;">
+        <svg class="flex-shrink-0 w-5 h-5 text-gray-500  dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"/>
+        </svg> 
+        {{ 'profilePage' | translate }}
+      </li>
+      <li  style="cursor: pointer;"  [routerLink]="'/settings'" (click)="this.isUserDropdownOpen = false;">
+        <svg class="flex-shrink-0 w-5 h-5 text-gray-500  dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6h-2m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4"/>
+        </svg>
+        {{ 'settings' | translate }}
+      </li>
+      <li  style="cursor: pointer;" (click)="onLogoff(); this.isUserDropdownOpen = false;">
+        <svg class="flex-shrink-0 w-5 h-5 text-gray-500  dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+        </svg>   
+        {{ 'logout' | translate }}
+      </li>
+    </ul>
+  </div>
+
+</div>
+</html>

@@ -1,0 +1,41 @@
+<html id="profile_html">
+<div class="parent dark:bg-gray-800" style="padding-top: 20px;">
+    <!-- <app-sidebar [currentPage]="'profile'"></app-sidebar> -->
+    <!-- <app-layout [pageTitle]="'Profile'"></app-layout> -->
+    <div class="container dark:bg-gray-700">
+        <img src="../../../assets/images/wave.svg" class="wave">
+        <img src="../../../assets/icons/back_arrow_icon.svg" class="back" alt="back" (click)="goBack()">
+        <img src="../../../assets/profilepics/{{user.pictureUrl}}" class="profile">
+        <img  style="cursor: pointer;" *ngIf="authorized" (click)="imageRedirect(userId)" class="edit" src="../../../assets/icons/edit_icon.svg">
+        <h1 class="text-white text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">{{user.firstName}}  {{user.lastName}}</h1>
+        <h2 class="text-white text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">{{user.email}}</h2>
+        <div class="info  dark:text-white">
+            <div class="item  dark:text-white">
+                <img src="../../../assets/icons/user_icon.svg">
+                <div>
+                    <p class="p1 dark:text-white">{{ 'position' | translate }}</p>
+                    <p class="p2">{{role}}</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../assets/icons/phone_icon.svg">
+                <div>
+                    <p class="p1 dark:text-white">{{ 'phoneNumber' | translate }}</p>
+                    <p class="p2">{{user.phoneNumber}}</p>
+                </div>
+
+            </div>
+            <div class="item">
+                <img src="../../../assets/icons/user_icon_2.svg">
+                <div>
+                    <p class="p1 dark:text-white">{{ 'username' | translate }}</p>
+                    <p class="p2">{{user.username}}</p>
+                </div>
+
+            </div>
+        </div>
+        <img class='logo' src="../../../assets/images/logo.svg">
+
+    </div>
+</div>
+</html>

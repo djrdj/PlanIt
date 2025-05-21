@@ -1,0 +1,112 @@
+<div class="overlay">
+    <div class="navbar">
+        <span><b>{{'Update Task'|translate}}</b></span>
+        <button style="cursor: pointer;"   class="close-btn" (click)="closeOverlay()">
+            <img src="../../../../assets/icons/close.svg" alt="Close" style="width:18px; height:18px;">
+        </button>
+    </div>
+    <div class="content">
+        <div class="input-row">
+            <div class="input-container">
+                <label for="taskName" >{{ 'taskName' | translate }}</label>
+                <input type="text" class="border-none outline-none"  (keydown.enter)="changeTask()" id="taskName" placeholder="Enter task name" [(ngModel)]="task.assignmentName"/>
+            </div>
+            <div *ngIf="isAuthorized" class="input-container">
+                <label for="project">{{ 'taskGroup' | translate }}</label>
+                <div class="flex" *ngIf="newTaskGroup">
+                    <input type="text" class="border-none outline-none" id="new" [(ngModel)]="inputNewTaskGroup" (keyup.enter)="createAssignmentList()" placeholder="{{ 'enterNewTaskGroupName' | translate }}">
+                    <img style="cursor: pointer;"
+                        (click)="newTaskGroup=false; this.task.assignmentListID=this.input.inputTask.assignmentListID;"
+                        src="../../../assets/icons/x_icon.svg"
+                        alt="X"
+                        class="w-5 h-5 ml-1 mt-1.5 -mb-1.5 rounded-full object-cover cursor-pointer"
+                    />
+                    <img style="cursor: pointer;"
+                        (click)="createAssignmentList()"
+                        src="../../../assets/icons/check_icon.svg"
+                        alt="yes"
+                        class="w-7 h-7 mt-0.5 -mb-0.5 rounded-full mr-2 object-cover cursor-pointer"
+                    />
+                </div>
+                <div style="cursor: pointer;" class="flex">
+                    <select class="border-none outline-none" style="cursor: pointer;" *ngIf="!newTaskGroup" id="project"  (change)="addNewTaskGroup($event)" [(ngModel)]="task.assignmentListID">
+                        <option value="" disabled hidden></option>
+                        <option *ngFor="let subrpoject of asssigmentList" [value]="subrpoject.assignmentListID">{{ subrpoject.assignmentListName }}</option>
+                        <option value=-1>+ {{ 'addNewTaskGroup' | translate }}</option>
+                    </select>
+                    <img style="cursor: pointer;"
+                        *ngIf="trashCan" 
+                        (click)="deleteAssignment(task.assignmentListID)"
+                        src="../../../assets/icons/trash_can_icon.svg"
+                        alt="trashCan"
+                        class="w-6 h-6 rounded-full mt-1.5 -mb-1.5 mr-2 object-cover cursor-pointer"
+                    />
+                </div>
+            </div>
+        </div>
+  
+        <div class="input-row">
+            <div class="input-container">
+                <label for="endDate">{{ 'endDate' | translate }}</label>
+                <input class="border-none outline-none" type="date" id="endDate" [(ngModel)]="task.deadline" [min]="task.creationDate"/>
+            </div>
+            <div *ngIf="isAuthorized" class="input-container">
+                <label for="project">{{ 'priority' | translate }}</label>
+                <select class="border-none outline-none rounded-md py-1 px-2" style="cursor: pointer;"   [(ngModel)]="task.priority">
+                    <option value="" disabled selected hidden></option>
+                    <option value="Low">{{ 'low' | translate }}</option>
+                    <option value="Medium">{{ 'medium' | translate }}</option>
+                    <option value="High">{{ 'high' | translate }}</option>
+                </select>
+            </div>
+        </div>
+  
+        <div class="input-row">
+            <div class="input-container">
+                <label>{{ 'responsible' | translate }}</label>
+                <div class="add-member-btn">
+                    <!-- <div class="circle"><span>+</span></div> -->
+                    <app-assign-users [type]="'UpdateTask'" style="cursor: pointer;" [projectId]="this.input.projectId" [taskLeadID]="this.taskLeadID"></app-assign-users>
+                </div>
+            </div>
+            <div class="input-container">
+                <label>{{ 'assignees' | translate }}</label>
+                <div class="add-member-btn" style="float: right;">
+                    <!-- <div class="circle"><span>+</span></div> -->
+                    <app-assign-users [type]="'UpdateTask'" style="cursor: pointer;" [projectId]="this.input.projectId" [taskId]="this.task.assignmentID"
+                    (userIdsToAddChanged)="userIdsToAddHandler($event)" (userIdsToRemoveChanged)="userIdsToRemoveHandler($event)"></app-assign-users>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="input-container">
+                <label for="project">{{'Depends on' | translate}}</label>
+                <select class="border-none outline-none" style="cursor: pointer;" id="project" [(ngModel)]="task.parentAssignmentID" (change)="setCreationEndDateParentAssignment(task.parentAssignmentID)">
+                    <option value="0"></option>
+                    <option *ngFor="let task of tasks" [value]="task.assignmentID">{{ task.assignmentName }}</option>
+                </select>
+            </div>
+            <div class="input-container">
+                <label for="project">{{'Progress'|translate}}</label>
+                <input class="border-none outline-none" type="text" [(ngModel)]="task.progress" (keydown)="validateProgressKeyDown($event)" (change)="checkProgress()"/>
+                <p-slider [(ngModel)]="task.progress" [step]="5" (onSlideEnd)="checkProgress()"/>  
+            </div>
+        </div>
+  
+        <div>
+            <label for="description">{{ 'description' | translate }}</label>
+            <textarea class="border-none outline-none" id="description"  (keydown.enter)="changeTask()" rows="4" placeholder="Enter task description" [(ngModel)]="task.description"></textarea>
+        </div>
+  
+        <div class="buttons">
+            <button class="cancel-btn border-none outline-none" style="cursor: pointer;"  (click)="closeOverlay()">{{ 'cancel' | translate }}</button>
+            <button class="create-btn border-none outline-none" style="cursor: pointer;"   (click)="changeTask()">{{ 'update' | translate }}</button>
+        </div>
+    </div>
+    <ng-container *ngIf="openResolveOverlay">
+        <app-dismiss  style="cursor: pointer;" [type]="'Resolve'" [task]="task" (closeOverlayEvent)="openResolveOverlay = !openResolveOverlay;"></app-dismiss>
+    </ng-container>
+    
+  </div> 
+  

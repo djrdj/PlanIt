@@ -1,0 +1,37 @@
+
+<div class="overlay">
+    <div class="navbar bg-white dark:bg-gray-800 dark:text-white">
+      <span><b>{{ 'addAccount' | translate }}</b></span>
+    </div>
+    <div class="content dark:bg-gray-800 dark:text-white">
+        <form action="">
+            <div class="form-group">
+                <label for="email">{{ 'emailAddress' | translate }}:</label>
+                <input type="email" placeholder="{{'Email address'|translate}}" id="email" name="email" [(ngModel)]="email">
+    
+                <label for="username">{{ 'username' | translate }}:</label>
+                <input type="text" id="username" name="username" [(ngModel)]="username">
+    
+                <label for="permissions">{{ 'roles' | translate }}:</label>
+                <div class="permissions dark:text-white" id="permissions">
+                    <div class="mat" >
+                        <mat-slide-toggle style="cursor:pointer;" (click)="toggleRole(1)" [checked]="userRoleID === 1" color="accent">{{ 'administrator' | translate }}</mat-slide-toggle>
+                    </div>
+    
+                    <div class="mat" >
+                        <mat-slide-toggle style="cursor:pointer;" (click)="toggleRole(2)" [checked]="userRoleID === 2" color="accent">{{ 'projectManager' | translate }}</mat-slide-toggle>
+                    </div>     
+    
+                    <div class="mat" >
+                        <mat-slide-toggle style="cursor:pointer;" (click)="toggleRole(3)" [checked]="userRoleID === 3" color="accent">{{ 'employee' | translate }}</mat-slide-toggle>
+                    </div>
+                </div>
+    
+            </div>
+        </form>
+      <div class="buttons">
+        <button class="cancel-btn" (click)="closeOverlay()">{{ 'cancel' | translate }}</button>
+        <button class="create-btn" (click)="sendRegistrationEmail()">{{ 'create' | translate }}</button>
+      </div>
+    </div>
+  </div>

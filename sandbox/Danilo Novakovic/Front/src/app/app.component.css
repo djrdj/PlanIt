@@ -1,0 +1,19 @@
+
+table{
+    position: relative;
+    top: 50px;
+    right: 350px;
+}
+#prvo{
+    position: relative;
+    left: 100px;
+    top: 50px;
+}
+
+
+
+
+
+/*
+[routerLink]="'/add-car'"
+*/

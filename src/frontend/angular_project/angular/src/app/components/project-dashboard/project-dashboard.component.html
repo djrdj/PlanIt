@@ -1,0 +1,207 @@
+<html id="projectHtml" >
+<div class="wrapper dark:bg-gray-800 dark:text-white ">
+
+<div class="grid-container p-4">
+
+  <div class="row-start-1 row-end-6 -mt-28 bg-white-50 w-full  " >
+
+  </div>
+  
+  <div class="flex kartica" style="position: relative;top: -30px;">
+  <div class="xsm:Cardxsm sm:Cardsm md:Cardmd lg:Card">
+    <div class="pt-0.5 px-3.5 w-2/6 h-4/5 mx-1 overflow-hidden sm:pt-0 sm:px-0 sm:w-2/6 sm:h-3/5 xsm:pt-0 xsm:px-0 xsm:w-2/6 xsm:h-3/5 ">
+        <img  src="../../../assets/icons/grommet-icons_task.svg" alt="" class=" w-full h-full">
+    </div>
+    <div class="data">
+        <p class="text-sm">{{ 'personalProjects' | translate }}: {{projectCountByUser}} </p>
+    </div>
+    </div>
+  </div>
+  
+  <div class="flex kartica justify-center" style="position: relative;top: -30px;">
+    <div class="xsm:Cardxsm sm:Cardsm md:Cardmd lg:Card">
+      <div class="pt-0.5 px-3.5 w-2/6 h-4/5  mx-1 overflow-hidden sm:pt-0 sm:px-0 sm:w-2/6 sm:h-3/5 sm:mt-1 xsm:pt-0 xsm:px-0 xsm:w-2/6 xsm:h-3/5 ">
+        <img style="margin-left: 5px;" src="../../../assets/icons/planned.svg" style="width: 40px; height: 40px;"  alt="" class=" w-full h-full">
+      </div>
+      <div class="data">
+          <p class="text-sm">{{ 'plannedProjects' | translate }}: {{plannedProject}} </p>
+      </div>
+    </div>
+  </div>
+  <div class="flex kartica justify-end"style="position: relative;top: -30px;">
+    <div class="xsm:Cardxsm sm:Cardsm md:Cardmd lg:Card">
+      <div class="pt-0.5 px-3.5 w-2/6 h-4/5  mx-1 overflow-hidden sm:pt-0 sm:px-0 sm:w-2/6 sm:h-3/5  xsm:pt-0 xsm:px-0 xsm:w-2/6 xsm:h-3/5 ">
+          <img src="../../../assets/icons/bi_list-task.svg" alt=""class=" w-full h-full" >
+        </div>
+        <div class="data">
+            <p class="text-sm">{{ 'activeProjects' | translate }}: {{activeProjectCountByUser}} </p> 
+        </div>
+    </div>
+  </div>
+  <div class = "flex kartica justify-end" style="position: relative;top: -30px;">
+    <div class="xsm:Cardxsm sm:Cardsm md:Cardmd lg:Card">
+      <div class="pt-0.5 px-3.5 w-2/6 h-4/5  mx-1  overflow-hidden  sm:pt-0 sm:px-0 sm:w-2/6 sm:h-3/5  xsm:pt-0 xsm:px-0 xsm:w-2/6 xsm:h-3/5 ">
+          <img src="../../../assets/icons/stiklica.svg" style="width: 30px; height: 30px;" alt="" class=" w-full h-full">
+        </div>
+        <div class="data">
+            <p class="text-sm">{{ 'completedProjects' | translate }}: {{comletedProjectCountByUser}}</p>
+        </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="openOverlay">
+    <div class="overlay-background"></div>
+    <div class="overlay-content">
+      <app-add-project   style="cursor: pointer;"  (closeOverlayEvent)="toggleOverlay()"></app-add-project>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="openUpdateOverlay">
+    <div class="overlay-background"></div>
+    <div class="overlay-content">
+      <app-update-project  style="cursor: pointer;"  [id]="projectID" (closeOverlayEvent)="toggleUpdateOverlay()"></app-update-project>
+    </div>
+  </ng-container>
+  
+  
+  <ng-container *ngIf="openDismissOverlay">
+    <div ></div>
+    <div class="overlay-content">
+      <app-dismiss-project  style="cursor: pointer;" [project]="this.tempProject"  (closeOverlayEvent)="toggleDismissOverlay()"></app-dismiss-project>
+    </div>
+  </ng-container>
+
+  <p-toast></p-toast>
+<p-confirmDialog header="Delete" ></p-confirmDialog> 
+
+    <div class="flex mt-8 mb-8 w-full max-w-full col-start-2 lg:col-end-6 md:col-end-6 sm:col-end-6 xsm:col-end-6  min-w-full max-h-130"   style="margin-top: -40px;" >
+        
+     <p-table class="ptable self-start min-h-96 xsm:mt-10"  
+     #dt
+     [value]="filteredProjects" 
+     dataKey="projectID"
+     [globalFilterFields]="['projectName', 'description','startDate','endDate','status','projectLeaderFirstName']"
+     >
+       <ng-template pTemplate="caption">
+         <div class="project-header dark:text-white" >
+          <span id="projectTable">{{ 'projectTable' | translate }}</span> 
+          <div class="import-export-buttons">
+           <!-- <button (click)="selectFile()">{{ 'Import Projects' | translate }}</button>-->
+            <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+            <button *ngIf="!hasProjects()" (click)="exportProjects()" class="disabled-button " disabled>{{ 'Export Projects' | translate }}</button>
+            <button *ngIf="hasProjects()" (click)="exportProjects()">{{ 'Export Projects' | translate }}</button>
+          </div>
+          
+          <input id="projectName" class="dark:bg-gray-500 dark:text-white outline-none" pInputText type="text" [(ngModel)]="projectFilter" placeholder="{{'search'|translate}}" />
+        
+        <button   *ngIf="(role=='Manager')" class=" no-border dark:text-white" (click)="toggleOverlay()"><img  style="cursor: pointer;margin-right: 65px;"  class="button-image" *ngIf="role=='Manager'" src="../../../assets/icons/plusic.svg" alt="add" > </button>
+      </div>
+       </ng-template>
+       <ng-template pTemplate="header" >
+           <tr>
+               <th  style="width: 5%;"  pSortableColumn="projectName" class="w-44 dark:bg-gray-700 dark:text-white">{{ 'project' | translate }}
+                <p-sortIcon class="w-1 h-1" field="projectName"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="text" field="projectName" display="menu">
+                </p-columnFilter>
+              </th>
+              
+               <th  style="width: 5%;"  pSortableColumn="projectLeaderFirstName" class="w-44 dark:bg-gray-700 dark:text-white">
+                <span class="projectManager">{{ 'projectManager' | translate }}</span>
+                <p-sortIcon  class="w-1/6 h-1/12" field="projectLeaderFirstName"></p-sortIcon>
+                <!-- <p-columnFilter class="w-1 h-1" type="text" field="projectLeaderFirstName" display="menu">
+                </p-columnFilter> -->
+                <p-columnFilter field="projectLeader" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                  <ng-template pTemplate="header">
+                      <div class="px-3 pt-3 pb-0">
+                          <span class="font-bold">{{'Project Leader Picker'|translate}}</span>
+                      </div>
+                  </ng-template>
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-multiSelect [options]="projectLeaders" placeholder="{{'Any'|translate}}" (onChange)="filter2($event.value)" optionLabel="projectLeaderFirstName">
+                          <ng-template let-option pTemplate="item">
+                              <div class="flex vertical-align-middle">
+                                  <img [alt]="option.label" src="../../../assets/profilepics/{{option.projectLeaderURL}}" width="24" class="vertical-align-middle" />
+                                  <span class="ml-1 mt-0.5">{{ option.projectLeaderFirstName + " " + option.projectLeaderLastName }}</span>
+                              </div>
+                          </ng-template>
+                      </p-multiSelect>
+                  </ng-template>
+              </p-columnFilter>
+
+                </th>
+
+               <th  style="width: 5%;"  pSortableColumn="startDate" class="w-48 dark:bg-gray-700 dark:text-white">{{ 'startDate' | translate }}
+                <p-sortIcon class="w-1 h-1" field="startDate"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="date" field="startDate" display="menu">
+                  <ng-template pTemplate="filter" let-filter="filterCallback">
+                    <p-calendar dateFormat="mm/dd/yy" (onSelect)="filter($event)"></p-calendar>
+                  </ng-template>
+                </p-columnFilter></th>
+
+               <th  style="width: 5%;"  pSortableColumn="endDate"  class="w-48 dark:bg-gray-700 dark:text-white">{{ 'endDate' | translate }}
+                <p-sortIcon class="w-1 h-1" field="endDate"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="date" field="endDate" display="menu">
+                  <ng-template pTemplate="filter" let-filter="filterCallback">
+                    <p-calendar dateFormat="mm/dd/yy" (onSelect)="filter($event)"></p-calendar>
+                  </ng-template>
+                </p-columnFilter></th>
+              
+               <th  style="width: 5%;"  pSortableColumn="status"  class="w-48 dark:bg-gray-700 dark:text-white">{{ 'status' | translate }}
+                <p-sortIcon class="w-1 h-1" field="status"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="text" field="status" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" >
+
+                  <ng-template pTemplate="filter" let-filter="filterCallback">
+                    <p-dropdown class="dragan" [options]="statuses" (onChange)="filter($event.value)" placeholder="{{ 'status' | translate }}">
+                        <ng-template let-statuses pTemplate="item">
+                            <p-tag  [value]="statuses.label" [severity]="getSeverity(statuses.value)"></p-tag>
+                        </ng-template>
+                    </p-dropdown>
+                </ng-template>
+
+                </p-columnFilter>
+              </th>
+            
+              <th style="text-align: center;width: 5%;" class="dark:bg-gray-700 dark:text-white" *ngIf="role=='Manager'">{{ 'update' | translate }}</th>
+              <th  style="text-align: center;width: 5%;" class="dark:bg-gray-700 dark:text-white" *ngIf="role=='Manager'">{{ 'dismiss' | translate }}</th> 
+             </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-project>
+           <tr  style="cursor: pointer;" class="text-xs align-middle"   (mouseenter)="project.showButton = true" 
+           (mouseleave)="project.showButton = false" (click)="sendProjectkWithNotifications(project.projectID,project.projectName)">
+
+           <td  class="project-name">
+            <ng-container >
+                {{project.projectName | translate }}
+             </ng-container>
+          </td>
+       
+          <td  style="font-size: 14px;width:5%;" class="flex items-center space-x-3 my-auto align-middle"><img class="user-pic" src="../../../assets/profilepics/{{project.projectLeaderURL}}" alt="{{project.projectLeaderURL}}" (click)="imageRedirect(project.projectLeaderID);$event.stopPropagation();">
+            <span class="name-info">
+              {{project.projectLeaderFirstName | translate}} {{project.projectLeaderLastName |translate}}
+             </span>
+         </td>
+               <td style="font-size: 14px;width: 5%;" >{{project.startDate | date :  'MM/dd/yyyy'}}</td>
+               <td style="font-size: 14px;width: 5%;" >{{project.endDate | date :  'MM/dd/yyyy'}}</td>
+               <td   style="font-size: 20px;width: 3%;" ><div class="status" [ngClass]="{
+                'in-progress': project.status === 'In Progress',
+                'dismissed': project.status === 'Dismissed',
+                'planned': project.status === 'Planned',
+                'completed': project.status ==='Completed'}">
+                {{project.status | translate}}
+              </div>
+              </td>
+              <td style="width:5%;"  style="cursor: pointer;" *ngIf="role=='Manager'"><button   class=" no-border dark:text-white" style="position: relative;left: 65px;" (click)="toggleUpdateOverlay1(project.projectID);$event.stopPropagation()"><img class="button-image1"   src="../../../assets/icons/edit-black.svg"  alt=""> </button></td> 
+          
+             <td style="width:5%;"  style="cursor: pointer;" *ngIf="role=='Manager'"> <button   class="no-border dark:text-white" style="position: relative;left: 65px;" (click)="dismissProject(project);$event.stopPropagation()"> <img  class="button-image1"  *ngIf="!(project.status=='Dismissed' || project.status=='Completed')" src="../../../assets/icons/dismiss.svg"   alt=""> </button></td>
+              </tr>
+       </ng-template>
+   </p-table>
+   </div>
+   
+
+  </div>
+</div>
+
+</html>
+
+

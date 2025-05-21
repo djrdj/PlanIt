@@ -1,0 +1,376 @@
+.container {
+    position: relative;
+    top: 0px;
+    z-index: 10;
+    left: 0px;
+    
+
+    overflow: visible;
+    height: 45px;
+    background: linear-gradient(270deg, #F3A20D 0%, #AB4D12 100%);
+  
+    padding-left: 20px;
+    font-family: 'Montserrat', sans-serif;
+    min-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   // margin-bottom: 20px;
+}
+
+
+// HEADER 
+.container .header {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    height: 50px;
+}
+
+.container .header p {
+    margin: 0 0 0 50px;
+    flex-grow: 1;
+}
+
+.container .header span {
+    display: flex;
+    align-items: center;
+}
+
+.container .header .user-info img {
+    margin-left: 10px;
+    height: 35px;
+    width: 35px;
+}
+
+.container .header p {
+    font-weight: 500;
+}
+
+.container button,
+input,
+p,
+span {
+    font-size: 20px;
+    color: white;
+    // padding: 10px;
+    margin: 0 10px;
+}
+
+
+// NOTIFIKACIJA 
+// .notification-container {
+//     position: relative;
+//     display: inline-block;
+//   }
+  
+  .badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+  }
+
+.notification:hover {
+    transform: scale(1.1);
+}
+
+// PROFILNA SLIKA
+.profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.1);
+}
+
+
+
+// LOGOUT BUTTON
+.sidenav .button {
+    font-size: 16px;
+    border: 0;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.sidenav .button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+// MENU BUTTON
+
+.sidebar-button {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s ease;
+}
+
+.container .sidebar-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+
+
+
+// SIDENAV
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.4s;
+    align-items: center;
+}
+
+.sidenav .logo {
+    position: relative;
+    z-index: 2;
+    padding: 10px 0px 0px 0px;
+}
+
+.sidenav .close-btn {
+    position: absolute;
+    top: 20px;
+    /* Adjust top position */
+    right: 10px;
+    /* Adjust right position */
+    z-index: 2;
+    /* Ensure the close button is above other content */
+    transition: transform 0.3s ease;
+}
+
+.sidenav .close-btn:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.sidenav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    /* Ensure position relative for z-index to work */
+    z-index: 1;
+    /* Set a lower z-index */
+}
+
+
+.sidenav ul li {
+    padding: 8px 8px 8px 32px;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    position: relative;
+    left: -20px;
+}
+
+.sidenav ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+.sidenav ul li a:hover {
+    color: darkblue;
+}
+
+.sidenav.open {
+    width: 285px;
+    box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+.categories {
+    color: black;
+    font-size: 18px;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    background-color: #fff6e9;
+    padding-left: 10px;
+    margin-left: 0;
+}
+
+
+
+li img {
+    position: relative;
+    margin-right: 10px;
+    top: 10px;
+    height: 30px;
+    width: 30px;
+
+}
+
+
+hr {
+    position: relative;
+    border: 1px solid #1F4768;
+    //top: -40px;
+    left: -20%;
+
+    width: calc(100% - 20px);
+    /* Adjust width to account for padding */
+
+}
+
+//mini notifications
+.mnotifications {
+    position: absolute;
+    z-index: 999;
+    top: 55px;
+    right: 65px;
+    
+    border-radius: 6px;
+    box-shadow: 1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+    width: 20vw;
+    min-width: 250px;
+}
+
+.mnotification {
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 0.5vw;
+    //grid-template-columns: 0.8fr 1fr 5fr 1fr;
+    border-top: 2px solid;
+    border-color: #5A5858;
+    align-items: center;
+    padding: 5px;
+}
+
+.mnotification p,
+.top,
+.bottom {
+    color: #5A5858;
+    padding: 0;
+    font-size: 15px;
+    margin: 0;
+}
+
+.top {
+    padding: 10px;
+    color: black;
+    font-size: 18px;
+}
+
+.bottom {
+    text-align: center;
+    font-size: 17px;
+    padding: 10px;
+    border-top: 2px solid;
+    border-color: #5A5858;
+}
+.dark .mnotification p, .top, .bottom{
+    color:#cfcece;
+}
+.bottom:hover {
+    color: #28B4E1;
+    cursor: pointer;
+}
+
+
+
+.container .close-btn {
+    display: flex;
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    position: absolute;
+    padding: 5px;
+    margin: 5px;
+    top: 4px;
+    right: 8px;
+
+    &:hover {
+        transform: scale(1.1);
+        /* Apply a scale transformation on hover for a cool effect */
+    }
+    
+
+}
+
+.userdropdown{
+    position: absolute;
+    z-index: 999;
+    top: 55px;
+    right: 15px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+    width: 10vw;
+    min-width: 230px;
+}
+
+.userdropdown p{
+    color: #5A5858;
+    padding: 0;
+    font-size: 15px;
+    margin: 0;
+}
+
+.userdropdown .fullName{
+    padding: 10px 20px 0 20px;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.userdropdown .username{
+    padding-left: 20px;
+    padding-bottom: 10px;
+    color: black;
+    font-size: 14px;
+    border-bottom: 2px solid;
+    border-color: #5A5858;
+}
+
+.userdropdown ul{
+    padding: 0;
+    margin: 5px 0 10px 0;
+}
+
+.userdropdown li{
+    font-size: 14px;
+    list-style: none;
+    padding: 5px 20px 5px 20px;
+    display: flex;
+}
+
+.userdropdown li:hover{
+    background-color: lightgray;
+}
+
+.userdropdown li svg{
+    margin-right: 10px;
+}
+
+.dark .userdropdown .fullName{
+    color: white;
+}
+
+.dark .userdropdown .username{
+    color: white;
+}

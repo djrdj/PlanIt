@@ -1,0 +1,12 @@
+<html class="overlay">
+<h2 class="navbar" mat-dialog-title>{{ 'addNewColumn' | translate }}</h2>
+<div class="content dark:bg-gray-700 ">
+  <input class="outline-none" #inputField matInput placeholder="{{'Column name'|translate}}" [(ngModel)]="data.columnName" (keydown.enter)="confirmAdding()">
+
+  <mat-dialog-actions style="cursor: pointer;">
+    <button mat-button class="cancel-btn" (click)="onNoClick()">{{ 'cancel' | translate }}</button>
+    <button mat-button class="confirm-btn" [mat-dialog-close]="data.columnName" cdkFocusInitial>{{ 'confirm' | translate }}</button>
+  </mat-dialog-actions>
+</div>
+
+</html>

@@ -1,0 +1,27 @@
+<html class="overlay">
+  <div class="content dark:bg-gray-700">
+    <h2>{{username}}</h2>
+    <mat-dialog-content>
+      <h3 class="dark:text-white text-sm pr-4 justify-content-center align-items-center">{{ 'changeUserRole' | translate }}</h3>
+      <div class="permissions  ">
+        <div class="toggle row-start-1" (click)="toggleRole(1)">
+          <mat-slide-toggle style="cursor:pointer;" [checked]="selectedRole === 1">{{ 'administrator' | translate }}</mat-slide-toggle>
+        </div>
+        <div class="toggle row-start-2" (click)="toggleRole(2)">
+          <mat-slide-toggle style="cursor:pointer;" [checked]="selectedRole === 2">{{ 'projectManager' | translate }}</mat-slide-toggle>
+        </div>
+        <div class="toggle row-start-3" (click)="toggleRole(3)">
+          <mat-slide-toggle style="cursor:pointer;" [checked]="selectedRole === 3">{{ 'employee' | translate }}</mat-slide-toggle>
+        </div>
+        <!-- Poruka koja se prikazuje ako nijedno dugme nije odabrano -->
+        <p *ngIf="selectedRole === null" class="error-message dark:text-white">{{ 'chooseRole' | translate }}</p>
+        <!-- Poruka koja se prikazuje ako uloga već postoji -->
+        <p *ngIf="roleAlreadyAssigned" class="error-message dark:text-white">{{ 'roleAlreadyAssigned' | translate }}</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="cancel-btn" mat-button style="cursor:pointer;" (click)="dialogRef.close()">{{ 'cancel' | translate }}</button>
+      <button class="create-btn" mat-button style="cursor:pointer;" (click)="confirmSelection()">{{ 'confirm' | translate }}</button>
+    </mat-dialog-actions>
+  </div>
+</html>

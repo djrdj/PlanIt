@@ -1,0 +1,355 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 10% 21% 21% 21% 21%;
+  gap: 5%;
+  background-color: transparent;
+  padding: 4% 0;
+  max-width: 80%;
+  
+}
+.wrapper{
+  height: calc(100vh - 45px);
+}
+.data
+{
+  padding:3% 3% ;
+}
+.user-pic{
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 0;
+  object-fit:cover;
+  cursor: pointer;
+}
+
+
+:host ::ng-deep{
+
+  .p-datatable .p-sortable-column .p-sortable-column-icon {
+    color:#6b7280;
+  }
+
+  .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+    color: #1D4ED8;;
+  }
+
+
+  .disabled-button {
+    background-color: #d3d3d3!important; 
+    cursor: not-allowed!important;
+    border: none!important;
+  }
+  .dark #projectName::placeholder {
+    color: white; 
+  }
+  .dark .ptable{
+    background-color:rgb(75 85 99);
+  }
+  .dark .p-datatable .p-datatable-header{
+    color: white;
+    background-color:rgb(75 85 99);
+  }
+  .dark tr{
+    color: white;
+    background-color: rgb(75 85 99);
+  }
+  .dark tr:hover{
+    background-color:rgb(107 114 128);
+  }
+
+  tr:hover {
+    background-color: lightgray;
+  }
+  td{
+    border: none;
+  }
+  thead th{
+    background-color: transparent;
+    color: black;
+    font-family: Montserrat;
+    border-bottom: 3px solid #1997BB;
+    font-size: 12px;
+  }
+  .p-datatable .p-datatable-header{
+    background-color: white;
+    border-top-left-radius: 17px;
+    border-top-right-radius: 17px;
+    color: black;
+    font-family: Montserrat;
+    border: none;
+    
+  
+  }
+  .ptable{
+    width:100%;
+    overflow-x: auto; 
+    border-radius: 6px;
+    box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+    max-height: 100%;
+  }
+}
+
+.Table{
+  display: flex;
+  margin-top:3%;
+  width: 100%;
+  max-width: 100%;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+.project-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.report_header{
+margin: 30% auto;
+display: flex;
+justify-content: space-between;
+}
+
+:host ::ng-deep{
+  
+  
+ .p-tag.p-tag-warning {
+    background: gray!important;
+    color: #ffffff;
+  }
+
+.ptable{
+  width:100%;
+  overflow-x: auto; 
+  border-top-left-radius: 17px;
+  border-top-right-radius: 17px;
+  box-shadow: 4px 5px 20px 0px rgba(0, 0, 0, 0.22);
+}
+
+.custom-sort-icon {
+  size: 16px; 
+}
+
+.p-datatable .p-component{
+  background-color: #1997BB;
+} 
+.p-datatable .p-datatable-header{
+  background-color: white;
+  border-top-left-radius: 17px;
+  border-top-right-radius: 17px;
+  color: black;
+
+  border: none;
+
+}
+
+.p-element .w-1 .h-1{
+  width: 10px;
+  height: 10px;
+}
+
+
+thead th{
+  background-color: transparent;
+  color: black;
+  
+  border-bottom: 3px solid #1997BB;
+  font-size:15px;
+}
+tr:hover {
+  background-color: lightgray;
+}
+td img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+td{
+  border: none;
+
+  font-size: 12px;
+  font-weight:#666;;
+  
+}
+.center
+{
+  text-align: center;
+}
+.p-chart .p-element div canvas{
+  width: 100px;
+}
+.card .flex .justify-content-center
+{
+  background-color: #1997BB;
+}
+canvas{
+  max-width: 100%;
+}
+.report_header{
+  max-width: 20%;
+}
+.card.flex.justify-content-center
+{
+  max-width: 100%;
+}
+.p-dropdown .ng-star-inserted:first-of-type{
+  color: white;
+  font-size: 12px;
+}
+.p-dropdown svg{
+  color:white;
+  
+}
+button
+{
+  top: 2px;
+}
+}
+
+
+
+input[type="text"]
+{
+ width: calc(50% - 10px);
+ padding: 8px;
+ margin-bottom: 10px;
+
+ border: 1px solid rgb(105, 105, 105);
+ border-radius: 5px;
+ resize: none;
+}
+
+
+#projectName { 
+ border: none; 
+ border-bottom: 2px solid #28B4E1;
+ border-radius: 0;
+ 
+}
+
+
+.dismissed{
+  background-color: grey;
+}
+
+.status{
+  font-size: 10px;
+}
+
+.ptable{
+ 
+  width: 150%;
+  overflow-x: auto; /* Omogućava horizontalni scrollbar ako tabela prelazi širinu ekrana */
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 1500px) {
+  .ptable {
+    width: 1500px; /* Maksimalna širina tabele na ekranima širine većoj od 600 piksela */
+  }
+  td{
+    height:10%;
+    width:9%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .ptable {
+    width:800px; /* Tabla će zauzimati 100% širine na ekranima širine manjoj ili jednako 1000 piksela */
+  }
+}
+
+.project-name:hover button {
+  display: inline-block;
+  
+}
+.project-name button{
+  border: none;
+  background-color: lightgray;
+}
+
+
+.import-export-buttons {
+  padding: 10px;
+ 
+  display: flex;
+  justify-content:center;
+
+  button {
+      &:hover {
+          transform: scale(1.05); 
+          
+      }
+      color: #000000; 
+      background-color: white;
+      margin-right: 10px;
+      padding: 8px 20px;
+      border-radius: 6px;
+      box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+      
+  }
+}
+
+.dark .import-export-buttons button {
+  border: 2px solid  rgb(236 72 153); 
+  color: white;
+  background-color: rgb(236 72 153); 
+}
+.import-export-buttons  button{
+  border: 2px solid #28B4E1;
+}
+button:not(.disabled-button) {
+  cursor: pointer;
+  opacity: 1;
+}
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 20% 30% 25% 25%;
+  }
+  .ptable th:nth-child(3), 
+  .ptable td:nth-child(3),
+  .ptable th:nth-child(4), 
+  .ptable td:nth-child(4),
+  
+  .ptable td .name-info ,
+  .projectManager, .import-export-buttons,
+  .kartica, #projectTable
+  {
+    display: none;
+  }
+}
+
+.no-border {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  outline: none;
+}
+
+.no-border:focus {
+  outline: none; 
+}
+
+.button-image {
+  display: block;
+  // width: 40%; 
+  // height: 40%; 
+  pointer-events: none; 
+}
+
+
+.button-image1 {
+  display: block;
+  width: 100%; 
+  height: 100%; 
+  pointer-events: none; 
+}
+

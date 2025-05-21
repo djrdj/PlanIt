@@ -1,0 +1,16 @@
+<div class="flex dark-mode dark:text-white">
+    <!-- Project Name -->
+    <h4 class="cursor-pointer  hover:text-blue-500 mt-0 dark:text-white link" *ngIf="ProjectName !='-' && ProjectName !='home' && ProjectName !='undefined' && ProjectName!='All Tasks'"  (click)="BackTooProjectOnly()">{{ProjectName}}</h4>
+    <h4 class="cursor-pointer hover:text-blue-500 mt-0 dark:text-white" *ngIf="ProjectName !='-' && ProjectName !='home' && ProjectName !='undefined' && ProjectName==='All Tasks'"  (click)="BackTooProjectOnly()">Tasks from all Projects</h4>
+    <!-- Separator between Project and SubProject -->
+    <h4 *ngIf="SubProjectName!='-' && SubProjectName !='home' && SubProjectName!='undefined' && SubProjectName != undefined && SubProjectName != 'home' && SubProjectName!='undefined' && SubProjectName!=' '" class="hover:text-blue-500 mt-0 dark:text-white">&nbsp;>>&nbsp;</h4>
+
+    <!-- SubProject Name -->
+    <h4 *ngIf="SubProjectName!='-' && SubProjectName !='home' && SubProjectName!='undefined'" class="cursor-pointer hover:text-blue-500 mt-0 dark:text-white link"  (click)="BackTooProject()" > {{SubProjectName}}</h4>
+
+    <!-- Separator between SubProject and Task -->
+    <h4 *ngIf="TaskName!='home' && TaskName!='view' && TaskName!='kanban' && TaskName!='ganttchart' && TaskName!=undefined && SubProjectName!='-' && SubProjectName !='home' && SubProjectName!='undefined' && SubProjectName != undefined  " class="mt-0 dark:text-white">&nbsp;>>&nbsp;</h4>
+
+    <!-- Task Name -->
+    <h4 class="cursor-pointer hover:text-blue-500 mt-0 dark:text-white link" *ngIf="TaskName!='home' && TaskName!='view' && TaskName!='kanban' && TaskName!='ganttchart'&& TaskName!='undefined'">{{this.TaskName}}</h4>
+</div>

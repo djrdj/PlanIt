@@ -1,0 +1,448 @@
+<!-- <app-layout [pageTitle]="'Task Dashboard'"></app-layout> -->
+<!-- <app-sidebar [currentPage]="'view'"></app-sidebar> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html id="project-view-html" class="overflow-x-hidden">
+<div class="dark:bg-gray-800 dark:text-white wrapper-project-view overflow-x-hidden">
+<div class="xl:grid-container-project-view xsm:grid-container-project-view-sm  ">
+  <div class="row-start-1 xsm:hidden xl:block row-end-4  w-max -mt-28 shadow-custom3  projLista dark:bg-gray-700 dark:text-white proj-list">
+    <app-project-list></app-project-list>
+  </div>
+  <div class="col-start-1 col-end-5 xl:hidden xsm:flex xsm:flex-col  dark:bg-gray-700 dark:text-white  xsm:shadow-custom-3 xsm:rounded-md w-full h-full ">
+    <div *ngIf="ProjectInfo != undefined" class="flex self-center justify-between w-full mb-4 shadow-custom3 rounded-md items-center text-gray-600 dark:text-white">
+      <h5 class="mr-2 ml-1">Responsible:</h5>  
+      <div *ngIf="SelctedHandler" class="w-max flex items-center">
+            <img class="user-pic self-center mr-2" src="../../../assets/profilepics/{{ProjectInfo.projectLeaderURL}}" alt="{{ProjectInfo.projectLeaderURL}}" (click)="imageRedirect(ProjectInfo.projectLeaderID);$event.stopPropagation();">
+            <h5 class="mr-2">{{ProjectInfo.projectLeaderFirstName}} {{ProjectInfo.projectLeaderLastName}}</h5>
+        </div>
+    </div>
+    <select class="p-2 border-none outline-none shadow-custom3 rounded-md w-full  dark:bg-gray-700 dark:text-white" [(ngModel)]="selectedProject" (change)="onProjectChange($event)">
+        <option value="0" selected>{{'Select Project'|translate}}</option>
+        <option *ngFor="let project of projects" [value]="project.projectID">{{ project.projectName }}</option>
+    </select>
+
+   
+  </div>
+
+  <div class="flex">
+  <div class="xsm:Cardxsm sm:Cardsm md:Cardmd lg:Card prvaKartica">
+    <div class="xl:pt-0.5 xsm:min-h-14 xsm:pt-2 xsm:  xl:px-3.5 w-2/6 h-4/5 mx-1 overflow-hidden">
+        <img  src="../../../assets/icons/grommet-icons_task.svg" alt="" class=" w-full h-full">
+    </div>
+    <div class="data">
+        <p class="">{{ 'personalTasks' | translate }}: {{TaskCount}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center">
+    <div class="xsm:Cardxsm sm:Cardsm md:Cardmd lg:Card">
+      <div class="pt-0.5 px-3.5 w-2/6 h-4/5  mx-1 overflow-hidden sm:pt-0 sm:px-0 sm:w-2/6 sm:h-3/5 sm:mt-1 xsm:pt-0 xsm:px-0 xsm:w-2/6 xsm:h-3/5 ">
+        <img src="../../../assets/icons/material-symbols_productivity.svg" alt="" class=" w-full h-full">
+      </div>
+      <div class="data">
+          <p class="">{{ 'members' | translate }}: {{UserCount}}</p>
+      </div>
+    </div>
+</div>
+<div class="flex justify-end">
+    <div class="xsm:Cardxsm sm:Cardsm md:Cardmd lg:Card">
+      <div class="pt-0.5 px-3.5 w-2/6 h-4/5  mx-1 overflow-hidden sm:pt-0 sm:px-0 sm:w-2/6 sm:h-3/5  xsm:pt-0 xsm:px-0 xsm:w-2/6 xsm:h-3/5 ">
+          <img src="../../../assets/icons/bi_list-task.svg" alt=""class=" w-full h-full" >
+        </div>
+        <div class="data">
+            <p class="">{{ 'activeTasks' | translate }}: {{ActiveTaskCount}}</p>
+        </div>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <div class="xsm:Cardxsm sm:Cardsm md:Cardmd lg:Card">
+      <div class="pt-0.5 px-3.5 w-1/6 h-3/5  mx-1  overflow-hidden  sm:pt-0 sm:px-0 sm:w-1/6 sm:h-3/5  xsm:pt-0 xsm:px-0 xsm:w-2/6 xsm:h-3/5 ">
+          <img src="../../../assets/icons/stiklica.svg" style="width: 28px; height: 28px;" alt="" class=" w-full h-full">
+        </div>
+        <div class="data">
+            <p class="">{{ 'completedTasks' | translate }}: {{CopletedTaskCount}}</p>
+        </div>
+    </div>
+  </div>
+  <div class="lg:flex xsm:flex xsm:justify-start xsm:flex-col  lg:flex-row lg:justify-between lg:content-center xl:col-start-2 xsm:col-start-1 xsm:col-end-5 xl:col-end-6 shadow-custom3 rounded-md lg:p-0 xsm:p-4 dark:bg-gray-700 dark:text-white projIndo">
+    <div class="flex flex-row  max-h-6  text-gray-600 lg:self-center xsm:self-start dark:text-white">
+      <h4 class="mt-0  ml-4" *ngIf="this.ProjectName != 'All Tasks'">{{'project' | translate}}&nbsp;:&nbsp;</h4><app-urlnavigation ></app-urlnavigation>
+    </div>
+      <div class="flex max-h-6  items-start  text-gray-600 lg:self-center xsm:self-start xsm:mb-3 lg:mb-0  justify-end items-baseline dark:text-white">
+            <div class="flex lg:mb-4 lg:ml-4 lg:px-2  xsm:ml-0 xsm:px-0  ">
+              <div class="w-52 min-w-52">
+                <span class="font-medium xsm:text-xs xl:text-sm mr-2 ">{{ 'startDate' | translate }}:</span>
+                <img
+                  src="../../../assets/icons/calendar_icon.svg"
+                  class="w-4 h-4 mr-1"
+                />
+                <span *ngIf="ProjectInfo != undefined" class="lg:text-sm xsm:text-xs ">{{ProjectInfo.startDate | date:'MM/dd/yyyy'}}</span>
+              </div>
+          </div>
+      </div>
+      <div class="flex max-h-6  items-start lg:self-center xsm:self-start   text-gray-600  justify-center items-baseline dark:text-white">
+          <div class="flex lg:mb-4 lg:ml-4 lg:px-2 xsm:mb-0 xsm:ml-0 xsm:px-0 ">
+          <div class="w-52 min-w-52">
+            <span class="font-medium xsm:text-xs xl:text-sm mr-2  " >{{ 'endDate' | translate }}:</span>
+            <img
+              src="../../../assets/icons/calendar_icon.svg"
+              class="w-4 h-4 mr-1 " 
+            />
+            <span *ngIf="ProjectInfo != undefined" class="lg:text-sm xsm:text-xs">{{ProjectInfo.endDate | date:'MM/dd/yyyy'}}</span>
+         
+        
+          </div>
+        </div>
+      </div>
+      <div *ngIf="ProjectInfo != undefined" class="xsm:hidden lg:flex lg:self-center xsm:self-start  items-start text-gray-600 dark:text-white justify-center items-center">
+       
+        <div class="w-52 min-w-52">
+          <span class="flex flex row r">
+            <img  class="user-pic self-center" src="../../../assets/profilepics/{{ProjectInfo.projectLeaderURL}}" alt="{{ProjectInfo.projectLeaderURL}}" (click)="imageRedirect(ProjectInfo.projectLeaderID);$event.stopPropagation();">
+            <p class="">{{ProjectInfo.projectLeaderFirstName}} {{ProjectInfo.projectLeaderLastName}}</p> 
+          </span>
+        </div>
+        
+      </div>
+    
+  </div>
+
+    <div class="flex mt-8  mb-8 w-full max-w-full xl:col-start-2 xsm:col-start-1 xsm:col-end-5 xl:col-end-5 min-w-full max-h-130 tabelicaDiv">
+     <p-table class="ptable  self-start min-h-96 " [value]="filteredTasks" [globalFilterFields]="['assignmentName','assignmentLeadFirstName','creationDate','deadline','priority','status']" >
+       <ng-template pTemplate="caption">
+         <div class="project-header" >
+         
+           <div class="import-export-buttons">
+          <!--  <button style="cursor:pointer;" (click)="selectFile()">{{ 'Import Tasks' | translate }}</button> -->
+            <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+            <button   *ngIf="!hasTasks()" (click)="exportTasks()"  class="disabled-button xsm:text-xs sm:text-normal" disabled>{{ 'Export Tasks' | translate }}</button>
+            <button *ngIf="hasTasks()"  (click)="exportTasks()" style="cursor: pointer;">{{ 'Export Tasks' | translate }}</button>
+          </div>
+           <input class="projectName w-2/5 pb-1 mr-14 dark:bg-gray-500 dark:text-white outline-none" pInputText type="text" [(ngModel)]="TaskNameFilter" placeholder="{{'search'|translate}}" />
+           
+          <button (click)="openAddTaskOverlay()" class="no-border dark:text-white xsm:mr-2 lg:mr-16"> <img class="button-image w-6 h-6" style="cursor: pointer;" *ngIf="(ProjectInfo?.projectLeaderID == parseid && ProjectInfo?.status!='Dismissed')" src="../../../assets/icons/plusic.svg" alt="add"> </button>
+          <button  class="no-border dark:text-white xsm:mr-2 lg:mr-16" style="cursor: not-allowed;"> <img class="button-image w-6 h-6"  *ngIf="(ProjectInfo?.projectLeaderID == parseid && ProjectInfo?.status=='Dismissed')" src="../../../assets/icons/plusicGray.svg" alt="add"> </button>
+      </div>
+       </ng-template>
+       <ng-template pTemplate="header" class="fiksno dark:bg-gray-700  dark:text-white">
+           <tr>
+               <th  pSortableColumn="assignmentName" class="sticky-header w-44 dark:bg-gray-700 dark:text-white">{{ 'task' | translate }}<p-sortIcon class="w-1 h-1" field="assignmentName"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="text" field="assignmentName" display="menu"></p-columnFilter>
+              </th>
+               <th  pSortableColumn="assignmentLeadFirstName" class="w-44 dark:bg-gray-700 dark:text-white">{{ 'Task Lead' | translate }}<p-sortIcon class="w-1/12 h-1/12" field="assignmentLeadFirstName"></p-sortIcon>
+                <!-- <p-columnFilter class="w-1/12 h-1/12" type="text" field="assignmentLeadFirstName" display="menu"> </p-columnFilter> -->
+                <p-columnFilter field="assignmentLead" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                  <ng-template pTemplate="header">
+                      <div class="px-3 pt-3 pb-0">
+                          <span class="font-bold">{{'Task Lead Picker'|translate}}</span>
+                      </div>
+                  </ng-template>
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-multiSelect [options]="taskLeads" placeholder="{{'Any'|translate}}" (onChange)="filter2($event.value)" optionLabel="taskLeadFirstName">
+                          <ng-template let-option pTemplate="item">
+                              <div class="flex vertical-align-middle">
+                                  <img [alt]="option.label" src="../../../assets/profilepics/{{option.taskLeadURL}}" width="24" class="vertical-align-middle" />
+                                  <span class="ml-1 mt-0.5">{{ option.taskLeadFirstName +" "+ option.taskLeadLastName }}</span>
+                              </div>
+                          </ng-template>
+                      </p-multiSelect>
+                  </ng-template>
+              </p-columnFilter>
+              </th>
+               <th  pSortableColumn="creationDate" class="sticky-header w-56 dark:bg-gray-700 dark:text-white">{{ 'startDate' | translate }}<p-sortIcon class="w-1 h-1" field="creationDate"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="date" field="creationDate" display="menu">
+                  <ng-template pTemplate="filter" let-filter="filterCallback">
+                    <p-calendar dateFormat="mm/dd/yy" (onSelect)="filter($event)"></p-calendar>
+                  </ng-template>
+                </p-columnFilter></th>
+               <th  pSortableColumn="deadline"  class="sticky-header w-52 dark:bg-gray-700 dark:text-white">{{ 'endDate' | translate }}<p-sortIcon class="w-1 h-1" field="deadline"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="date" field="deadline" display="menu">
+                  <ng-template pTemplate="filter" let-filter="filterCallback">
+                    <p-calendar dateFormat="mm/dd/yy" (onSelect)="filter($event)"></p-calendar>
+                  </ng-template>
+                </p-columnFilter></th>
+               <th pSortableColumn="priority"  class="sticky-header w-52 text-center dark:bg-gray-700 dark:text-white">{{ 'priority' | translate }}<p-sortIcon class="w-1 h-1" field="priority"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="text" field="priority" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+
+                  <ng-template pTemplate="filter" let-filter="filterCallback">
+                    <p-dropdown class="dragan" [options]="priorityes" (onChange)="filter($event.value)" placeholder="{{ 'priority' | translate }}">
+                        <ng-template let-priorityes pTemplate="item">
+                            <p-tag  [value]="priorityes.label" [severity]="getSeverity1(priorityes.value)"></p-tag>
+                        </ng-template>
+                    </p-dropdown>
+                </ng-template>
+
+
+                </p-columnFilter>
+               </th>
+               <th pSortableColumn="status"  class="sticky-header w-48 text-center dark:bg-gray-700 dark:text-white">{{ 'status' | translate }}<p-sortIcon class="w-1 h-1" field="status"></p-sortIcon>
+                <p-columnFilter class="w-1 h-1" type="text" field="status" display="menu"  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+
+                  <ng-template pTemplate="filter" let-filter="filterCallback">
+                    <p-dropdown class="dragan" [options]="statuses" (onChange)="filter($event.value)" placeholder="{{ 'status' | translate }}">
+                        <ng-template let-statuses pTemplate="item">
+                            <p-tag  [value]="statuses.label" [severity]="getSeverity(statuses.value)"></p-tag>
+                        </ng-template>
+                    </p-dropdown>
+                </ng-template>
+
+                </p-columnFilter>
+              </th>
+              <th  class="sticky-header w-44 text-center dark:bg-gray-700 dark:text-white">
+                {{ 'quickAccess' | translate }}
+              </th>
+              <!-- <th *ngIf="role=='Manager'">Dismiss</th>
+              <th *ngIf="role=='Manager'">Update</th> -->
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-Task>
+          <tr class="text-xs align-middle" style="cursor: pointer;" (click)="sendTaskWitId(Task.assignmentID)"> 
+               <td>{{Task.assignmentName}}</td>
+               <td class="flex items-center space-x-4 my-auto align-middle"><img class="user-pic" src="../../../assets/profilepics/{{Task.assignmentLeadURL}}" alt="{{Task.assignmentLeadURL}}" (click)="imageRedirect(Task.assignmentLeadID);$event.stopPropagation();">{{Task.assignmentLeadFirstName}} {{Task.assignmentLeadLastName}}</td>
+               <td>{{Task.creationDate | date :  'MM/dd/yyyy'}}</td>
+               <td>{{Task.deadline | date :  'MM/dd/yyyy'}}</td>
+               <td><div class="priority" style="width: 100%;" [ngClass]="{
+                'high': Task.priority === 'High',
+                'medium': Task.priority === 'Medium',
+                'low': Task.priority === 'Low'}">
+                {{Task.priority }}
+              </div>
+              </td>
+               <td><div class="status" style="width: 100%;"  [ngClass]="{
+                'in-progress': Task.status === 'In Progress',
+                'dismissed': Task.status === 'Dismissed',
+                'planned': Task.status === 'Planned',
+                'completed': Task.status ==='Completed'}">
+                {{Task.status}}
+              </div>
+              </td>
+              <td  #bolt style="cursor: pointer;" (click)="sendTaskWithNotifications(Task.assignmentID,Task.projectID);$event.stopPropagation()" ><img src="../../../assets/icons/Quick_Access.svg" alt=""></td>
+              <!-- <td *ngIf="role=='Manager'"><img src="../../../assets/icons/dismiss.svg" (click)="sendTask(Task)" alt=""></td>
+              <td *ngIf="role=='Manager'"><img src="../../../assets/icons/edit.svg" (click)="openUpdateTaskOverlay1(Task)" alt=""></td> -->
+           </tr>
+       </ng-template>
+   </p-table>
+   </div>
+
+    <div *ngIf="isReportOpen && !tempAllTasks && ProjectInfo!=undefined" class="flex flex-col mt-8 w-full h-fit shadow-custom3 justify-start rounded-md p-4 xsm:hidden xl:flex  dark:bg-gray-700">
+      <h4 class="ml-1 -mb-1">{{'project' |translate}}: {{ProjectInfo.projectName}}</h4>
+      <div class="w-full "><hr></div> 
+      <h4 class="ml-1">{{'description' | translate}} :</h4>
+        
+    <p class="ml-1 text-sm my-4">
+        {{showFullDescription ? ProjectInfo.description : (ProjectInfo.description | slice:0:maxCharacterLimit) + (ProjectInfo.description.length > maxCharacterLimit ? '...' : '')}}
+    </p>
+    <button *ngIf="showReadMoreButton" class="flex justify-self-begin bg-transparent justify-content-begin mt-1 text-xs text-gray-400 border-transparent w-fit max-h-10 hover:bg-transparent hover:text-gray-400 font-bold py-2 pr-4 rounded" (click)="toggleDescription()">
+      {{showFullDescription ? ('See less' | translate) : ('Read more' | translate)}}
+  </button>
+      <div class="ml-1 mt-auto  justify-between flex-row ">
+        <h4>{{ 'status' | translate }}:</h4>
+        <div class="w-fit status place-content-center h-2.5" [ngClass]="{
+          'in-progress': ProjectInfo.status === 'In Progress',
+          'dismissed': ProjectInfo.status === 'Dismissed',
+          'planned': ProjectInfo.status === 'Planned',
+          'completed': ProjectInfo.status ==='Completed'}">
+          {{ProjectInfo.status}}
+        </div>
+      </div>
+      
+    </div>
+
+    <div #miniTask *ngIf="!isReportOpen" class="flex flex-col mt-8 w-full  shadow-custom justify-start rounded-3xl p-4 xsm:hidden xs:hidden md:hidden lg:flex xl:flex min-w-[300px] dark:bg-gray-700 dark:text-white">
+      <div class="flex justify-between items-center mb-4">
+        
+        <button  style="cursor: pointer;" *ngIf="(role=='Manager' || taskWithComments.assignmentLeadID==this.userId)" (click)="openUpdateTaskOverlay2()" class="bg-blue-400 mt-1 border-transparent max-h-10 hover:bg-transparent hover:text-blue-400 text-white font-bold py-2 px-3 rounded">
+          {{ 'update' | translate }}
+        </button>
+        
+        <button style="cursor: pointer;"  class="mt-1 border-transparent max-h-10 text-white font-bold py-2 px-3 rounded" [disabled]="taskWithComments.status === 'Completed'" (click)="sendTask2('Resolve')" [ngClass]="{
+          'statusCompleted': taskWithComments.status ==='Completed',
+          'statusnotCompleted': taskWithComments.status != 'Completed'
+         }">
+          {{ 'resolve' | translate }}
+        </button>
+        
+        <button *ngIf="(role=='Manager')"  style="cursor: pointer;" class="bg-gray-400 mt-1  border-transparent max-h-10 hover:bg-transparent hover:text-gray-400 text-white font-bold py-2 px-3 rounded" (click)="sendTask2('Dismiss')" >
+          {{ 'dismiss' | translate }}
+        </button>
+      </div>
+
+      <div class="flex justify-between items-center mb-0">
+        <div>
+          <p class="text-base mb-0">{{this.taskWithComments.projectName}}</p>
+          <p class="text-lg font-bold mb-2 mt-2">{{this.taskWithComments.assignmentName}}</p>
+          <p *ngIf="this.taskWithComments.parentAssignmentID" class="text-sm mb-2 mt-0">Depends on {{this.taskWithComments.parentAssignmentName}}</p>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex flex-col items-center">
+          <p class="text-base mb-2">{{ 'priority' | translate }}</p>
+            <!-- <p class="text-base text-red-500 font-bold">{{this.taskWithComments.assignmentPriority}}</p> -->
+            <div class="priority" style="font-size: 12px;" [ngClass]="{
+              'high': taskWithComments.assignmentPriority === 'High',
+              'medium': taskWithComments.assignmentPriority === 'Medium',
+              'low': taskWithComments.assignmentPriority === 'Low'}">
+              {{taskWithComments.assignmentPriority }}
+            </div>
+        </div>
+        <div class="flex flex-col items-center">
+          <p class="text-base mb-2">{{ 'progress' | translate }}</p>
+            <!-- <p class="text-base text-red-500 font-bold">{{this.taskWithComments.assignmentPriority}}</p> -->
+            <div class="progress text-white py-0.5 px-2 rounded-md"
+              [ngClass]="{
+                'bg-gray-400': taskWithComments.progress! <= 30,
+                'bg-yellow-500': taskWithComments.progress! > 30 && taskWithComments.progress! <= 70,
+                'bg-green-500': taskWithComments.progress! > 70
+              }">
+              {{taskWithComments.progress}}%
+            </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center mt-4 mb-4">
+        <div class="flex flex-col items-center">
+          <span class="font-medium text-sm">{{ 'startDate' | translate }}:</span>
+          <!-- <span class="bg-gray-200 rounded-md px-2 py-1">{{this.taskWithComments.assignmentCreationDate | date:'MM/dd/yyyy'}}</span> -->
+          <div class="flex items-center px-2">
+            <img
+              src="../../../assets/icons/calendar_icon.svg"
+              class="w-4 h-4 mr-1"
+            />
+            <span class="text-sm">{{this.taskWithComments.assignmentCreationDate | date:'MM/dd/yyyy'}}</span>
+          </div>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="font-medium text-sm">{{ 'endDate' | translate }}:</span>
+          <!-- <span class="bg-gray-200 rounded-md px-2 py-1">{{this.taskWithComments.assignmentDeadLine | date:'MM/dd/yyyy'}}</span> -->
+          <div class="flex items-center px-2">
+            <img
+              src="../../../assets/icons/calendar_icon.svg"
+              class="w-4 h-4 mr-1"
+            />
+            <span class="text-sm">{{this.taskWithComments.assignmentDeadLine | date:'MM/dd/yyyy'}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h3 class="text-sm font-semibold mb-2">{{ 'description' | translate }}:</h3>
+        <p class="text-gray-700 dark:text-white">
+          {{this.taskWithComments.assignmentDescription}}
+        </p>
+      </div>
+
+      <div class="flex justify-between items-start mb-4 dark:text-white">
+        <div>
+          <h3 class="text-sm font-semibold mb-2">{{ 'assignee' | translate }}</h3>
+          <div class="flex">
+            <img
+            *ngFor="let assignedUser of this.taskWithComments.assignedUsers.slice(0, 3)" 
+            src="../../../assets/profilepics/{{assignedUser.pictureURL}}"
+            class="w-8 h-8 mr-1 rounded-full object-cover cursor-pointer"
+            (click)="imageRedirect(assignedUser.userID)"
+          />
+          <p *ngIf="this.taskWithComments.assignedUsers.length-3>0" class="cursor-pointer m-0 content-center text-lg text-gray-500" title="{{message()}}">+{{this.taskWithComments.assignedUsers.length-3}}</p>
+          </div>
+        </div>
+       
+        <div *ngIf="(role=='Manager')" class="flex flex-col dark:text-white">
+          <h3 class="text-sm font-semibold mb-2">{{ 'status' | translate }}:</h3>
+          <p class="text-gray-700 mt-2 dark:text-white">
+            {{this.taskWithComments.status}}
+          </p>
+          <!-- <select  style="cursor: pointer;" class="border border-gray-300 rounded-md py-1 px-2" (change)="changeTaskWithCommentsStatus($event)" [(ngModel)]="selectedOption">
+            <option value="Planned">{{ 'planned' | translate }}</option>
+            <option value="In Progress">{{ 'inProgress' | translate }}</option>
+            <option value="Completed">{{ 'completed' | translate }}</option>
+            <option value="Dismissed">dismissed</option>
+          </select> -->
+        </div>
+      </div>
+      
+      <div class="flex justify-between items-start mb-4">
+        <div class="mr-2">
+          <h3 class="text-sm font-semibold mb-2">{{ 'responsible' | translate }}</h3>
+          <img
+          src="../../../assets/profilepics/{{this.taskWithComments.assignmentLeaderPictureURL}}"
+            alt="Responsible"
+            class="w-8 h-8 rounded-full object-cover cursor-pointer"
+            (click)="imageRedirect(this.taskWithComments.assignmentLeadID)"
+          />
+        </div>
+        
+        <div *ngIf="(role=='Manager')"  class="flex flex-col">
+          <h3 class="text-sm font-semibold mb-2">{{'TaskGroup' |translate}}</h3>
+          <p class="text-gray-700 mt-2 dark:text-white">
+            {{this.taskWithComments.assignmentListName}}
+          </p>
+          <!-- <div class="flex" *ngIf="newTaskGroup">
+            <input id="new" [(ngModel)]="inputNewTaskGroup" placeholder="Enter new TaskGroup name">
+            <button  style="cursor: pointer;" (click)="newTaskGroup=false; this.selectedID=this.taskWithComments.assignmentListID;">X</button>
+            <button  style="cursor: pointer;" (click)="createAssignmentList()">{{ 'yes' | translate }}</button>
+          </div>
+          <select  style="cursor: pointer;" *ngIf="!newTaskGroup" class="border border-gray-300 rounded-md py-1 px-2 w-28" (change)="changeTaskWithCommentsTaskGroup($event)" [(ngModel)]="selectedID">
+            <option *ngFor="let taskgroup of assignmentList" [value]="taskgroup.assignmentListID">{{ taskgroup.assignmentListName }}</option>
+            <option value="new">{{ 'addNewTaskGroup' | translate }} +</option>
+          </select> -->
+        </div>
+      </div>
+
+      <!-- <div class="mt-4">
+        <h3 class="text-sm font-semibold mb-2">{{ 'comments' | translate }}</h3>
+        <div class="flex items-center mb-2" *ngFor="let comment of this.taskWithComments.comments">
+          <img
+            src="../../../assets/profilepics/{{comment.userPictureURL}}"
+            alt="Avatar"
+            class="w-8 h-8 rounded-full mr-2 object-cover cursor-pointer"
+            (click)="imageRedirect(comment.userID)"
+          />
+          <p class="text-gray-700">{{comment.commentText}}</p>
+        </div>
+
+        <div class="flex items-center">
+          <img
+            src="../../../assets/profilepics/{{this.userImg}}"
+            alt="Avatar"
+            class="w-8 h-8 rounded-full mr-2 object-cover cursor-pointer"
+            (click)="imageRedirect(userId)"
+          />
+          <input
+            type="text"
+            placeholder="Add a comment"
+            class="flex-1 border border-gray-300 rounded-md py-1 px-2"
+            [(ngModel)]="this.sendingComment.commentText"
+          />
+          <img  style="cursor: pointer;"
+            src="../../../assets/icons/send_icon.svg"
+            alt="Send"
+            class="w-8 h-8 rounded-full mr-2 object-cover cursor-pointer"
+            (click)="createNewComment()"
+          />
+        </div>
+      </div> -->
+   </div> 
+
+    <ng-container *ngIf="openOverlay">
+       <div class="overlay-background"></div>
+       <div class="overlay-content">
+         <app-add-task  style="cursor: pointer;" [allTasks]="this.tempAllTasks" [projectId]="this.Id" (closeOverlayEvent)="openAddTaskOverlay()"></app-add-task>
+       </div>
+     </ng-container>
+
+     <ng-container *ngIf="openDismissOverlay">
+      <div ></div>
+      <div class="overlay-content">
+        <app-dismiss  style="cursor: pointer;" [type]="type" [task]="this.tempTask" (closeOverlayEvent)="toggleDismissOverlay()"></app-dismiss>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="UpdateOverlay">
+      <div class="overlay-background"></div>
+      <div class="overlay-content">
+        <app-update-task  style="cursor: pointer;" [input]="{ inputTask: selectedTask, projectId: this.Id }" (closeOverlayEvent)="openUpdateTaskOverlay()"></app-update-task>
+      </div>
+    </ng-container>
+
+</div>
+</div>
+</html>

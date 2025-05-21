@@ -1,0 +1,68 @@
+/* Light theme styles */
+
+body {
+  //background-color: #ffffff;
+  color: #333333;
+  font-family: 'Montserrat', sans-serif;
+  height: calc(100vh - 50px);
+}
+@media screen and (max-width: 1200px){
+  body{
+    height: 100%;
+  }
+}
+.container {
+  max-width: calc(100% - 32px); /* Adjust the padding/margin on your page */
+  padding-right: 16px; /* Same as the margin you've removed */
+  padding-left: 56px; /* Same as the margin you've removed */
+  padding-bottom: 0;
+}
+
+/* Dark theme styles */
+.dark-mode-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 20px;
+}
+
+.dark-mode-switch::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #fff;
+  left: 2px;
+  transition: transform 0.3s ease;
+}
+
+/* Dark mode checked state */
+#dark-mode-toggle:checked + .dark-mode-switch::after {
+  transform: translateX(20px);
+  background-color: #000;
+}
+
+.short-div{
+  display: flex;
+  align-items: center;
+  margin: 0;
+  gap: 3px;
+  max-height: 31px;
+}
+
+.short-style{
+  background-color: #eeeeee;
+  padding: 2px 6px;
+  margin: 2px;
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 3px;
+  border-bottom: 3px solid gray;
+}
+
+h1{
+  margin-top: 0px;
+  padding-top: 2rem;
+}

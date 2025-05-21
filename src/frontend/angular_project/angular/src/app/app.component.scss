@@ -1,0 +1,13 @@
+.content-shift {
+  margin-left: 120px; /* Adjust this value based on your sidebar width */
+  transition: margin-left 0.3s ease; /* Add smooth transition */
+}
+  
+  /* Adjustments for small screens */
+  @media screen and (max-width: 768px) {
+    .content-shift {
+      margin-left: 0; /* Reset margin for smaller screens */
+      transition: margin-left 0.3s ease;
+    }
+  }
+  

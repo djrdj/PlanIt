@@ -1,0 +1,96 @@
+<html class="container flex">
+
+<!-- <img
+    *ngFor="let assignedUser of (this.taskWithComments.assignedUsers | slice:0:2)" 
+     src="../../../assets/profilepics/{{assignedUser.pictureURL}}"
+    class="w-8 h-8 mr-1 rounded-full object-cover"
+/> -->
+
+<ng-container *ngIf="this.type=='UpdateProject' || this.type=='AddProject'">
+    <ng-container *ngFor="let selectedUsers of imageUsers().slice(0, 3)">
+        <img
+          src="../../../assets/profilepics/{{selectedUsers.pictureUrl}}"
+          class="w-8 h-8 mr-1 rounded-full object-cover"
+        />
+    </ng-container>
+    <p title="{{tempMessage}}" *ngIf="tempCount>0" class="content-center text-lg">+{{tempCount}}</p>
+</ng-container>
+
+<ng-container *ngIf="this.type=='AddTask' || this.type=='UpdateTask' && !(this.taskLeadID.length) && !(images)">
+    <ng-container *ngFor="let selectedUsers of imageUsers2().slice(0, 3)">
+        <img
+          src="../../../assets/profilepics/{{selectedUsers.pictureURL}}"
+          class="w-8 h-8 mr-1 rounded-full object-cover"
+        />
+    </ng-container>
+    <p title="{{tempMessage}}" *ngIf="tempCount>0" class="content-center text-lg">+{{tempCount}}</p>
+</ng-container>
+
+<ng-container *ngIf="this.taskLeadID.length">
+    <ng-container *ngFor="let selectedUsers of users2">
+        <img
+          *ngIf="selectedUsers.id==this.tempTaskLeadID"
+          src="../../../assets/profilepics/{{selectedUsers.pictureURL}}"
+          class="w-8 h-8 mr-1 rounded-full object-cover"
+        />
+    </ng-container>
+</ng-container>
+
+<img class="plus" #plus (click)="checkType()" style="cursor:pointer;" src="../../../assets/icons/plusic.svg" alt="add"
+    class="w-8 h-8 mr-1 rounded-full object-cover">
+
+<!-- <button (click)="close()">exit</button> -->
+<div *ngIf="display" #list1 class="list1 dark:bg-gray-700 dark:text-white">
+    <input class="list1 dark:bg-gray-700 dark:text-white" (keydown.enter)="close();"  type="text" [(ngModel)]="searchTerm" placeholder="{{'Search users...'|translate}}" (input)="filterUsers1()">
+    <ul>
+        <li *ngFor="let user of filteredUsers">
+            <input style="cursor:pointer;" type="checkbox" (change)="onCheckboxChange(user.userID, $event)" [checked]="userIDs.includes(user.userID) || user.userID == projectLeaderID" [disabled]="user.userID == projectLeaderID"/>
+            <img src="../../../assets/profilepics/{{user.pictureUrl}}" alt="add"
+                class="w-8 h-8 mr-1 rounded-full object-cover"
+            >
+            <p>{{user.firstName}} {{user.lastName}}</p>
+        </li>
+    </ul>
+    <a class="confirm" (click)="displayCheckedUserIDs();close();">{{ 'confirmSelection' | translate }}</a>
+</div>
+
+<div *ngIf="display2" #list2 class="list2 dark:bg-gray-700 dark:text-white">
+    <input  class="list2 dark:bg-gray-700 dark:text-white" (keydown.enter)="close();" type="text" [(ngModel)]="searchTerm" placeholder="{{'Search users...'|translate}}"  (input)="filterUsers2()">
+    <ul>
+        <li *ngFor="let user of filteredUsers2">
+            <input style="cursor:pointer;" type="checkbox" (change)="onCheckboxChange(user.id, $event)" [checked]="userIDs.includes(user.id)"/>
+            <img src="../../../assets/profilepics/{{user.pictureURL}}" alt="add"
+                class="w-8 h-8 mr-1 rounded-full object-cover"
+            >
+            <p>{{user.firstName}} {{user.lastName}}</p>
+        </li>
+    </ul>
+    <a class="confirm" (click)="displayCheckedUserIDs();close();">{{ 'confirmSelection' | translate }}</a>
+</div>
+
+<div *ngIf="displayrb" #list3 class="list3 dark:bg-gray-700 dark:text-white">
+    <input class="list3 dark:bg-gray-700 dark:text-white" (keydown.enter)="close();" type="text" [(ngModel)]="searchTerm" placeholder="{{'Search users...'|translate}}"  (input)="filterUsers2()">
+    <ul>
+        <li *ngFor="let user of filteredUsers2">
+            <input style="cursor:pointer;" type="radio" (change)="onRadioChange(user.id,$event)" [checked]="user.id === this.taskLeadID[0]"/>
+            <img src="../../../assets/profilepics/{{user.pictureURL}}" alt="add"
+                class="w-8 h-8 mr-1 rounded-full object-cover"
+            >
+            <p>{{user.firstName}} {{user.lastName}}</p>
+        </li>
+    </ul>
+    <a class="confirm" (click)="displayTeamLeadID();close();">{{ 'confirmSelection' | translate }}</a>
+</div>
+
+<!-- <ul *ngIf="displayrb2">
+    <li *ngFor="let user of users2">
+        <input type="radio" (change)="onRadioChange(user.id,$event)" />
+        <img src="../../../assets/profilepics/{{user.pictureURL}}" alt="add"
+            class="w-8 h-8 mr-1 rounded-full object-cover">
+        <p>{{user.firstName}} {{user.lastName}}</p>
+    </li>
+</ul> -->
+
+<!-- <button style="cursor:pointer;" (click)="displayCheckedUserIDs()">Prikaži čekirane korisnike</button>
+<button style="cursor:pointer;" (click)="displayTeamLeadID()">Prikaži čekiranog tim lida</button> -->
+</html>

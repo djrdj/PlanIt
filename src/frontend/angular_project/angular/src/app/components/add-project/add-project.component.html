@@ -1,0 +1,54 @@
+<div class="overlay">
+    <div class="navbar">
+      <span><b>{{ 'addProject' | translate }}</b></span>
+      <button style="cursor:pointer;" class="close-btn" (click)="closeOverlay()">
+        <img src="../../../../assets/icons/close.svg" alt="Close" style="width:18px; height:18px;">
+      </button> 
+    </div>
+  
+    <div class="content">
+      <label for="projectName">{{ 'projectName' | translate }}</label>
+      <input type="text" id="projectName" (keydown.enter)="create()" [(ngModel)]="project.projectName" placeholder="{{ 'enterProjectName' | translate }}" />
+  
+      <div class="date-inputs">
+        <div>
+          <label for="startDate">{{ 'startDate' | translate }}</label>
+          <input style="cursor:pointer;" type="date" class="border-none outline-none" id="startDate" [(ngModel)]="project.startDate"  [min]="minDate()" />
+        </div>
+        <div>
+          <label for="endDate">{{ 'endDate' | translate }}</label>
+          <input style="cursor:pointer;"  class="border-none outline-none" type="date" id="endDate" [(ngModel)]="project.endDate"  [min]="project.startDate" />
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="members">
+          <label>{{ 'projectMembers' | translate }}</label>
+          <div class="add-member-btn">
+              <!-- <div class="circle"><span>+</span></div> -->
+              <app-assign-users [type]="'AddProject'" style="cursor: pointer;" [projectLeaderID]="project.projectLeaderID"
+              (userIDsChanged)="userIDsHandler($event)"></app-assign-users>
+          </div>
+        </div>
+
+        <!-- <div class="col">
+          <label for="subproject">Subproject of:</label>
+          <select id="subproject" [(ngModel)]="projectID">
+            <option value="" disabled selected hidden></option>
+            <option *ngFor="let temproject of projects" [value]="temproject.projectID">{{ temproject.projectName }}</option>
+          </select>
+        </div> -->
+      </div>
+
+      <div>
+        <label for="description">{{ 'description' | translate }}</label>
+        <textarea id="description" (keydown.enter)="create()"  class="border-none outline-none"  [(ngModel)]="project.description" rows="4"  placeholder="{{ 'enterProjectDescription' | translate }}"></textarea>
+      </div>
+  
+      <div class="buttons">
+        <button  class="cancel-btn" (click)="closeOverlay()">{{ 'cancel' | translate }}</button>
+        <button class="create-btn" (click)="create()">{{ 'create' | translate }}</button>
+      </div>
+    </div>
+  </div>
+

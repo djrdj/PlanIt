@@ -1,0 +1,38 @@
+<div class="overlay">
+    <div class="navbar">
+      <span><b>{{ 'updateProject' | translate }}</b></span>
+      <button style="cursor: pointer;" class="close-btn" (click)="closeOverlay()">
+        <img  src="../../../../assets/icons/close.svg" alt="Close" style="width:18px; height:18px;">
+      </button>
+    </div>
+    <div class="content">
+      <label for="projectName">{{ 'projectName' | translate }}</label>
+      <input type="text" (keydown.enter)="updateProject(project)" id="projectName" [(ngModel)]="project.projectName"  placeholder="{{project.projectName}}" />
+  
+      <div class="date-inputs outline-none border-none">
+        <div  class="outline-none border-none" >
+          <label for="endDate">{{ 'endDate' | translate }}</label>
+          <input  class="outline-none border-none" type="date" id="endDate" [(ngModel)]="project.endDate" [min]="project.startDate"/>
+        </div>
+      </div>
+  
+      <div class="members">
+        <label>{{ 'projectMembers' | translate }}</label>
+        <div class="add-member-btn">
+            <!-- <div class="circle"><span>+</span></div> -->
+            <app-assign-users [type]="'UpdateProject'" style="cursor: pointer;"  [projectId]="this.project.projectID" [projectLeaderID]="project.projectLeaderID"
+            (userIdsToAddChanged)="userIdsToAddHandler($event)" (userIdsToRemoveChanged)="userIdsToRemoveHandler($event)"></app-assign-users>
+        </div>
+      </div>
+  
+      <div>
+        <label for="description">{{ 'description' | translate }}</label>
+        <textarea class="outline-none border-none" id="description" (keydown.enter)="updateProject(project)" rows="4" [(ngModel)]="project.description" ></textarea>
+      </div>
+  
+      <div class="buttons">
+        <button class="cancel-btn" style="cursor: pointer;"  (click)="closeOverlay()">{{ 'cancel' | translate }}</button>
+        <button class="create-btn" style="cursor: pointer;"  (click)="updateProject(project)"[routerLink]="'/home'">{{ 'update' | translate }}</button>
+      </div>
+    </div>
+  </div>

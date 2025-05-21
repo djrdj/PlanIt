@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PlanIT.Services.Logic.AssignmentListServices" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.AssignmentServices" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="0.5" Width="4" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.BirthdayEmailService">
+    <Position X="22" Y="4.75" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.ClockifyService" BaseTypeListCollapsed="true">
+    <Position X="22" Y="3.25" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.CommentServices" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="3.25" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.DayBeforeDeadlineService">
+    <Position X="26.75" Y="6.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.EmailService" BaseTypeListCollapsed="true">
+    <Position X="14" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.IdentityServiceExtensions">
+    <Position X="12" Y="12.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.KanbanColumnServices" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="7" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.NotificationHub">
+    <Position X="24.25" Y="3.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.NotificationService" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="7" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.PasswordHashService" BaseTypeListCollapsed="true">
+    <Position X="10" Y="12.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.ProjectServices" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.StatisticsServices" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="13.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.TimeRegionServices" BaseTypeListCollapsed="true">
+    <Position X="26.5" Y="3.25" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.TokenServices" BaseTypeListCollapsed="true">
+    <Position X="14" Y="12.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.UpdateStatusProjectService">
+    <Position X="4.25" Y="6.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.UpdateTaskStatusService">
+    <Position X="8.5" Y="5.75" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.UserAssignmentService" BaseTypeListCollapsed="true">
+    <Position X="1.5" Y="4.25" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.UserRoleServices" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="8.5" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.UserServices" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="8.5" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PlanIT.Services.Logic.User_ProjectServices" BaseTypeListCollapsed="true">
+    <Position X="10" Y="8.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

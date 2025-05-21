@@ -1,0 +1,24 @@
+<html id="gant_html maksh dark:bg-gray-700" >
+<!-- <app-layout [pageTitle]="'Gantt'"></app-layout> -->
+<!--<app-sidebar [currentPage]="'gant'"></app-sidebar>-->
+<div class="container dark:bg-gray-700">
+    <div class="w-max   col-start-1 shadow-custom3 h-screen col-end-2 ml-16 mb-10 dark:bg-gray-700 dark:text-white lg:block md:hidden sm:hidden xsm:hidden"><app-project-list></app-project-list></div>
+    
+    
+      <div class="mt-8  col-start-2 col-end-3 dark:text-white"><app-gantic class=" "></app-gantic></div>
+    
+    
+</div>
+
+<div class="legend-container dark:bg-gray-700 dark:text-white">
+    <div class="legend-item">
+      <span class="legend-line red-line"></span>
+      <span>{{'Out of Sequence' | translate}}</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-line gray-line"></span>
+      <span>{{'On Schedule'|translate}}</span>
+    </div>
+</div>
+
+</html>

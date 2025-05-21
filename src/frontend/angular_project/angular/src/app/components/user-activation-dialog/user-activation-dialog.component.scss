@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mdc-dialog__title {
+    text-align: center;
+    border-bottom: 2px solid #28B4E1;
+    color: rgb(96, 96, 96); 
+    // margin-bottom: 10px;
+    background-color: white;
+    font-weight: bold;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+}
+
+.mdc-dialog__content {
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+
+.mat-mdc-dialog-actions {
+    justify-content: center;
+    gap: 10px;
+}
+
+.mat-mdc-dialog-container .mat-mdc-dialog-title .mat-mdc-dialog-content {
+    padding: 0;
+}
+
+button {
+    padding: 8px 20px;
+    margin-left: 10px;
+    border-radius: 6px;
+    box-shadow: 1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05); 
+    }
+
+    &.cancel-btn {
+      color: #28B4E1; 
+      border: 2px solid #28B4E1; 
+      background-color: white;
+    }
+
+    &.create-btn {
+      color: white; 
+      background-color: #28B4E1; 
+      border: 2px solid #28B4E1;
+    }
+  }
+
+p{
+    text-align: center;
+    margin: 10px 0 !important;
+}
+
+.dark .content{
+    background-color: #374151;
+}
+
+.dark .content .cancel-btn{
+    background-color: #DB2777;
+    color: white;
+    border: #DB2777;
+  }
+  
+.dark .content .create-btn{
+    background-color: #6366F1;
+    color: white;
+    border: #6366F1;
+}
+
+.dark h2{
+  background-color:#3b82f6;
+    color: white;
+  border-bottom: 2px solid #28B4E1;
+}

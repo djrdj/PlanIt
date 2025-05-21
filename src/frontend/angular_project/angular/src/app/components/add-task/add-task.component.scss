@@ -1,0 +1,232 @@
+
+.overlay {
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #776A6A;
+    font-family: 'Montserrat', sans-serif;
+
+    .navbar {
+        border-bottom: 2px solid #28B4E1;
+        color: rgb(96, 96, 96);
+        background-color: white;
+        width: 35%;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 6px 6px 0 0;
+
+
+        .close-btn {
+            cursor: pointer;
+            color: #181C7A;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+    }
+
+    .content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 0 0 6px 6px;
+        width: 35%;
+
+        /* Adjusting width and outline for the description textarea */
+        textarea#description {
+            width: calc(100% - 10px); /* Adjusted width */
+            padding: 8px; /* Adjusted padding */
+            margin-bottom: 10px;
+            border-radius: 6px;
+            resize: none;
+            box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+        }
+
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .input-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    margin-bottom: 5px;
+                }
+
+                input[type="text"],
+                input[type="date"],
+                textarea,
+                select {
+                    width: calc(100% - 10px); /* Adjusted width */
+                    padding: 8px; /* Adjusted padding */
+                    margin-bottom: 10px;
+                    box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+                    border-radius: 6px;
+                    resize: none;
+                    
+                }
+
+                .add-member-btn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: left; 
+                    position: relative; 
+    
+                    .circle {
+                        background-color: #28B4E1;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-right: 5px;
+                        z-index: 0;
+                    }
+    
+                    span {
+                        font-size: 20px;
+                        line-height: 1;
+                        color: rgb(0, 0, 0);
+                        z-index: 1;
+                    }
+                }
+            }
+            .input-container:first-child input[type="text"] {
+                border: none;
+                box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+                border-radius: 0;
+            }
+          
+            
+            .input-container:nth-child(4) input[type="date"] {
+                box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22); 
+                border-radius: 5px; /* Rounded corners */
+            }
+            
+        }
+
+        
+
+        .date-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            label {
+                margin-right: 10px;
+            }
+
+            input[type="date"] {
+                width: calc(85%);
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        
+            button {
+              padding: 8px 20px;
+              margin-left: 10px;
+              margin: 0 5px;
+              border-radius: 6px;
+              box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); // tiny shadow
+              cursor: pointer;
+        
+              &:hover {
+                transform: scale(1.05); 
+              }
+        
+              &.cancel-btn {
+                color: #28B4E1; 
+                border: 2px solid #28B4E1; 
+                background-color: white;
+              }
+        
+              &.create-btn {
+                color: white; // Text color for create button
+                background-color: #28B4E1; // Background color for create button
+                border: 2px solid #28B4E1;
+              }
+            }
+          }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    //.overlay,
+    .navbar,
+    .content {
+        width: 35%;
+        min-width: 280px;
+    }
+}
+/*
+@media screen and (min-width: 200%) {
+    .overlay,
+    .navbar,
+    .content {
+        width: 35%;
+    }
+}
+*/
+
+.dark .content{
+    background-color: #1F2937;
+    color: white;
+  }
+  
+  .dark .content input{
+    background-color: #4B5563;
+    color: white;
+  }
+
+  .dark .content select{
+    background-color: #4B5563;
+    color: white;
+  }
+  
+  .dark textarea{
+    background-color: #4B5563;
+    color: white;
+  }
+  
+  .dark .navbar{
+    background-color:#3b82f6;
+    color: white;
+  }
+  
+  .dark .content .buttons .cancel-btn{
+    background-color: #DB2777 !important;
+    color: white !important;
+    border: #DB2777 !important;
+  }
+  
+  .dark .content .buttons .create-btn{
+    background-color: #6366F1 !important;
+    color: white !important;
+    border: #6366F1 !important;
+  }
+  
+
+  

@@ -1,0 +1,45 @@
+div {
+    position: absolute;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+    cursor: auto;
+    z-index: 1;
+}
+
+div ul {
+    overflow: auto;
+    max-height: 250px;
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
+}
+
+li {
+    cursor: auto;
+    display: flex;
+    align-items: center;
+    font-size: smaller;
+    margin: 10px 5px 10px 2px;
+}
+
+p {
+    margin: 0;
+}
+
+div .confirm {
+    padding: 7px;
+}
+
+div .confirm:hover {
+    color: #28B4E1;
+}
+
+input[type="text"] {
+    width: 80%;
+    margin-top: 10px;
+}

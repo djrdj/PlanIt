@@ -1,0 +1,194 @@
+
+
+.form-group{
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    margin-top: 1%;
+}
+
+.form-group input{
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    border-color: transparent;
+    padding: 10px;
+    box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+    margin: 5px 0;
+}
+
+
+.form-group label{
+    font-family: 'Montserrat', sans-serif;
+    color: #6B6161;
+    font-size: 14px;
+}
+
+.form-group input:focus{
+    outline: 2px solid lightblue;
+}
+
+
+.overlay {
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #776A6A;
+  font-family: 'Montserrat', sans-serif;
+
+
+ 
+  .navbar {
+    border-bottom: 2px solid #28B4E1;
+    color: rgb(96, 96, 96);
+    background-color: white;
+    width: 30%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px 6px 0 0;
+
+
+    .close-btn {
+        cursor: pointer;
+        color: #181C7A;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+}
+
+  .content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+    width: 30%;
+  }
+
+  
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+      padding: 8px 20px;
+      margin-left: 10px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05); 
+      }
+
+      &.cancel-btn {
+        color: #28B4E1; 
+        border: 2px solid #28B4E1; 
+        background-color: white;
+      }
+
+      &.create-btn {
+        color: white; 
+        background-color: #28B4E1; 
+        border: 2px solid #28B4E1;
+      }
+    }
+  }
+
+
+  .mat{
+    margin: 15px 0;
+  }
+
+  @media screen and (min-width: 370px) and (max-width: 425px) {
+    .overlay,
+    .navbar,
+    .content {
+      width: 80%;
+    }
+  }
+
+  @media screen and (min-width: 425px) and (max-width: 768px) {
+    .overlay,
+    .navbar,
+    .content {
+      width: 50%;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width:1024px) {
+    .overlay,
+    .navbar,
+    .content {
+      width: 40%;
+    }
+  }
+}
+
+
+.mat-mdc-slide-toggle.mat-accent{
+    --mdc-switch-selected-track-color: rgb(0,209,0);
+    --mdc-switch-selected-handle-color: rgb(0,209,0);
+    --mdc-switch-selected-hover-track-color: rgb(0,209,0);
+    --mdc-switch-selected-hover-handle-color: rgb(0,209,0);
+    --mdc-switch-selected-focus-track-color: rgb(0,209,0);
+    --mdc-switch-selected-focus-handle-color: rgb(0,209,0);
+    --mdc-switch-selected-pressed-track-color: rgb(0,209,0);
+    --mdc-switch-selected-pressed-handle-color: rgb(0,209,0);
+}
+
+.dark .mat-mdc-slide-toggle.mat-accent{
+  --mdc-form-field-label-text-color:white;
+}
+
+::ng-deep .mat-toast {
+  top: 50px !important; /* Podešavanje visine od vrha ekrana */
+  right: 50px !important; /* Podešavanje udaljenosti od desne ivice ekrana */
+}
+
+.dark .content{
+  background-color: #374151;
+  color: white !important;
+}
+
+.dark .content form .form-group label{
+  color: white !important;
+}
+
+.dark .content input{
+  background-color: #4B5563;
+  color: white;
+}
+
+.dark .navbar{
+ background-color:#3b82f6;
+    color: white;
+}
+
+.dark .content .buttons .cancel-btn{
+  background-color: #DB2777;
+  color: white;
+  border: #DB2777;
+}
+
+.dark .content .buttons .create-btn{
+  background-color: #6366F1;
+  color: white;
+  border: #6366F1;
+}

@@ -1,0 +1,111 @@
+
+<div id="gantt-chart" class="relative">
+  <div class="flex flex-row relative -left-54 mt-6 xsm:block xsm:ml-10 md:flex" >
+    <div ><app-urlnavigation class="text-left"></app-urlnavigation></div>
+    <div class=" ">
+        <div class="flex mb-4 ml-4 px-2 dark:text-white">
+          <div class="w-52 min-w-52">
+            <span class="font-medium text-sm mr-2 dark:text-white">{{ 'startDate' | translate }}:</span>
+            <img
+              src="../../../assets/icons/calendar_icon.svg"
+              class="w-4 h-4 mr-1"
+            />
+            <span *ngIf="ProjectInfo != undefined" class="text-sm dark:text-white">{{ProjectInfo.startDate | date:'MM/dd/yyyy'}}</span>
+          </div>
+      </div>
+  </div>
+  <div class=" ">
+      <div class="flex mb-4 ml-4 px-2">
+      <div class="w-52 min-w-52">
+        <span class="font-medium text-sm mr-2 dark:text-white" >{{ 'endDate' | translate }}:</span>
+        <img
+          src="../../../assets/icons/calendar_icon.svg"
+          class="w-4 h-4 mr-1 " 
+        />
+        <span *ngIf="ProjectInfo != undefined" class="text-sm dark:text-white">{{ProjectInfo.endDate | date:'MM/dd/yyyy'}}</span>
+     
+    
+      </div>
+    </div>
+  </div>
+  
+  
+ 
+</div> 
+<div class="lg:hidden xl:hidden mb-10  md:ml-10 sm:ml-15 xsm:ml-5">
+    <select class="p-2 border-none outline-none shadow-custom3 rounded-md w-full dark:bg-gray-700 dark:text-white " [(ngModel)]="selectedProject" (change)="onProjectChange($event)">
+      <option value="0" selected>{{'Select Project'|translate}}</option>
+      <option *ngFor="let project of projects" [value]="project.projectID">{{ project.projectName }}</option>
+    </select>
+</div>
+  
+<!-- Dropdown list for selecting views -->
+<div class="absolute bottom-5 -right-full mt-4 mr-4 z-10" style="position: fixed; right: 2%; top: 78px;" class="xsm:mt-12 md:mt-0">
+  <!-- <label for="view-type" class="mr-1">Select View</label> -->
+  <button class="filter-button" (click)="toggleFilters()"></button>
+  <button class="bg-gray-100 dark:bg-gray-600 dark:text-white border border-gray-300 text-gray-800 rounded-lg mx-2 px-2 py-1 hover:bg-gray-50" (click)="scrollToToday()">{{'Go to Today' | translate}}</button>
+  <select id="view-type" class="dark:bg-gray-600 dark:text-white"  [(ngModel)]="selectedView" (change)="onViewChange($event)"
+          class="border border-gray-300 rounded-md py-1 px-2">
+    <option class="dark:bg-gray-600 dark:text-white" *ngFor="let view of views" [value]="view.value">{{ view.name }}</option>
+  </select>
+</div>
+
+<div class="overlay" *ngIf="showOverlay" (click)="toggleFilters()"></div>
+<div class="filter dark:bg-gray-700 dark:text-white" *ngIf="showFilter">
+  <label class="checkbox-label">
+    <input type="checkbox" [(ngModel)]="nameChecked" id="name" name="name">{{'taskName' | translate}}
+  </label>
+  <label class="checkbox-label">
+    <input type="checkbox" [(ngModel)]="assignedChecked" id="assigned" name="assigned">{{'assignees' | translate}}
+  </label>
+  <label class="checkbox-label">
+    <input type="checkbox" [(ngModel)]="progressChecked" id="progress" name="progress">{{'Progress' | translate}}
+  </label>
+  <label class="checkbox-label">
+    <input type="checkbox" [(ngModel)]="statusChecked" id="status" name="status">{{'status' | translate}}
+  </label>
+  <label class="checkbox-label">
+    <input type="checkbox" [(ngModel)]="priorityChecked" id="priority" name="priority">{{'priority' | translate}}
+  </label>
+</div>
+
+<ngx-gantt #gantt  (selectedChange)="selectedChange($event)" (barClick)="barClick($event)"  class="md:absolute md:left-0 xsm:absolute xsm:left-0 sm:absolute sm:left-0"
+      (linkDragEnded)="linkDragEnded($event)" (dragEnded)="dragEnded($event)" (dragStarted)="dragStarted($event)" (lineClick)="lineClicked($event)" (dragMoved)="dragMoved($event)"
+      [items]="items" [draggable]="true"  [linkable]="true" [groups]="groups"   [viewType]="viewType" [linkOptions]="globalConfig.linkOptions"
+      [selectable]="true"  [viewOptions]="viewOptions">
+  <ngx-gantt-table>
+    <ngx-gantt-column width="150px" *ngIf="nameChecked">
+      <!-- <ngx-gantt-column name="All Tasks" width="300px"></ngx-gantt-column> -->
+      <ng-template #cell let-item="item"> {{ item.title }} </ng-template>
+    </ngx-gantt-column>
+    <ngx-gantt-column *ngIf="assignedChecked" name="{{'assignees' | translate}}" width="100px">
+      <ng-template #cell let-item="item">
+        <img style="margin-top: 6px;"
+            *ngFor="let assignedUser of getColumnData(item)?.assignees" 
+            src="../../../assets/profilepics/{{assignedUser.pictureURL}}"
+            class="w-8 h-8 mr-1 rounded-full object-cover cursor-pointer"
+            (click)="imageRedirect(assignedUser.userID)"
+          />   
+      </ng-template>
+    </ngx-gantt-column>
+    <ngx-gantt-column *ngIf="progressChecked" name="{{'Progress' | translate}}" width="100px">
+      <ng-template #cell let-item="item"> {{ item.progress/0.01 }}% </ng-template>
+    </ngx-gantt-column>
+    <ngx-gantt-column *ngIf="statusChecked" name="{{'status' | translate}}" width="100px">
+      <ng-template #cell let-item="item"> {{ getColumnData(item)?.status }} </ng-template>
+    </ngx-gantt-column>
+    <ngx-gantt-column *ngIf="priorityChecked" name="{{'priority' | translate}}"width="100px">
+      <ng-template #cell let-item="item" let-index="index"> {{ getColumnData(item)?.priority }} </ng-template>
+    </ngx-gantt-column>
+  </ngx-gantt-table>
+</ngx-gantt>
+
+
+<ng-container *ngIf="addTaskOverlay">
+  <div class="overlay-background"></div>
+  <div class="overlay-content">
+    <app-add-task  style="cursor: pointer;" [allTasks]="true" (closeOverlayEvent)="openAddTaskOverlay()"></app-add-task>
+  </div>
+</ng-container>
+
+</div>

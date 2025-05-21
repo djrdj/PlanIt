@@ -1,0 +1,364 @@
+<div id="taskpage_html" class="overflow-y-hidden">
+<div class="dark:bg-gray-800 dark:text-white overflow-y-auto wrapping_html">
+
+
+
+<div class="grid-container h-full">
+ 
+    <div class="space-y-8">
+      <div class="flex justify-center w-full shadow-custom3 rounded-md dark:bg-gray-700">
+        <div class="flex w-full flex-row justify-between content-center ">
+          <img  style="cursor: pointer;" src="../../../assets/icons/back.svg" alt="asdasd" (click)="goBack()" class="ml-4 w-auto max-w-4 h-auto  ">
+          <div class="mt-6 xsm:hidden lg:block"><app-urlnavigation></app-urlnavigation> </div>
+          <div class="import-export-buttons h-fit self-center"><button (click)="exportTasks()">{{ 'Export Task' | translate }}</button></div>
+        </div>
+        
+      </div>
+        <div class="shadow-custom3 p-8 rounded-md dark:bg-gray-700 xsm:text-xs mdl:text-base">
+       
+        <div class="xsm:flex-col mdl:flex mdl:flex-row mdl:justify-between" #TaskNameInputsend >
+          <ng-container *ngIf="EditTaskShow===false ">
+            <h2   class="text-gray-500 dark:text-white mdl:text-lg xsm:text-sm">{{ 'task' | translate }} : {{Task.assignmentName}} 
+              <img *ngIf="role=='Manager' || Task.assignmentLeadID==this.UserID" style="cursor: pointer;" src="../../../assets/icons/edit.svg" class="mt-4" alt="" (click)="EditTaskChange();$event.stopPropagation()">
+              <img *ngIf="!(role=='Manager' || Task.assignmentLeadID==this.UserID)" style="cursor: not-allowed;" src="../../../assets/icons/edit.svg" class="mt-4" alt="" >
+            </h2>
+          </ng-container>
+           
+            <ng-container *ngIf="EditTaskShow && (role=='Manager' || Task.assignmentLeadID==this.UserID)">
+              <input  type="text" #TaskNameInput  class="mdl:w-3/4 xsm:w-full mdl:text-normal xsm:text-xs min-w-fit shadow-custom3 outline-none border-none mr-4" placeholder="{{Task.assignmentName}}"  [(ngModel)]="Task.assignmentName" (keyup.enter)="changeTaskWithComments();onKeyUpHandlerName()"/>
+            </ng-container>
+
+            <!-- progress -->
+            <div class="mt-5">
+              <label class="mr-2 mb-2" for="project">{{'Progress'|translate}}</label>
+              <input class="w-8 mb-2" type="text" [(ngModel)]="Task.progress" (keydown)="validateProgressKeyDown($event);" (change)="changeTaskWithComments()"/>
+              <p-slider [styleClass]="'custom-slider'" [(ngModel)]="Task.progress" (onSlideEnd)="changeTaskWithComments();checkProgress()" [step]="5"/>  
+            </div>
+           
+            <div class="flex flex-row items-center mt-1 space-x-8 xsm:flex-col xsm:space-x-0 mdl:flex mdl:flex-row mdl:space-x-8">
+                <div class="flex flex-row mdl:mx-2 xsm:mx-0 xsm:self-start mdl:self-center ">
+                    <h3 class="mdl:text-sm  mdl:font-semibold xsm:text-xs xsm:font-normal mr-2">{{ 'priority' | translate }}:</h3>
+                    <!-- <p class="text-base text-red-500 font-bold">{{this.taskWithComments.assignmentPriority}}</p> -->
+                    <!--Priority edit i prikaz-->
+                    <ng-container *ngIf="EditPriority === false" >
+                      <div *ngIf="!(role=='Manager' || Task.assignmentLeadID==this.UserID)" style="cursor: not-allowed;"  class="priority mt-2 mdl:px-3.5 mdl:py-2 xsm:px-2 xsm:py-1 mdl:font-semibold xsm:text-xs xsm:font-normal mr-2"  [ngClass]="{
+                        'high': Task.priority === 'High',
+                        'medium': Task.priority === 'Medium',
+                        'low': Task.priority === 'Low'}">
+                        {{Task.priority }}
+                      </div>
+                      <div *ngIf="role=='Manager' || Task.assignmentLeadID==this.UserID" style="cursor: pointer;"  (click)="ChangePriortyHandler();$event.stopPropagation()" class="priority mt-2 mdl:px-3.5 mdl:py-2 xsm:px-2 xsm:py-1 mdl:font-semibold xsm:text-xs xsm:font-normal mr-2"  [ngClass]="{
+                        'high': Task.priority === 'High',
+                        'medium': Task.priority === 'Medium',
+                        'low': Task.priority === 'Low'}">
+                        {{Task.priority }}
+                      </div>
+                    </ng-container>
+                      
+                    <ng-container *ngIf="EditPriority && (role=='Manager' || Task.assignmentLeadID==this.UserID)" >
+                      <select #PriorityEdit  style="cursor: pointer;"  class="border border-gray-300 rounded-md py-1 px-2" (change)="changeTaskWithCommentsDate();ChangePriortyHandler();$event.stopPropagation()" [(ngModel)]="Task.priority">
+                        <option value="" disabled selected hidden></option>
+                        <option  value="Low">{{ 'low' | translate }}</option>
+                        <option  value="Medium">{{ 'medium' | translate }}</option>
+                        <option  value="High">{{ 'high' | translate }}</option>
+                      </select>
+                    </ng-container>
+                  </div>
+               <!--Status edit i prikaz-->
+                  <div class="flex flex-row xsm:self-start mdl:self-center">
+                    <h3 class="mdl:text-sm  mdl:font-semibold xsm:text-xs xsm:font-normal mr-2 ">{{ 'status' | translate }}:</h3>
+                    <ng-container *ngIf="EditStatus === false" >
+                      <div *ngIf="role=='Manager' || Task.assignmentLeadID==this.UserID" style="cursor: pointer;" class="status mdl:ml-2 xsm:ml-0 mt-2 px-4 py-2 mdl:px-3.5 mdl:py-2 xsm:px-2 xsm:py-1 mdl:font-semibold xsm:text-xs xsm:font-normal" (click)="ChangeStatusHandler();$event.stopPropagation()" [ngClass]="{
+                        'in-progress': Task.status === 'In Progress',
+                        'dismissed': Task.status === 'Dismissed',
+                        'planned': Task.status === 'Planned',
+                        'completed': Task.status ==='Completed'}">
+                        {{Task.status}}
+                      </div>
+                      <div *ngIf="!(role=='Manager' || Task.assignmentLeadID==this.UserID)" style="cursor: not-allowed;" class="status mdl:ml-2 xsm:ml-0 mt-2 px-4 py-2 mdl:px-3.5 mdl:py-2 xsm:px-2 xsm:py-1 mdl:font-semibold xsm:text-xs xsm:font-normal"  [ngClass]="{
+                        'in-progress': Task.status === 'In Progress',
+                        'dismissed': Task.status === 'Dismissed',
+                        'planned': Task.status === 'Planned',
+                        'completed': Task.status ==='Completed'}">
+                        {{Task.status}}
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="EditStatus && (role=='Manager' || Task.assignmentLeadID==this.UserID)" >
+                        <select #StatusEdit  style="cursor: pointer;"  class="border border-gray-300 rounded-md py-1 px-2" (change)="changeTaskWithCommentsDate();ChangeStatusHandler();$event.stopPropagation()" [(ngModel)]="Task.status">
+                          <option value="" disabled selected hidden></option>
+                          <option  value="In Progress">{{ 'inProgress' | translate }}</option>
+                          <option  value="Planned">{{ 'planned' | translate }}</option>
+                        </select>
+                      </ng-container>
+                  </div>
+                  <div class="flex flex-row mt-1 -mr-2 xsm:self-start mdl:self-center"> <h3 class="mdl:text-sm  mdl:font-semibold xsm:text-xs xsm:font-normal mr-2">{{ 'responsible' | translate }}:</h3>
+                    <img
+                    src="../../../assets/profilepics/{{this.taskWithComments.assignmentLeaderPictureURL}}"
+                      alt="Responsible"
+                      class="w-8 h-8 rounded-full object-cover mt-1 cursor-pointer"
+                      (click)="imageRedirect(this.taskWithComments.assignmentLeadID)"
+                    /></div>
+            </div>
+            
+        </div>
+        
+        <div *ngIf="taskWithComments.parentAssignmentName">
+          {{'Depends on' | translate}} : {{taskWithComments.parentAssignmentName}}
+        </div>
+       
+    </div>
+    
+    <div class="flex space-x-9 mt-3 shadow-custom3 p-8 rounded-md dark:bg-gray-700 xl:justify-between xl:flex-row xsm:flex-col xsm:text-xs xsm:justify-items-start xsm:align-center xsm:space-x-0 xsm:text-xs mdl:text-base">
+        <div class="flex flex-col items-start mt-4 sm:mr-3 xsm:-ml-2">
+           
+            <!-- <span class="bg-gray-200 rounded-md px-2 py-1">{{this.taskWithComments.assignmentCreationDate | date:'MM/dd/yyyy'}}</span> -->
+            <div class="flex items-center px-2 ">
+              <ng-container *ngIf="EditStartDate===false"  >
+
+                <div *ngIf="role=='Manager' || Task.assignmentLeadID==this.UserID" class="w-52 min-w-52" (click)="ChangeHandeler2();$event.stopPropagation()">
+                  <span class="mdl:font-medium xsm:font-normal xsm:text-xs mdl:text-sm mr-2 ">{{ 'startDate' | translate }}:</span>
+                <img
+                  src="../../../assets/icons/calendar_icon.svg"
+                  class="w-4 h-4 mr-1" style="cursor: pointer;"
+                />
+                <span class="text-sm" style="cursor: pointer;">{{this.Task.creationDate| date:'MM/dd/yyyy'}}</span>
+                </div>
+
+                <div *ngIf="!(role=='Manager' || Task.assignmentLeadID==this.UserID)" class="w-52 min-w-52" >
+                  <span class="mdl:font-medium xsm:font-normal xsm:text-xs mdl:text-sm mr-2 ">{{ 'startDate' | translate }}:</span>
+                <img
+                  src="../../../assets/icons/calendar_icon.svg"
+                  class="w-4 h-4 mr-1" style="cursor: not-allowed;"
+                />
+                <span class="text-sm" style="cursor: not-allowed;">{{this.Task.creationDate| date:'MM/dd/yyyy'}}</span>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="EditStartDate && (role=='Manager' || Task.assignmentLeadID==this.UserID)"  #startDateInput >
+                <div class="w-53 max-w-53" >
+                  <label for="startDate" class="mdl:font-medium xsm:font-normal xsm:text-xs mdl:text-sm pr-1 ">{{ 'startDate' | translate }}:</label>
+                  <input type="date" id="endDate" (click)="$event.stopPropagation()" [(ngModel)]="Task.creationDate" [min]="Task.creationDate" placeholder="{{ 'chooseEndDate' | translate }}"  (change)="changeTaskWithCommentsDate();ChangeHandeler2();$event.stopPropagation()"/>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="flex flex-col items-start mt-4 ">
+            
+            <!-- <span class="bg-gray-200 rounded-md px-2 py-1">{{this.taskWithComments.assignmentDeadLine | date:'MM/dd/yyyy'}}</span> -->
+            <div class="flex items-center px-2 ml-0 xsm:-ml-2 " >
+                
+              <ng-container *ngIf="EditDate===false"  >
+
+                <div *ngIf="role=='Manager' || Task.assignmentLeadID==this.UserID" class="w-52 min-w-52" #endDateInputsend  (click)="EditDateChange();$event.stopPropagation()">
+                  <span class="mdl:font-medium xsm:font-normal xsm:text-xs mdl:text-sm mr-2 ">{{ 'endDate' | translate }}:</span>
+                  <img
+                    src="../../../assets/icons/calendar_icon.svg"
+                    class="w-4 h-4 mr-1 " style="cursor: pointer;"
+                  />
+                  <span class="text-sm " style="cursor: pointer;">{{this.Task.deadline | date:'MM/dd/yyyy'}}</span>
+                </div>
+
+                <div *ngIf="!(role=='Manager' || Task.assignmentLeadID==this.UserID)" class="w-52 min-w-52" #endDateInputsend >
+                  <span class="mdl:font-medium xsm:font-normal xsm:text-xs mdl:text-sm mr-2 ">{{ 'endDate' | translate }}:</span>
+                  <img
+                    src="../../../assets/icons/calendar_icon.svg"
+                    class="w-4 h-4 mr-1 " style="cursor: not-allowed;"
+                  />
+                  <span class="text-sm " style="cursor: not-allowed;">{{this.Task.deadline | date:'MM/dd/yyyy'}}</span>
+                </div>
+          
+              </ng-container>
+               
+                <ng-container *ngIf="EditDate && (role=='Manager' || Task.assignmentLeadID==this.UserID)"  #endDateInput >
+                    <div class="w-52 max-w-52" >
+                      <label for="endDate" class="mdl:font-medium xsm:font-normal xsm:text-xs mdl:text-sm pr-1 ">{{ 'endDate' | translate }}:</label>
+                      <input type="date" id="endDate" (click)="$event.stopPropagation()" [(ngModel)]="Task.deadline" [min]="Task.creationDate" placeholder="{{ 'chooseEndDate' | translate }}"  (change)="changeTaskWithCommentsDate();ChangeHandeler();$event.stopPropagation()"/>
+                    </div>
+                  
+                 
+                </ng-container>
+               
+             
+              
+            </div>
+          </div>
+          <p *ngIf="differenceInDays>0">{{ 'Started' | translate }} {{differenceInDays}} {{ 'daysAgo' | translate }}</p>
+          <p *ngIf="differenceInDays<0">{{ 'starts in ' | translate }} {{differenceInDays*(-1)}} {{ 'days' | translate }}</p>
+        
+        <button class="mt-1 sm:mr-3 sm:ml-0  border-transparent w-32 max-h-10 text-white font-bold py-2 px-4 rounded  mdl:justify-self-auto" [disabled]="Task.status === 'Completed'" (click)="sendTask2('Resolve')" [ngClass]="{
+          'statusCompleted': Task.status ==='Completed',
+          'cursor-pointer' : Task.status !='Completed',
+          'statusnotCompleted': Task.status != 'Completed'
+         }">
+          {{ 'resolve' | translate }}
+        </button>
+        
+        <button *ngIf="(role=='Manager' || Task.assignmentLeadID==this.UserID)"   class=" mt-1 sm:ml-0 sm:mr-3  border-transparent w-32 max-h-10 font-bold py-2 px-4 rounded" [disabled]="Task.status == 'Dismissed'" (click)="sendTask2('Dismiss')" 
+        [ngClass]="{
+          'statusCompleted': Task.status =='Dismissed',
+          'statusNotDismissed': Task.status != 'Dismissed',
+          'cursor-pointer' : Task.status !='Dismissed'
+         }">
+          {{ 'dismiss' | translate }}
+        </button>
+      </div>
+      <div class="lg:flex lg:flex-row lg:justify-between lg:space-x-3 xl:space-x-0 xsm:flex xsm:flex-col xsm:space-y-8 mdl:space-y-0 xsm:text-xs mdl:text-base">
+        <div class="flex flex-col shadow-custom3 p-8 rounded-md mdl:w-3/4 xsm:w-full dark:bg-gray-700 " #editdescriptionInput>
+           
+          <h3 class="text-gray-500 dark:text-white">{{ 'description' | translate }}:</h3>
+  
+          
+           <ng-container *ngIf="EditDescriptionShow===false">
+             <p class="ml-2 break-words mdl:text-normal xsm:text-xs">{{this.Task.description}} <br> 
+              <img *ngIf="role=='Manager' || Task.assignmentLeadID==this.UserID"  style="cursor: pointer;" src="../../../assets/icons/edit.svg" class="mt-8" alt="" (click)="EditTDescriptionChange();$event.stopPropagation()">
+              <img *ngIf="!(role=='Manager' || Task.assignmentLeadID==this.UserID)" style="cursor: not-allowed;" src="../../../assets/icons/edit.svg" class="mt-8" alt="">
+            </p>
+           </ng-container>
+            
+             <ng-container *ngIf="EditDescriptionShow && (role=='Manager' || Task.assignmentLeadID==this.UserID)">
+               <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Edit description</label>
+               <textarea   (keydown.enter)="createNewComment()"    (click)="$event.stopPropagation()" #editdescription id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-white shadow-custom3 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" (keyup.enter)="changeTaskWithComments();onKeyUpHandlerDescription()" [(ngModel)]="Task.description"  placeholder="{{Task.description}}"></textarea>
+              </ng-container>
+            
+       </div>
+       <div class="flex flex-col shadow-custom3 p-8 rounded-md dark:bg-gray-700">
+        
+        <div class="flex justify-between">
+          <h3 class="text-gray-500 dark:text-white">{{ 'assignee' | translate }}:</h3> 
+         
+         </div>
+      
+         <div *ngFor="let assignedUser of this.taskWithComments.assignedUsers" class="flex flex-row  space-x-2" >
+             <img src="../../../assets/profilepics/{{assignedUser.pictureURL}}"
+               class="w-8 h-8 my-2 ml-2 rounded-full object-cover cursor-pointer" 
+               (click)="imageRedirect(assignedUser.userID)"
+               />
+       <p>{{assignedUser.username}}</p>
+         </div>
+         <div class="add-member-btn" style="float: right;">
+           <!-- <div class="circle"><span>+</span></div> -->
+           <app-assign-users *ngIf="showAssignButton && (role=='Manager' || Task.assignmentLeadID==this.UserID)" [type]="'UpdateTask'" [projectId]="this.Id" [taskId]="this.Task.assignmentID " [images]="1"
+           (userIDsMatrixChanged)="userIDsMatrixChangedHandler($event)"></app-assign-users>
+       </div>
+        </div>
+        
+      </div>
+       
+    
+        <div class="shadow-custom3 p-8 rounded-md dark:bg-gray-700">
+      
+          <h3 class="text-gray-500 dark:text-white">{{ 'comments' | translate }}:</h3>
+          <div class="max-h-130 overflow-y-auto">
+            <div class="flex  mb-2  " *ngFor="let comment of this.taskWithComments.comments" >
+            <div class="w-full">
+              <ng-container *ngIf="!comment.EditingComment">
+                
+                <div class="flex flex-row justify-center"  (mouseenter)="comment.showText = true "(mouseleave)="comment.showText = false" >
+                <div class=" w-4/5 " *ngIf="UserID === comment.userID" >
+                  <ng-container *ngIf="UserID === comment.userID" >
+                    <!-- <div *ngIf="comment.showText && comment.userID ===this.UserID " (click)="EditComentShow(comment);comment.EditingComment=true;$event.stopPropagation()" class="text-gray-400 cursor-pointer mr-2 text-sm self-center">Edit</div> -->
+                    <div class="my-4 flex break-words flex-col px-2 justify-center  shadow-custom3 rounded-md xsm:text-xs mdl:text-base ">
+                      <div class="mdl:flex mdl:flex-row xsm:flex xsm:flex-col">
+                        <img
+                        src="../../../assets/profilepics/{{comment.userPictureURL}}"
+                        alt="Avatar"
+                        class="w-8 h-8 rounded-full mr-2 mdl:mt-0 xsm:mt-1 mdl:self-center xsm:self-start object-cover"/>
+                        <p class="font-semibold">{{comment.username}}</p>
+                        <p  *ngIf="comment.creationDate!=null" class="mdl:ml-2 mdl:mt-4 xsm:mt-0 xsm:ml-0 ">{{ comment.creationDate | date:'dd.MM.yyyy' }} {{ comment.creationDate | date:'HH:mm a' }}</p>
+                      </div>
+                      
+                      <div class="flex flex-row break-words  mdl:ml-8 xsm:ml-0 xsm:mt-0 xsm:p-0 mdl:p-4 mdl:text-normal xsm:text-xs" [innerHTML]="getCommentHtml(comment)">
+                     
+                      </div>
+                    </div>
+                      
+                  
+                    </ng-container>
+                </div>
+             
+                <div class="w-4/5 justify-center" *ngIf="UserID !== comment.userID" >
+                  <ng-container *ngIf="UserID !== comment.userID" >
+                  
+                    <div class="my-4 flex break-words flex-col px-2  shadow-custom3 rounded-md xsm:text-sm mdl:text-base">
+                      <div class="mdl:flex mdl:flex-row xsm:flex xsm:flex-col xsm:justify-start">
+                        <img
+                        src="../../../assets/profilepics/{{comment.userPictureURL}}"
+                        alt="Avatar"
+                        class="w-8 h-8 rounded-full mr-2 object-cover mdl:self-center xsm:self-start "/>
+                        <p class="font-semibold">{{comment.username}}</p>
+                        <p  *ngIf="comment.creationDate!=null" class="mdl:ml-2 mdl:mt-4 xsm:mt-0 xsm:ml-0"> {{ comment.creationDate | date:'dd.MM.yyyy' }} {{ comment.creationDate | date:'h:mm a' }}</p>
+                      </div>
+                   
+                      
+                      <div class="flex flex-row break-words ml-8 xsm:ml-0 xsm:mt-0 xsm:p-0 mdl:p-4 mdl:text-normal xsm:text-xs" [innerHTML]="getCommentHtml(comment)">
+                     
+                      </div>
+                    <div *ngIf="comment.showText && comment.userID ===this.UserID " (click)="EditComentShow(comment);comment.EditingComment=true" class="text-gray-400 ml-2 text-sm"></div>
+                    </div>
+                   
+                  </ng-container>
+                </div>
+              
+                 
+               
+              
+                </div>
+              </ng-container>
+            </div>
+             
+              <ng-container *ngIf="CommentShow && comment.EditingComment">
+                <div class="ml-a
+                uto flex flex-row ">
+                  <!-- <input type="text" placeholder="{{comment.commentText}}"  [(ngModel)]="comment.commentText" (keyup.enter)="changeComment(comment);EditComentShow()" class="my-4 flex flex-row px-2  bg-gray-200 rounded-xl outline-none border-none text-color-white py-2 placeholder::text-color-white" > -->
+                  <input type="text" [(ngModel)]="comment.commentText" (keyup.enter)="changeComment(comment);EditComentShow(comment)"> 
+                  <img
+                  src="../../../assets/profilepics/{{comment.userPictureURL}}"
+                  alt="Avatar"
+                  class="w-8 h-8 rounded-full ml-2 self-center object-cover"
+                />
+                </div>
+              </ng-container>
+        
+               
+              </div>
+          </div>
+          
+         
+        <div class="flex items-center justify-center  mb-4 w-full">
+          
+          <div class="editor-wrapper">
+            <div >
+              <p-editor [(ngModel)]="this.sendingComment.commentText" [style]="{ 'width': '100%', 'height' : '200px'}" />
+            </div>
+            <div class="flex flex-row mt-4 mr-auto">
+              <button class="statusnotCompleted bg-blue-500  ml-2  border-transparent w-32 max-h-10 text-white font-bold py-2 px-4 rounded hover:text-blue-500" style="cursor: pointer; width: fit-content; height:fit-content;"(click)="createNewComment()">{{'Comment' | translate}}</button>
+            </div>
+          </div>
+          <!-- <input
+            type="text"
+            placeholder="Add a comment"
+            class="flex-1 border border-gray-300 rounded-md py-1 px-2 h-10"
+            
+          /> -->
+         
+         
+        </div>
+       
+      </div>
+    </div>
+    <ng-container *ngIf="UpdateOverlay">
+      <div class="overlay-background"></div>
+      <div class="overlay-content">
+        <app-update-task  style="cursor: pointer;" [input]="{ inputTask: selectedTask, projectId: this.Id }" (closeOverlayEvent)="openUpdateTaskOverlay()"></app-update-task>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="openDismissOverlay">
+      <div ></div>
+      <div class="overlay-content">
+        <app-dismiss  style="cursor: pointer;" [type]="type" [task]="this.tempTask" (closeOverlayEvent)="toggleDismissOverlay()"></app-dismiss>
+      </div>
+    </ng-container>
+      
+</div>
+
+</div>
+</div>

@@ -1,0 +1,119 @@
+<div class="overlay">
+    <div class="navbar">
+        <span><b>{{ 'addTask' | translate }}</b></span>
+        <button class="close-btn" (click)="closeOverlay()">
+            <img src="../../../../assets/icons/close.svg" alt="Close" style="width:18px; height:18px;">
+        </button>
+    </div>
+    <div class="content">
+
+        <div *ngIf="allTasks" class="input-row border-none outline-none">
+            <div class="input-container border-none outline-none">
+                <label for="project">{{ 'projectName' | translate }}</label>
+                <select class="border-none outline-none" style="cursor: pointer;" id="project"  (change)="getAssignmentListByProjectId(projectId);this.getAssignmentsByProjectIdForManager(this.projectId); setCreationEndDate(projectId);" [(ngModel)]="projectId">
+                    <option *ngFor="let project of projects" [value]="project.projectID">{{ project.projectName }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="input-container">
+                <label for="taskName">{{ 'taskName' | translate }}</label>
+                <input class="outline-none border-none" (keydown.enter)="createTask()" type="text" id="taskName" placeholder="{{'Enter task name'|translate}}"  [(ngModel)]="task.assignmentName"/>
+            </div>
+           
+        </div>
+        <div class="input-row">
+            <div *ngIf="isAuthorized" class="input-container">
+                <label for="project">{{ 'taskGroup' | translate }}</label>
+                <div class="flex" *ngIf="newTaskGroup">
+                    <input class="outline-none border-none" type="text" id="new" [(ngModel)]="inputNewTaskGroup" (keyup.enter)="createAssignmentList()" placeholder="{{ 'enterNewTaskGroupName' | translate }}">
+                    <img
+                        (click)="newTaskGroup=false; this.task.assignmentListID='';"
+                        src="../../../assets/icons/x_icon.svg"
+                        alt="X"
+                        class="w-5 h-5 ml-1 mt-1.5 -mb-1.5 rounded-full object-cover cursor-pointer"
+                    />
+                    <img
+                        (click)="createAssignmentList()"
+                        src="../../../assets/icons/check_icon.svg"
+                        alt="yes"
+                        class="w-7 h-7 mt-0.5 -mb-0.5 rounded-full mr-2 object-cover cursor-pointer"
+                    />
+                </div>
+                <div class="flex">
+                    <select class="outline-none border-none" *ngIf="!newTaskGroup" style="cursor: pointer;" id="project"  (change)="addNewTaskGroup($event)" [(ngModel)]="task.assignmentListID">
+                        <option value="" disabled hidden></option>
+                        <option *ngFor="let subrpoject of asssigmentList" [value]="subrpoject.assignmentListID">{{ subrpoject.assignmentListName }}</option>
+                        <option value=-1>+ {{ 'addNewTaskGroup' | translate }}</option>
+                    </select>
+                    <img
+                        *ngIf="trashCan" 
+                        (click)="deleteAssignment(task.assignmentListID)"
+                        src="../../../assets/icons/trash_can_icon.svg"
+                        alt="trashCan"
+                        class="w-6 h-6 rounded-full mt-1.5 -mb-1.5 mr-2 object-cover cursor-pointer"
+                    />
+                </div>
+            </div>
+            <div *ngIf="isAuthorized" class="input-container outline-none border-none">
+                <label class="outline-none border-none" for="project">{{ 'priority' | translate }}</label>
+                <select class="outline-none border-none" style="cursor: pointer;" class="border border-gray-300 rounded-md py-1 px-2" [(ngModel)]="task.priority">
+                    <option value="" disabled selected hidden></option>
+                    <option value="Low">{{ 'low' | translate }}</option>
+                    <option value="Medium">{{ 'medium' | translate }}</option>
+                    <option value="High">{{ 'high' | translate }}</option>
+                </select>
+            </div>
+      </div>
+        <div class="input-row">
+            <div class="input-container">
+                <label for="startDate">{{ 'startDate' | translate }}</label>
+                <input class="outline-none border-none" style="cursor:pointer;" type="date" id="startDate" [(ngModel)]="task.creationDate" [min]="this.creationDate" [max]="this.endDate" (change)="changeEndDate()"/>
+            </div>
+            <div class="input-container">
+                <label for="endDate">{{ 'endDate' | translate }}</label>
+                <input class="outline-none border-none"  style="cursor:pointer;" type="date" id="endDate" [(ngModel)]="task.deadline" [min]="task.creationDate" [max]="this.endDate">
+            </div>
+        </div>
+  
+        <div class="input-row">
+            <div class="input-container">
+                <label>{{ 'responsible' | translate }}</label>
+                <div class="add-member-btn">
+                    <!-- <div ><span>+</span></div> -->
+                    <app-assign-users [type]="'AddTask'" [projectId]="this.projectId" style="cursor:pointer;" [taskLeadID]="this.taskLeadID"></app-assign-users>
+                </div>
+            </div>
+            <div class="input-container">
+                <label>{{ 'assignees' | translate }}</label>
+                <div class="add-member-btn" style="float: right;">
+                    <!-- <div ><span>+</span></div> -->
+                    <app-assign-users [type]="'AddTask'" [projectId]="this.projectId"  style="cursor:pointer;"
+                    (userIDsChanged)="userIDsHandler($event)"></app-assign-users>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="input-container">
+                <label for="project">{{'Depends on' | translate}}</label>
+                <select class="outline-none border-none" style="cursor: pointer;" id="project" [(ngModel)]="task.parentAssignmentID" (change)="setCreationEndDateParentAssignment(task.parentAssignmentID)">
+                    <option value="0" selected></option>
+                    <option *ngFor="let task of tasks" [value]="task.assignmentID">{{ task.assignmentName }}</option>
+                </select>
+            </div>
+        </div>
+  
+        <div>
+            <label for="description">{{ 'description' | translate }}</label>
+            <textarea class="outline-none border-none" (keydown.enter)="createTask()" id="description" rows="4" placeholder="{{'Enter task description'|translate}}" [(ngModel)]="task.description"></textarea>
+        </div>
+  
+        <div class="buttons">
+            <button class="cancel-btn" (click)="closeOverlay()">{{ 'cancel' | translate }}</button>
+            <button class="create-btn outline-none border-none" (click)="createTask()">{{ 'create' | translate }}</button>
+        </div>
+    </div>
+  </div>
+  

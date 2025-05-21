@@ -1,0 +1,188 @@
+<html>
+<body class="bg-gray-100 dark:bg-gray-800" >
+  <!-- <app-layout [pageTitle]="'Settings'"></app-layout> -->
+    <!-- <app-sidebar [currentPage]="'settings'"></app-sidebar> -->
+    <h1 class="text-lg font-semibold mt-8 dark:text-white text-center">{{ 'userSettings' | translate }}</h1>
+    <div class="container mx-auto py-8  dark:text-white  "> <!--mozda dodati ovde flex justify-center-->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Push Email Settings -->
+            <div class="bg-white dark:bg-gray-700 shadow-custom3 rounded-md p-4 m-1  w-full">
+                <h2 class="text-base font-semibold mb-4">{{ 'pushEmailSettings' | translate }}</h2>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input  style="cursor: pointer;" type="checkbox" class="form-checkbox" checked>
+                        <span class="ml-2">{{ 'pushEmailsAboutComments' | translate }}</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input  style="cursor: pointer;" type="checkbox" class="form-checkbox" checked>
+                        <span class="ml-2">{{ 'pushEmailsAboutNotifications' | translate }}</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input  style="cursor: pointer;" type="checkbox" class="form-checkbox">
+                        <span class="ml-2">{{ 'pushOtherEmails' | translate }}</span>
+                    </label>
+                </div>
+            </div>
+            <!-- Appearance Settings -->
+            <div class="bg-white dark:bg-gray-700 shadow-custom3 rounded-md p-4 m-1 w-full">
+                <h2 class="text-base font-semibold mb-4">{{ 'appearanceSettings' | translate }}</h2>
+                <div class="flex items-center space-x-4">
+                    <span class="font-semibold text-base ">{{ 'darkTheme' | translate }}:</span>
+
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input  style="cursor: pointer;" type="checkbox" value="" class="sr-only peer" (change)="toggleDarkMode($event)" [checked]="isDarkModeActive()">
+                        <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    </label>
+  
+                </div>
+            </div>
+            <!-- Language Preference -->
+            <div class="bg-white dark:bg-gray-700 shadow-custom3 rounded-md p-4 m-1 w-full">
+                <h2 class="text-base font-semibold mb-4">{{ 'languagePreference' | translate }}</h2>
+                <div class="space-y-2">
+                  <label class="flex items-center">
+                    <input type="radio" class="form-radio" name="language" value="en" [checked]="selectedLanguage === 'en'" (change)="onLanguageChange($event)">
+                    <span class="ml-2">{{ 'english' | translate }}</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" class="form-radio" name="language" value="sr" [checked]="selectedLanguage === 'sr'" (change)="onLanguageChange($event)">
+                    <span class="ml-2">{{ 'serbian' | translate }}</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" class="form-radio" name="language" value="sp"  [checked]="selectedLanguage === 'sp'" (change)="onLanguageChange($event)">
+                    <span class="ml-2">{{ 'spanish' | translate }}</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" class="form-radio" name="language" value="ch" [checked]="selectedLanguage === 'ch'" (change)="onLanguageChange($event)">
+                    <span class="ml-2">{{ 'chinese' | translate }}</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" class="form-radio" name="language" value="ar" [checked]="selectedLanguage === 'ar'" (change)="onLanguageChange($event)">
+                    <span class="ml-2">{{ 'arabic' | translate }}</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" class="form-radio" name="language" value="ger" [checked]="selectedLanguage === 'ger'" (change)="onLanguageChange($event)">
+                    <span class="ml-2">{{ 'german' | translate }}</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" class="form-radio" name="language" value="fr" [checked]="selectedLanguage === 'fr'" (change)="onLanguageChange($event)">
+                    <span class="ml-2">{{ 'french' | translate }}</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" class="form-radio" name="language" value="nl" [checked]="selectedLanguage === 'nl'" (change)="onLanguageChange($event)">
+                    <span class="ml-2">{{ 'dutch' | translate }}</span>
+                  </label>
+                </div>
+              </div>
+              
+            <!-- Notification Settings -->
+            <div class="bg-white dark:bg-gray-700 shadow-custom3 rounded-md p-4 m-1 w-full">
+                <h2 class="text-base font-semibold mb-4">{{ 'notificationSettings' | translate }}</h2>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input  style="cursor: pointer;" type="checkbox" class="form-checkbox" checked>
+                        <span class="ml-2">{{ 'pushNotificationsForNewMessages' | translate }}</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input  style="cursor: pointer;" type="checkbox" class="form-checkbox" checked>
+                        <span class="ml-2">{{ 'pushNotificationsForUpdates' | translate }}</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input  style="cursor: pointer;" type="checkbox" class="form-checkbox">
+                        <span class="ml-2">{{ 'pushNotificationsForReminders' | translate }}</span>
+                    </label>
+                </div>
+            </div>
+            <!-- Account Settings -->
+            <div class="bg-white dark:bg-gray-700 shadow-custom3 rounded-md p-4 m-1 w-full">
+                <h2 class="text-base font-semibold mb-4">{{ 'accountSettings' | translate }}</h2>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <span class="font-semibold">{{ 'username' | translate }}:</span>
+                        <span class="ml-2">{{fullName}}</span>
+                    </label>
+                    <label class="flex items-center">
+                        <span class="font-semibold">{{ 'email' | translate }}:</span>
+                        <span class="ml-2">{{email}}</span>
+                    </label>
+                    <button  style="cursor: pointer;" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"  [routerLink]="['/edit-profile',userId]">{{ 'editAccount' | translate }}</button>
+                </div>
+            </div>
+
+            <div class="shortcuts bg-white dark:bg-gray-700 shadow-custom3 rounded-md p-4 m-1 w-full">
+                <h2 class="text-base font-semibold mb-4">{{ 'shortcuts' | translate }}</h2>
+                <div class="short-div">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">U</span>-
+                    <p>{{ 'userProfile' | translate }}</p>
+                </div>
+                <div class="short-div">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">E</span>-
+                    <p>{{ 'editProfile' | translate }}</p>
+                </div>
+                <div class="short-div">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">M</span>-
+                    <p>{{ 'settings' | translate }}</p>
+                </div>
+                <div class="short-div">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">D</span>-
+                    <p>{{ 'toggleDarkMode' | translate }}</p>
+                </div>
+                <div class="short-div">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">N</span>-
+                    <p>{{ 'notifications' | translate }}</p>
+                </div>
+                <div class="short-div">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">P</span>-
+                    <p *ngIf="userRoleName!='Administrator'">{{ 'allProjects' | translate }}</p>
+                    <p *ngIf="userRoleName=='Administrator'">{{ 'allUsers' | translate }}</p>
+                </div>
+                <div class="short-div" *ngIf="userRoleName!='Administrator'">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">T</span>-
+                    <p>{{ 'myTasks' | translate }}</p>
+                </div>
+                <div class="short-div" *ngIf="userRoleName!='Administrator'">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">G</span>-
+                    <p>{{ 'gantogram' | translate }}</p>
+                </div>
+                <div class="short-div" *ngIf="userRoleName!='Administrator'">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">K</span>-
+                    <p>{{ 'kanban' | translate }}</p>
+                </div>
+                <div class="short-div" *ngIf="userRoleName!='Administrator'">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">S</span>-
+                    <p>{{ 'statistics' | translate }}</p>
+                </div>
+
+                <div class="short-div" *ngIf="userRoleName!='Administrator'">
+                    <span class="short-style dark:text-black">Ctrl</span>+
+                    <span class="short-style dark:text-black">Alt</span>+
+                    <span class="short-style dark:text-black">C</span>-
+                    <p>{{ 'ClockIT' | translate }}</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+html{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container{
+    width: 45%;
+    // margin-left: auto;
+    // margin-right: auto;
+    margin: auto;
+    box-shadow: 4px 5px 20px 0px rgba(0, 0, 0, 0.22);
+    border-radius: 30px;
+    padding: 20px 0;
+}
+
+h2{
+    text-align: center;
+}
+
+.form-group{
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    // margin-top: 50px;
+    // margin-bottom: 50px;
+}
+
+.form-group input{
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    border-color: transparent;
+    padding: 10px;
+    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    margin: 10px 0;
+}
+
+.form-group input:disabled{
+    background-color: #F0E9E9
+}
+
+.form-group label{
+    font-family: 'Montserrat', sans-serif;
+    color: #6B6161;
+}
+
+.form-group input:focus{
+    outline: 2px solid lightblue;
+}
+
+.input-group {
+display: inline-block;
+margin-right: 15px;
+}
+
+.input-group label {
+display: inline-block;
+width: 45px; 
+margin-right: 25px; 
+}
+
+.input-group input,
+.input-group select {
+display: inline-block;
+width: 100px;
+}
+  
+
+#timezone{
+    //position: relative;
+    float: right;
+    width: calc(100% - 45px);
+}
+
+@media screen and (max-width: 768px) {
+    .input-group, #timezone {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .input-group, #timezone {
+        display: inline-block;
+        width: calc(25% - 45px); /* Adjust as needed */
+    }
+}
+select {
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.form-group button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px 50px;
+    border-radius: 20px;
+    color: white;
+    background-color: #1F4768;
+    border: none;
+    cursor: pointer;
+}
+
+.form-group button:hover{
+    background-color: #2f78b4;
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.date{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+:host ::ng-deep p-password input{
+    border-radius: 20px;
+    margin: 6px 0;
+    padding: 7px 10px;
+    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+:host ::ng-deep p-password input:focus{ 
+    outline: 1px solid lightblue;
+}
+  
+
+// :host ::ng-deep .p-password-panel { 
+//     margin-top: 10px;
+//     padding: 10px;
+// }

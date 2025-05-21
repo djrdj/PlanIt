@@ -1,0 +1,33 @@
+.bulltePic:before{
+  content: ""; 
+  display: inline-block;
+  width: 16px;
+  height: 16px; 
+  background-image: url('../../../assets/icons/Project.svg'); /* Putanja do vaše slike */
+  background-size: contain; /* Veličina slike */
+  margin-right: 5px; /* Razmak između slike i teksta */
+}
+.bulltePicAllTasks:before{
+  content: ""; 
+  display: inline-block;
+  width: 16px;
+  height: 16px; 
+  background-image: url('../../../assets/icons/AllTasks.svg'); /* Putanja do vaše slike */
+  background-size: contain; /* Veličina slike */
+  margin-right: 5px; /* Razmak između slike i teksta */
+}
+.assignmentBulletPic:before{
+  content: ""; 
+  display: inline-block;
+  width: 16px;
+  height: 16px; 
+  background-image: url('../../../assets/icons/assignment.svg'); /* Putanja do vaše slike */
+  background-size: contain; /* Veličina slike */
+  margin-right: 5px; 
+}
+.Border { 
+  border: none; 
+  border-bottom: 2px solid #28B4E1;
+  border-radius: 0;
+  
+}

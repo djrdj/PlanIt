@@ -1,0 +1,31 @@
+<div class="container my-5">
+    <h1 class="mb-3">Zaposleni</h1>
+
+    <table class="table" *ngIf="employees && employees.length > 0">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Ime</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Plata</th>
+                <th>Departman</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let employee of employees">
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.phone }}</td>
+                <td>{{ employee.salary }}</td>
+                <td>{{ employee.department }}</td>
+                <td><a [routerLink]="['/employees','edit',employee.id]">Pregled</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p *ngIf="!employees || employees.length <= 0">Nema zaposlenih u bazi !!!</p>
+</div>

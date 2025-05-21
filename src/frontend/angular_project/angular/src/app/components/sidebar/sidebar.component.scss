@@ -1,0 +1,111 @@
+
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#logo-sidebar ul {
+    list-style-type: none;
+  }
+
+#logo-sidebar a {
+    text-decoration: none; /* Remove underline */
+}
+
+#logo-sidebar .active {
+  background-color: #e7e8e9; /* Change to the desired darker color */
+  position: relative;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius : 0.5rem;
+}
+#logo-sidebar .active a{
+  color: black;
+}
+#logo-sidebar .activeDark{
+  background-color: rgb(75 85 99); /* Dark background color for active state */
+  position: relative;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius : 0.5rem;
+  border-right: 5px solid #2563eb;
+}
+#logo-sidebar .activeDark a{
+  color: white;
+  
+  
+}
+#logo-sidebar{
+  transition: width 0.3s ease;
+}
+#logo-sidebar .active{
+  border-right: 5px solid #2563eb;
+}
+#logo-sidebar .activeDark .cursor-indicator,
+#logo-sidebar .active .cursor-indicator {
+  background-color: #2563eb; /* Change to the desired dark blue color */
+  width: 4px; /* Adjust width as needed */
+  height: 100%; /* Full height */
+  position: absolute; /* Position it relative to the <li> */
+  right: 0; /* Align it to the left side of the <li> */
+  top: 0; /* Align it to the top of the <li> */
+}
+
+.sideNavClosed{
+  width: 3.5rem;
+}
+
+.sideNavClosed .ms-3 {
+    visibility: hidden;
+    display: none;
+}
+
+.sideNavClosed img{
+  visibility: hidden;
+}
+/* Add transitions for smooth width change */
+#logo-sidebar {
+  width: 60px; /* Set the initial width */
+  // transition: width 0.4s ease;
+}
+
+/* Define styles for the open and closed states */
+#logo-sidebar.open {
+  width: 180px; /* Set the expanded width */
+}
+
+#logo-sidebar li.sidebar-item {
+  white-space: nowrap;
+  cursor:  pointer;
+}
+
+a {
+  cursor:  pointer;
+}
+
+#logoSlika{
+  content: url('../../../assets/icons/Logonav.svg');
+}
+
+
+.sidebar-item {
+  position: relative;
+}
+
+.sidebar-item .hover-text {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.8); /* Transparentni sloj */
+  color: white;
+  border-radius: 4px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.sidebar-item:hover .hover-text {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}

@@ -1,0 +1,234 @@
+
+
+.overlay {
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #776A6A;
+  font-family: 'Montserrat', sans-serif;
+
+
+  .navbar {
+    border-bottom: 2px solid #28B4E1;
+    color: rgb(96, 96, 96);
+    background-color: white;
+    width: 35%;
+    padding: 10px 20px;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px 6px 0 0;
+
+    .close-btn {
+      cursor: pointer;
+      color: #181C7A;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+  }
+
+  .content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 0 0 6px 6px;
+    width: 35%;
+
+    input[type="text"],
+    input[type="date"],
+    textarea {
+      width: calc(50% - 10px);
+      padding: 8px;
+      margin-bottom: 10px;
+      box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+      border-radius: 6px;
+      resize: none;
+
+      // &::placeholder {
+      //   color: black; // Set placeholder text color to black
+      // }
+    }
+    textarea{
+        width: calc(100% - 10px);
+        box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+    }
+
+    #projectName {
+      // width: 100%;
+      // padding: 5px;
+      // margin-bottom: 10px;
+      border: none; 
+      box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+      border-radius: 0;
+      // resize: none;
+    }
+  }
+
+  .date-inputs {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+
+    div {
+      flex: 1; /* Make both date inputs take equal space */
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    input[type="date"] {
+      width: calc(50% - 10px);
+    }
+  }
+
+  .members {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+
+    .add-member-btn {
+      display: flex;
+      align-items: center;
+      justify-content: left; 
+      position: relative; 
+
+      .circle {
+        background-color: #28B4E1;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 5px;
+        z-index: 0;
+      }
+
+      span {
+        font-size: 20px;
+        line-height: 1;
+        color: rgb(0, 0, 0);
+        z-index: 1;
+      }
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    box-shadow:1px 3px 12px 0px rgba(0, 0, 0, 0.22);
+    border-radius: 6px;
+    resize: none;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+      padding: 8px 20px;
+      margin-left: 10px;
+      border-radius: 6px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); // tiny shadow
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05); 
+      }
+
+      &.cancel-btn {
+        color: #28B4E1; 
+        border: 2px solid #28B4E1; 
+        background-color: white;
+      }
+
+      &.create-btn {
+        color: white; // Text color for create button
+        background-color: #28B4E1; // Background color for create button
+        border: 2px solid #28B4E1;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .overlay,
+    .navbar,
+    .content {
+      width: 35%;
+      min-width: 310px;
+    }
+  }
+/*
+  @media screen and (min-width: 200%) {
+    .overlay,
+    .navbar,
+    .content {
+      width: 35%;
+    }
+  }*/
+}
+::ng-deep .mat-toast {
+  top: 50px !important; /* Podešavanje visine od vrha ekrana */
+  right: 50px !important; /* Podešavanje udaljenosti od desne ivice ekrana */
+}
+
+.dark .content{
+  background-color: #1F2937;
+  color: white;
+}
+
+.dark .content input{
+  background-color: #4B5563;
+  color: white;
+}
+
+.dark textarea{
+  background-color: #4B5563;
+  color: white;
+}
+
+.dark .navbar{
+  background-color:#3b82f6;
+  color: white;
+}
+
+.dark .content .buttons .cancel-btn{
+  background-color: #DB2777;
+  color: white;
+  border: #DB2777;
+}
+
+.dark .content .buttons .create-btn{
+  background-color: #6366F1;
+  color: white;
+  border: #6366F1;
+}
+
+.dark .content .members .add-member-btn{
+  color: black;
+}
+
+.dark .content input[type="date"]{
+  background-color: #4B5563;
+  color: white;
+}
